@@ -1,0 +1,763 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page.title">境外交通住宿预订 | 中盛启瀚 ZSTS</title>
+    <meta name="description" content="中盛启瀚ZSTS提供国际机票、机场接送、当地包车等境外交通住宿一站式预订服务。最优价格保障，24小时客服支持。">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <script src="/js/lucide.js"></script>
+    
+    <link href="/css/google-fonts.css" rel="stylesheet"><link href="/css/fonts.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'zsts-green': '#006341',
+                        'zsts-green-dark': '#004d33',
+                        'zsts-green-light': '#e6f2ed',
+                        'zsts-sand': '#C5A572',
+                        'zsts-sand-light': '#f5efe6',
+                        'zsts-dark': '#1a1a2e',
+                        'zsts-gray': '#f8f9fa',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'Noto Sans SC', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-overlay { background: linear-gradient(135deg, rgba(0,99,65,0.88) 0%, rgba(26,26,46,0.80) 100%); }
+        .card-hover { transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -12px rgba(0,99,65,0.18); }
+        .btn-primary { background: linear-gradient(135deg, #006341 0%, #004d33 100%); transition: all 0.3s ease; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -10px rgba(0,99,65,0.5); }
+        .nav-scrolled { background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); box-shadow: 0 1px 20px rgba(0,0,0,0.08); }
+        .nav-transparent { background: transparent; }
+        .service-icon-bg { background: linear-gradient(135deg, #006341 0%, #004d33 100%); }
+        .step-connector { position: absolute; top: 28px; left: calc(50% + 28px); right: calc(-50% + 28px); height: 2px; background: linear-gradient(90deg, #006341, #C5A572); }
+        @media (max-width: 768px) { .step-connector { display: none; } }
+        .transport-card { border: 2px solid transparent; transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+        .transport-card:hover { border-color: #006341; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
+        .faq-answer.open { max-height: 400px; }
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+        .faq-icon { transition: transform 0.3s ease; }
+        .fade-in-section { opacity: 0; transform: translateY(24px); transition: all 0.7s ease-out; }
+        .fade-in-section.visible { opacity: 1; transform: none; }
+        .lang-btn { transition: all 0.3s ease; }
+        .lang-btn.active { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.5); }
+        .lang-btn:not(.active) { opacity: 0.6; }
+        .lang-btn:hover { opacity: 1; }
+        /* Mobile table optimization */
+        @media (max-width: 767px) {
+            .overflow-x-auto {
+                position: relative;
+                -webkit-overflow-scrolling: touch;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+            .overflow-x-auto::after {
+                display: none !important;
+            }
+            .overflow-x-auto table {
+                min-width: 640px;
+                border-collapse: collapse;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+            .overflow-x-auto th,
+            .overflow-x-auto td {
+                white-space: nowrap;
+                font-size: 13px;
+                padding: 12px 14px;
+                border-radius: 0 !important;
+            }
+            .overflow-x-auto thead th {
+                border-radius: 0 !important;
+            }
+            .overflow-x-auto table tbody tr {
+                background-color: #ffffff !important;
+                border-bottom: 1px solid #f5f5f5 !important;
+            }
+            .overflow-x-auto table tbody tr:last-child {
+                border-bottom: none !important;
+            }
+            .overflow-x-auto table tbody tr td {
+                background-color: #ffffff !important;
+            }
+            .overflow-x-auto table tbody tr:nth-child(even),
+            .overflow-x-auto table tbody tr:nth-child(odd) {
+                background-color: #ffffff !important;
+            }
+            .overflow-x-auto table tbody tr * {
+                background-color: #ffffff !important;
+            }
+        }
+            .overflow-x-auto::after {
+                content: '';
+                position: absolute;
+                right: 0; top: 0; bottom: 0;
+                width: 24px;
+                background: linear-gradient(to right, transparent, rgba(0,0,0,0.06));
+                pointer-events: none;
+                border-radius: 0 16px 16px 0;
+            }
+            .overflow-x-auto table {
+                min-width: 640px;
+                border-collapse: collapse;
+            }
+            .overflow-x-auto th,
+            .overflow-x-auto td {
+                white-space: nowrap;
+                font-size: 13px;
+                padding: 12px 14px;
+            }
+            .overflow-x-auto table tbody tr {
+                background-color: #ffffff !important;
+                border-bottom: none !important;
+            }
+            .overflow-x-auto table tbody tr:last-child {
+                border-bottom: none !important;
+            }
+            .overflow-x-auto table tbody tr td {
+                background-color: #ffffff !important;
+                border-bottom: none !important;
+            }
+            .overflow-x-auto table tbody tr:nth-child(even) {
+                background-color: #ffffff !important;
+            }
+            .overflow-x-auto table tbody tr:nth-child(odd) {
+                background-color: #ffffff !important;
+            }
+            .overflow-x-auto table tbody tr * {
+                background-color: #ffffff !important;
+            }
+            .overflow-x-auto {
+                box-shadow: none !important;
+                border: none !important;
+            }
+            .overflow-x-auto table {
+                box-shadow: none !important;
+            }
+        }
+</style>
+</head>
+<body class="font-sans text-gray-800 antialiased">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-transparent transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="/" class="flex items-center space-x-3">
+                    <img src="/images/logo-dark.png" alt="ZSTS Logo" class="h-10 w-auto" id="nav-logo-img">
+                    </a>
+                <div class="hidden xl:flex items-center space-x-6">
+                    <a href="/" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.home">首页</a>
+                    <a href="/saudi-visa" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.saudiVisa">沙特签证</a>
+                    <a href="/visa" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.visa">全球签证</a>
+                    <a href="/transport" class="nav-link text-white font-semibold text-sm border-b-2 border-zsts-sand pb-0.5 hover:text-zsts-sand transition-colors" data-i18n="nav.transport">境外交通住宿</a>
+                    <a href="/insurance" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.insurance">境外保险</a>
+                    <a href="/enterprise" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.enterprise">企业出海</a>
+                    <a href="/inspection" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.inspection">企业考察</a>
+                    <a href="/news" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.news">沙特资讯</a>
+                    <a href="/about" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.about">关于我们</a>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="hidden sm:flex items-center space-x-1 border border-white/30 rounded-lg overflow-hidden" id="lang-switcher">
+                        <button onclick="setLang('zh')" class="lang-btn active px-3 py-1.5 text-xs font-semibold text-white" data-lang="zh">中</button>
+                        <button onclick="setLang('en')" class="lang-btn px-3 py-1.5 text-xs font-semibold text-white" data-lang="en">EN</button>
+                    </div>
+                    <button onclick="openQrModal()" class="hidden md:inline-flex btn-primary text-white px-5 py-2.5 rounded-lg font-medium text-sm cursor-pointer" data-i18n="nav.consult">立即咨询</button>
+                    <button id="mobile-menu-btn" class="xl:hidden text-white p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden xl:hidden bg-white shadow-lg max-h-[80vh] overflow-y-auto">
+            <div class="px-4 py-4 space-y-1">
+                <a href="/" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.home">首页</a>
+            <a href="/saudi-visa" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.saudiVisa">沙特签证</a>
+                <a href="/visa" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.visa">全球签证</a>
+                <a href="/transport" class="block py-3 text-zsts-green font-semibold border-b border-gray-100" data-i18n="nav.transport">境外交通住宿</a>
+                <a href="/insurance" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.insurance">境外保险</a>
+                <a href="/enterprise" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.enterprise">企业出海</a>
+                <a href="/inspection" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.inspection">企业考察</a>
+                <a href="/news" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.news">沙特资讯</a>
+                <a href="/about" class="block py-3 text-gray-800 hover:text-zsts-green font-medium" data-i18n="nav.about">关于我们</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="/images/jeddah-tower.jpg" alt="Airport Transport" class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center">
+            <div class="flex flex-col items-center justify-center">
+                <div class="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-5 border border-white/20">
+                    <i data-lucide="badge-check" class="w-4 h-4 text-zsts-sand"></i>
+                    <span class="text-white/90 text-sm font-medium" data-i18n="hero.badge">境外交通住宿 · 一站式预订</span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-4">
+                    <span data-i18n="hero.title">境外交通住宿</span><br>
+                    <span class="text-zsts-sand" data-i18n="hero.subtitle">极速办理 · 全程服务</span>
+                </h1>
+                <p class="text-white/80 text-lg max-w-xl mx-auto" data-i18n="hero.desc">国际机票、机场接送、当地包车、酒店住宿，一站式出行解决方案</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="flex flex-col lg:flex-row gap-12">
+
+        <!-- Left: Main Content -->
+        <div class="flex-1 min-w-0">
+
+            <!-- Section 1: Service Types -->
+            <div class="fade-in-section mb-20" id="services">
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="w-1 h-7 rounded-full bg-gradient-to-b from-zsts-green to-zsts-sand"></div>
+                    <span class="text-zsts-green font-semibold text-sm uppercase tracking-wider" data-i18n="transport.section1.tag">服务类型</span>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-2" data-i18n="transport.section1.title">多元化境外交通住宿服务</h2>
+                <p class="text-gray-500 mb-10" data-i18n="transport.section1.subtitle">从机票预订到当地出行再到酒店住宿，覆盖您境外差旅的全链路需求</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                    <div class="transport-card card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center">
+                        <div class="w-16 h-16 rounded-2xl service-icon-bg flex items-center justify-center mx-auto mb-5 shadow-lg">
+                            <i data-lucide="plane" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2" data-i18n="transport.service1.title">国际机票</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed" data-i18n="transport.service1.desc">全球国际航线机票预订，最优价格保障，支持改签退票服务</p>
+                    </div>
+                    <div class="transport-card card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center">
+                        <div class="w-16 h-16 rounded-2xl service-icon-bg flex items-center justify-center mx-auto mb-5 shadow-lg">
+                            <i data-lucide="car" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2" data-i18n="transport.service2.title">机场接送</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed" data-i18n="transport.service2.desc">专车接送机服务，中文司机，安全舒适，准时准点，无需等待</p>
+                    </div>
+                    <div class="transport-card card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center">
+                        <div class="w-16 h-16 rounded-2xl service-icon-bg flex items-center justify-center mx-auto mb-5 shadow-lg">
+                            <i data-lucide="bus" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2" data-i18n="transport.service3.title">当地包车</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed" data-i18n="transport.service3.desc">境外当地包车服务，多种车型可选，配中文司机/导游，行程自由</p>
+                    </div>
+                    <div class="transport-card card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center">
+                        <div class="w-16 h-16 rounded-2xl service-icon-bg flex items-center justify-center mx-auto mb-5 shadow-lg">
+                            <i data-lucide="train" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2" data-i18n="transport.service4.title">高铁/火车票</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed" data-i18n="transport.service4.desc">欧洲/日本/东南亚等高铁火车票代订，电子票便捷出行</p>
+                    </div>
+                    <div class="transport-card card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center">
+                        <div class="w-16 h-16 rounded-2xl service-icon-bg flex items-center justify-center mx-auto mb-5 shadow-lg">
+                            <i data-lucide="bed" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2" data-i18n="transport.service5.title">酒店住宿</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed" data-i18n="transport.service5.desc">全球主要城市酒店预订，经济型至高端品牌可选，支持代订与修改</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Booking Process -->
+            <div class="fade-in-section mb-20 bg-zsts-gray rounded-3xl p-8 md:p-12" id="process">
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="w-1 h-7 rounded-full bg-gradient-to-b from-zsts-green to-zsts-sand"></div>
+                    <span class="text-zsts-green font-semibold text-sm uppercase tracking-wider" data-i18n="transport.section2.tag">预订流程</span>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-2" data-i18n="transport.section2.title">简单5步，轻松出行</h2>
+                <p class="text-gray-500 mb-12" data-i18n="transport.section2.subtitle">从咨询到出行再到入住，全程专业顾问陪同指引</p>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-4">
+                    <div class="flex flex-col items-center text-center relative">
+                        <div class="w-14 h-14 rounded-full service-icon-bg flex items-center justify-center mb-4 shadow-lg"><span class="text-white font-bold text-lg">1</span></div>
+                        <div class="step-connector hidden md:block"></div>
+                        <h4 class="font-bold text-gray-900 mb-2" data-i18n="transport.step.1.title">提交需求</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed" data-i18n="transport.step.1.desc">联系专属顾问，告知出行目的地、日期、人数及服务类型（机票/酒店/接送/包车等）</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center relative">
+                        <div class="w-14 h-14 rounded-full bg-white border-2 border-zsts-green flex items-center justify-center mb-4 shadow-md"><span class="text-zsts-green font-bold text-lg">2</span></div>
+                        <div class="step-connector hidden md:block"></div>
+                        <h4 class="font-bold text-gray-900 mb-2" data-i18n="transport.step.2.title">获取方案</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed" data-i18n="transport.step.2.desc">顾问根据需求提供最优价格方案和多种出行选择</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center relative">
+                        <div class="w-14 h-14 rounded-full bg-white border-2 border-zsts-green flex items-center justify-center mb-4 shadow-md"><span class="text-zsts-green font-bold text-lg">3</span></div>
+                        <div class="step-connector hidden md:block"></div>
+                        <h4 class="font-bold text-gray-900 mb-2" data-i18n="transport.step.3.title">确认预订</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed" data-i18n="transport.step.3.desc">确认行程方案后支付预订费用，顾问代为完成预订</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center relative">
+                        <div class="w-14 h-14 rounded-full bg-white border-2 border-zsts-green flex items-center justify-center mb-4 shadow-md"><span class="text-zsts-green font-bold text-lg">4</span></div>
+                        <div class="step-connector hidden md:block"></div>
+                        <h4 class="font-bold text-gray-900 mb-2" data-i18n="transport.step.4.title">出票确认</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed" data-i18n="transport.step.4.desc">预订成功后发送电子票/确认单，全程进度可追踪</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-14 h-14 rounded-full bg-zsts-sand flex items-center justify-center mb-4 shadow-lg"><i data-lucide="check" class="w-7 h-7 text-white"></i></div>
+                        <h4 class="font-bold text-gray-900 mb-2" data-i18n="transport.step.5.title">顺利出行</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed" data-i18n="transport.step.5.desc">持电子票/确认单顺利出行，24小时客服全程待命</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: FAQ -->
+            <div class="fade-in-section mb-20" id="faq">
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="w-1 h-7 rounded-full bg-gradient-to-b from-zsts-green to-zsts-sand"></div>
+                    <span class="text-zsts-green font-semibold text-sm uppercase tracking-wider" data-i18n="transport.section4.tag">常见问题</span>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-8" data-i18n="transport.section4.title">FAQ · 您最关心的问题</h2>
+                <div class="space-y-4" id="faq-container">
+                    <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"><span class="font-semibold text-gray-900 pr-4" data-i18n="transport.faq.q1">境外机票预订需要提前多久？</span><i data-lucide="plus" class="w-5 h-5 text-zsts-green faq-icon flex-shrink-0"></i></button>
+                        <div class="faq-answer px-6"><p class="text-gray-600 text-sm leading-relaxed pb-6" data-i18n="transport.faq.a1">建议国际机票提前30-60天预订，可获得更优价格。旺季（寒暑假、春节、国庆）建议提前2-3个月。我们提供实时票价监控，帮您锁定最优价格。</p></div>
+                    </div>
+                    <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"><span class="font-semibold text-gray-900 pr-4" data-i18n="transport.faq.q2">机场接送服务覆盖哪些地区？</span><i data-lucide="plus" class="w-5 h-5 text-zsts-green faq-icon flex-shrink-0"></i></button>
+                        <div class="faq-answer px-6"><p class="text-gray-600 text-sm leading-relaxed pb-6" data-i18n="transport.faq.a2">我们的机场接送服务覆盖全球主要城市和热门旅游目的地，包括东南亚、中东、欧洲、北美、日韩等。具体覆盖城市请咨询顾问，我们会根据您的需求安排最合适的车型和司机。</p></div>
+                    </div>
+                    <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"><span class="font-semibold text-gray-900 pr-4" data-i18n="transport.faq.q3">境外包车可以配中文司机/导游吗？</span><i data-lucide="plus" class="w-5 h-5 text-zsts-green faq-icon flex-shrink-0"></i></button>
+                        <div class="faq-answer px-6"><p class="text-gray-600 text-sm leading-relaxed pb-6" data-i18n="transport.faq.a3">可以。我们在东南亚、中东、欧洲等多地提供配中文司机/导游的包车服务。中文司机可协助沟通、推荐线路，让您的境外出行更轻松顺畅。请在预订时提前告知需求。</p></div>
+                    </div>
+                    <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"><span class="font-semibold text-gray-900 pr-4" data-i18n="transport.faq.q4">机票改签和退票怎么处理？</span><i data-lucide="plus" class="w-5 h-5 text-zsts-green faq-icon flex-shrink-0"></i></button>
+                        <div class="faq-answer px-6"><p class="text-gray-600 text-sm leading-relaxed pb-6" data-i18n="transport.faq.a4">机票改签和退票政策因航司和票价类型而异。我们会在您预订前明确告知退改规则。如需变更行程，请联系顾问协助处理，我们将按航司政策帮您办理，并尽量降低退改损失。</p></div>
+                    </div>
+                    <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"><span class="font-semibold text-gray-900 pr-4" data-i18n="transport.faq.q5">境外火车票/高铁票如何取票乘车？</span><i data-lucide="plus" class="w-5 h-5 text-zsts-green faq-icon flex-shrink-0"></i></button>
+                        <div class="faq-answer px-6"><p class="text-gray-600 text-sm leading-relaxed pb-6" data-i18n="transport.faq.a5">欧洲高铁（如Thalys、Eurostar）、日本新干线、东南亚火车等多支持电子票，预订成功后发送电子确认单/二维码，凭护照和电子票即可乘车，无需取纸质票，非常便捷。</p></div>
+                    </div>
+                    <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"><span class="font-semibold text-gray-900 pr-4" data-i18n="transport.faq.q6">如果遇到航班延误或取消怎么办？</span><i data-lucide="plus" class="w-5 h-5 text-zsts-green faq-icon flex-shrink-0"></i></button>
+                        <div class="faq-answer px-6"><p class="text-gray-600 text-sm leading-relaxed pb-6" data-i18n="transport.faq.a6">如遇到航班延误或取消，请第一时间联系我们的24小时客服热线。我们将协助您与航司沟通，办理改签、退票或住宿安排等后续事宜，全力保障您的出行权益。</p></div>
+                    </div>
+                    <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"><span class="font-semibold text-gray-900 pr-4" data-i18n="transport.faq.q7">境外酒店住宿可以代订哪些城市和品牌？</span><i data-lucide="plus" class="w-5 h-5 text-zsts-green faq-icon flex-shrink-0"></i></button>
+                        <div class="faq-answer px-6"><p class="text-gray-600 text-sm leading-relaxed pb-6" data-i18n="transport.faq.a7">我们提供全球主要城市的酒店代订，覆盖经济型至高端国际品牌（万豪、希尔顿、洲际、雅高、华住等），并支持中东、东南亚、欧洲、日韩等热门目的地。预订时请告知目的地、入住日期与房型偏好，顾问会按需求提供报价与方案。</p></div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- end left col -->
+
+        <!-- Right: Sticky Sidebar -->
+        <div class="lg:w-80 xl:w-96 flex-shrink-0">
+            <div class="sticky-sidebar space-y-6" style="position:sticky;top:100px;">
+
+                <!-- Contact Card -->
+                <div class="bg-zsts-dark rounded-2xl p-7 text-white" id="contact-section">
+                    <div class="flex items-center space-x-3 mb-5">
+                        <div class="w-10 h-10 rounded-xl service-icon-bg flex items-center justify-center"><i data-lucide="headphones" class="w-5 h-5 text-white"></i></div>
+                        <div><div class="font-bold" data-i18n="sidebar.contact.title">出行顾问</div><div class="text-white/60 text-xs" data-i18n="sidebar.contact.sub">快速响应</div></div>
+                    </div>
+                    <div class="space-y-3 mb-6">
+                        <a href="tel:010-85656995 / 010-53670397 / 17190016075" class="flex items-center space-x-3 bg-white/10 rounded-xl p-3 hover:bg-white/20 transition-colors">
+                            <i data-lucide="phone" class="w-5 h-5 text-zsts-sand flex-shrink-0"></i><div><div class="text-xs text-white/60" data-i18n="sidebar.phone.label">电话咨询</div><div class="font-bold text-sm">010-85656995 / 010-53670397 / 17190016075</div></div>
+                        </a>
+                        <a href="mailto:info@zsts.group" class="flex items-center space-x-3 bg-white/10 rounded-xl p-3 hover:bg-white/20 transition-colors">
+                            <i data-lucide="mail" class="w-5 h-5 text-zsts-sand flex-shrink-0"></i><div><div class="text-xs text-white/60" data-i18n="sidebar.email.label">邮件咨询</div><div class="font-bold text-sm">info@zsts.group</div></div>
+                        </a>
+                    </div>
+                    <div class="bg-white rounded-xl p-3 text-center mb-4">
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="flex flex-col items-center">
+                                <img src="/images/qr-personal.png" alt="微信客服一" class="w-full aspect-square rounded-lg object-contain bg-white">
+                                <span class="text-zsts-dark text-[10px] font-medium mt-1" data-i18n="sidebar.qr.personal">微信客服一</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <img src="/images/qr-enterprise.png" alt="微信客服二" class="w-full aspect-square rounded-lg object-contain bg-white">
+                                <span class="text-zsts-dark text-[10px] font-medium mt-1" data-i18n="sidebar.qr.enterprise">微信客服二</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <img src="/images/qr-whatsapp.png" alt="WhatsApp" class="w-full aspect-square rounded-lg object-contain bg-white">
+                                <span class="text-zsts-dark text-[10px] font-medium mt-1" data-i18n="sidebar.qr.whatsapp">WhatsApp</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                    <h4 class="font-bold text-gray-900 mb-4" data-i18n="sidebar.trust.title">为什么选择中盛启瀚？</h4>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-zsts-green-light flex items-center justify-center flex-shrink-0"><i data-lucide="map-pin" class="w-4 h-4 text-zsts-green"></i></div><div class="text-sm text-gray-700" data-i18n="transport.trust.p1">一站式预订，机票+酒店+接送+包车全覆盖</div></div>
+                        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-zsts-green-light flex items-center justify-center flex-shrink-0"><i data-lucide="clock" class="w-4 h-4 text-zsts-green"></i></div><div class="text-sm text-gray-700" data-i18n="transport.trust.p3">价格透明公正，出行全程无忧</div></div>
+                        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-zsts-green-light flex items-center justify-center flex-shrink-0"><i data-lucide="globe" class="w-4 h-4 text-zsts-green"></i></div><div class="text-sm text-gray-700" data-i18n="transport.trust.p4">全球覆盖，百余城市随心出行</div></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+    </div>
+
+    <!-- CTA Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="/images/riyadh-skyline.jpg"
+                 alt="Masjid al-Haram Panorama"
+                 class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-zsts-dark/90"></div>
+        </div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6" data-i18n="cta.title">开启您的境外出行之旅</h2>
+            <p class="text-white/70 text-lg mb-10 max-w-2xl mx-auto" data-i18n="cta.subtitle">
+                无论您是商务差旅、参展参会，还是出境旅游，<br class="hidden sm:block">
+                中盛启瀚都将为您提供专业、高效的一站式交通与住宿预订服务。
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#contact" class="bg-white text-zsts-dark px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all flex items-center space-x-2">
+                    <i data-lucide="phone" class="w-5 h-5"></i>
+                    <span data-i18n="cta.btn1">立即咨询</span>
+                </a>
+                <a href="#contact" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/20 transition-all flex items-center space-x-2">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    <span data-i18n="cta.btn2">微信咨询</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-zsts-dark text-white pt-20 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-12 mb-16">
+                <!-- Company Info -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center space-x-3 mb-6">
+                            <img src="/images/logo-dark.png" alt="ZSTS Logo" class="h-10 w-auto">
+                        </div>
+                        <p class="text-white/60 text-sm leading-relaxed mb-6" data-i18n="footer.desc">
+                        依托沙特阿拉伯授权签证中心，聚焦沙特市场的综合商业服务公司，致力于构筑中沙两国高质量发展桥梁。
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6" data-i18n="footer.navTitle">快速导航</h4>
+                    <ul class="grid grid-cols-2 gap-x-6 gap-y-3 text-white/60 text-sm">
+                        <li><a href="/saudi-visa" class="hover:text-zsts-sand transition-colors" data-i18n="nav.saudiVisa">沙特签证</a></li>
+                        <li><a href="/visa" class="hover:text-zsts-sand transition-colors" data-i18n="nav.visa">全球签证</a></li>
+                        <li><a href="/transport" class="hover:text-zsts-sand transition-colors" data-i18n="nav.transport">境外交通住宿</a></li>
+                        <li><a href="/insurance" class="hover:text-zsts-sand transition-colors" data-i18n="nav.insurance">境外保险</a></li>
+                        <li><a href="/enterprise" class="hover:text-zsts-sand transition-colors" data-i18n="nav.enterprise">企业出海</a></li>
+                        <li><a href="/inspection" class="hover:text-zsts-sand transition-colors" data-i18n="nav.inspection">企业考察</a></li>
+                        <li><a href="/news" class="hover:text-zsts-sand transition-colors" data-i18n="nav.news">沙特资讯</a></li>
+                        <li><a href="/about" class="hover:text-zsts-sand transition-colors" data-i18n="nav.about">关于我们</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6" data-i18n="footer.contactTitle">联系方式</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-zsts-sand flex-shrink-0"></i>
+                            <span class="text-white/60 text-sm">010-85656995 / 010-53670397 / 17190016075</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="mail" class="w-5 h-5 text-zsts-sand flex-shrink-0"></i>
+                            <span class="text-white/60 text-sm">info@zsts.group</span>
+                        </div>
+                        <div class="mt-4 grid grid-cols-3 gap-3">
+                            <div class="bg-white/10 rounded-xl p-3 text-center">
+                                <img src="/images/qr-personal.png" alt="微信客服一" class="w-16 h-16 rounded-lg mx-auto mb-1 object-contain bg-white">
+                                <span class="text-white/60 text-xs">微信客服一</span>
+                            </div>
+                            <div class="bg-white/10 rounded-xl p-3 text-center">
+                                <img src="/images/qr-enterprise.png" alt="微信客服二" class="w-16 h-16 rounded-lg mx-auto mb-1 object-contain bg-white">
+                                <span class="text-white/60 text-xs">微信客服二</span>
+                            </div>
+                            <div class="bg-white/10 rounded-xl p-3 text-center">
+                                <img src="/images/qr-whatsapp.png" alt="WhatsApp" class="w-16 h-16 rounded-lg mx-auto mb-1 object-contain bg-white">
+                                <span class="text-white/60 text-xs">WhatsApp</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between">
+                <p class="text-white/40 text-sm mb-4 md:mb-0">
+                    <span data-i18n="footer.copyright">中盛启瀚（ZSTS）国际商务发展有限公司</span>. All rights reserved.
+                </p>
+                <div class="flex items-center space-x-6 text-white/40 text-sm">
+                    <a href="privacy-policy.html" class="hover:text-white transition-colors" data-i18n="footer.privacy">隐私政策</a>
+                    <a href="terms.html" class="hover:text-white transition-colors" data-i18n="footer.terms">服务条款</a>
+                    <a href="sitemap.html" class="hover:text-white transition-colors" data-i18n="footer.sitemap">网站地图</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to top -->
+    <button id="scroll-top" class="fixed bottom-8 right-8 w-12 h-12 bg-zsts-green text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-zsts-green-dark z-50">
+        <i data-lucide="chevron-up" class="w-6 h-6"></i>
+    </button>
+
+    <!-- QR Code Modal -->
+<div id="qr-modal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm" onclick="closeQrModal()">
+    <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 text-center shadow-2xl relative" onclick="event.stopPropagation()">
+        <button onclick="closeQrModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+        <h3 class="text-lg font-bold text-gray-900 mb-2" data-i18n="modal.title">扫码咨询</h3>
+        <p class="text-gray-500 text-sm mb-6" data-i18n="modal.desc">选择您方便的方式联系我们</p>
+        <div class="grid grid-cols-3 gap-6">
+            <div class="flex flex-col items-center">
+                <img src="/images/qr-personal.png" alt="微信客服一二维码" class="w-36 h-36 rounded-lg shadow-md mb-3 object-contain">
+                <span class="text-sm font-semibold text-gray-700">微信客服一</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="/images/qr-enterprise.png" alt="微信客服二二维码" class="w-36 h-36 rounded-lg shadow-md mb-3 object-contain">
+                <span class="text-sm font-semibold text-gray-700">微信客服二</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="/images/qr-whatsapp.png" alt="WhatsApp二维码" class="w-36 h-36 rounded-lg shadow-md mb-3 object-contain">
+                <span class="text-sm font-semibold text-gray-700">WhatsApp</span>
+            </div>
+        </div>
+        <p class="text-sm text-gray-500 mt-6" data-i18n="modal.phone">客服电话：010-85656995 / 010-53670397 / 17190016075</p>
+    </div>
+</div>
+
+    <!-- i18n Script -->
+    <script>
+    (function() {
+        const i18n = {
+            zh: {
+                'page.title': '境外交通住宿预订 | 中盛启瀚 ZSTS',
+                'nav.home': '首页',
+                'nav.brand': '中盛启瀚', 'nav.saudiVisa': '沙特签证', 'nav.visa': '全球签证', 'nav.transport': '境外交通住宿',
+                'nav.enterprise': '企业出海', 'nav.inspection': '企业考察', 'nav.insurance': '境外保险',
+                'nav.news': '沙特资讯', 'nav.about': '关于我们', 'nav.consult': '立即咨询',
+                'hero.badge': '境外交通住宿 · 一站式预订',
+                'hero.title': '境外交通住宿', 'hero.subtitle': '极速办理 · 全程服务',
+                'hero.desc': '国际机票、机场接送、当地包车、酒店住宿，一站式出行解决方案',
+                'transport.section1.tag': '服务类型', 'transport.section1.title': '多元化境外交通住宿服务', 'transport.section1.subtitle': '从机票预订到当地出行再到酒店住宿，覆盖您境外差旅的全链路需求',
+                'transport.service1.title': '国际机票', 'transport.service1.desc': '全球国际航线机票预订，最优价格保障，支持改签退票服务',
+                'transport.service2.title': '机场接送', 'transport.service2.desc': '专车接送机服务，中文司机，安全舒适，准时准点，无需等待',
+                'transport.service3.title': '当地包车', 'transport.service3.desc': '境外当地包车服务，多种车型可选，配中文司机/导游，行程自由',
+                'transport.service4.title': '高铁/火车票', 'transport.service4.desc': '欧洲/日本/东南亚等高铁火车票代订，电子票便捷出行', 'transport.service5.title': '酒店住宿', 'transport.service5.desc': '全球主要城市酒店预订，经济型至高端品牌可选，支持代订与修改',
+                'transport.section2.tag': '预订流程', 'transport.section2.title': '简单5步，轻松出行', 'transport.section2.subtitle': '从咨询到出行再到入住，全程专业顾问陪同指引',
+                'transport.step.1.title': '提交需求', 'transport.step.1.desc': '联系专属顾问，告知出行目的地、日期、人数及服务类型',
+                'transport.step.2.title': '获取方案', 'transport.step.2.desc': '顾问根据需求提供最优价格方案和多种出行选择',
+                'transport.step.3.title': '确认预订', 'transport.step.3.desc': '确认行程方案后支付预订费用，顾问代为完成预订',
+                'transport.step.4.title': '出票确认', 'transport.step.4.desc': '预订成功后发送电子票/确认单，全程进度可追踪',
+                'transport.step.5.title': '顺利出行', 'transport.step.5.desc': '持电子票/确认单顺利出行，24小时客服全程待命',
+                'transport.section4.tag': '常见问题', 'transport.section4.title': 'FAQ · 您最关心的问题',
+                'transport.faq.q1': '境外机票预订需要提前多久？', 'transport.faq.a1': '建议国际机票提前30-60天预订，可获得更优价格。旺季（寒暑假、春节、国庆）建议提前2-3个月。我们提供实时票价监控，帮您锁定最优价格。',
+                'transport.faq.q2': '机场接送服务覆盖哪些地区？', 'transport.faq.a2': '我们的机场接送服务覆盖全球主要城市和热门旅游目的地，包括东南亚、中东、欧洲、北美、日韩等。具体覆盖城市请咨询顾问，我们会根据您的需求安排最合适的车型和司机。',
+                'transport.faq.q3': '境外包车可以配中文司机/导游吗？', 'transport.faq.a3': '可以。我们在东南亚、中东、欧洲等多地提供配中文司机/导游的包车服务。中文司机可协助沟通、推荐线路，让您的境外出行更轻松顺畅。请在预订时提前告知需求。',
+                'transport.faq.q4': '机票改签和退票怎么处理？', 'transport.faq.a4': '机票改签和退票政策因航司和票价类型而异。我们会在您预订前明确告知退改规则。如需变更行程，请联系顾问协助处理，我们将按航司政策帮您办理，并尽量降低退改损失。',
+                'transport.faq.q5': '境外火车票/高铁票如何取票乘车？', 'transport.faq.a5': '欧洲高铁（如Thalys、Eurostar）、日本新干线、东南亚火车等多支持电子票，预订成功后发送电子确认单/二维码，凭护照和电子票即可乘车，无需取纸质票，非常便捷。',
+                'transport.faq.q6': '如果遇到航班延误或取消怎么办？', 'transport.faq.a6': '如遇到航班延误或取消，请第一时间联系我们的24小时客服热线。我们将协助您与航司沟通，办理改签、退票或住宿安排等后续事宜，全力保障您的出行权益。', 'transport.faq.q7': '境外酒店住宿可以代订哪些城市和品牌？', 'transport.faq.a7': '我们提供全球主要城市的酒店代订，覆盖经济型至高端国际品牌（万豪、希尔顿、洲际、雅高、华住等），并支持中东、东南亚、欧洲、日韩等热门目的地。预订时请告知目的地、入住日期与房型偏好，顾问会按需求提供报价与方案。',
+                'transport.trust.p1': '一站式预订，机票+酒店+接送+包车全覆盖', 'transport.trust.p3': '价格透明公正，出行全程无忧', 'transport.trust.p4': '全球覆盖，百余城市随心出行',
+                'sidebar.contact.title': '出行顾问', 'sidebar.contact.sub': '快速响应',
+                'sidebar.phone.label': '电话咨询', 'sidebar.email.label': '邮件咨询',
+                'sidebar.qr.hint': '扫码添加微信客服',
+                'sidebar.trust.title': '为什么选择中盛启瀚？',
+                'footer.desc': '沙特阿拉伯驻华使馆官方授权代办机构，致力于构筑中沙商业服务桥梁。',
+                'footer.navTitle': '快速导航', 'footer.contactTitle': '联系方式',
+                'footer.copyright': '中盛启瀚（ZSTS）国际商务发展有限公司', 'footer.privacy': '隐私政策', 'footer.terms': '服务条款', 'footer.qrHint': '扫码添加微信客服', 'footer.sitemap': '网站地图',
+                'cta.title': '开启您的境外出行之旅',
+                'cta.subtitle': '无论您是商务差旅、参展参会，还是出境旅游，中盛启瀚都将为您提供专业、高效的一站式交通与住宿预订服务。',
+                'cta.btn1': '立即咨询',
+                'cta.btn2': '微信咨询',
+                'modal.title': '扫码咨询', 'modal.desc': '选择您方便的方式联系我们', 'modal.phone': '客服电话：010-85656995 / 010-53670397 / 17190016075',
+            },
+            en: {
+                'page.title': 'Overseas Transport & Stay | ZSTS',
+                'nav.home': 'Home',
+                'nav.brand': 'ZSTS', 'nav.saudiVisa': 'Saudi Visa', 'nav.visa': 'Global Visa', 'nav.transport': 'Overseas Transport & Stay',
+                'nav.enterprise': 'Enterprise', 'nav.inspection': 'Inspection', 'nav.insurance': 'Overseas Insurance',
+                'nav.news': 'News', 'nav.about': 'About', 'nav.consult': 'Contact Us',
+                'hero.badge': 'Overseas Transport & Stay · One-Stop Booking',
+                'hero.title': 'Overseas Transport & Stay', 'hero.subtitle': 'Fast Booking · Full-Service',
+                'hero.desc': 'International flights, airport transfers, local car rental, and hotel accommodation — one-stop travel solution.',
+                'transport.section1.tag': 'Services', 'transport.section1.title': 'Diverse Overseas Transport & Stay Services', 'transport.section1.subtitle': 'From flight booking to local travel and hotel stays, covering every leg of your overseas trip',
+                'transport.service1.title': 'International Flights', 'transport.service1.desc': 'Global flight booking with best price guarantee, support for rebooking & refund',
+                'transport.service2.title': 'Airport Transfer', 'transport.service2.desc': 'Private airport pickup/dropoff, Chinese-speaking drivers, safe & punctual',
+                'transport.service3.title': 'Local Car Rental', 'transport.service3.desc': 'Local car charter with various vehicle options, Chinese driver/guide available',
+                'transport.service4.title': 'Train Tickets', 'transport.service4.desc': 'High-speed rail & train tickets for Europe/Japan/Southeast Asia, e-tickets available', 'transport.service5.title': 'Hotel Accommodation', 'transport.service5.desc': 'Hotel booking in major cities worldwide, from economy to premium brands, with modifications supported',
+                'transport.section2.tag': 'Booking Process', 'transport.section2.title': '5 Simple Steps to Your Trip', 'transport.section2.subtitle': 'From consultation to departure to check-in, guided by professional advisors',
+                'transport.step.1.title': 'Submit Request', 'transport.step.1.desc': 'Contact your dedicated advisor with destination, dates, group size & service type (flights, hotels, transfers, car rental, etc.)',
+                'transport.step.2.title': 'Get Quote', 'transport.step.2.desc': 'Advisor provides optimal pricing and multiple travel options',
+                'transport.step.3.title': 'Confirm Booking', 'transport.step.3.desc': 'Pay after confirming the itinerary; advisor completes the booking for you',
+                'transport.step.4.title': 'Ticket Confirmed', 'transport.step.4.desc': 'E-ticket/confirmation sent after successful booking, full progress tracking',
+                'transport.step.5.title': 'Happy Travels', 'transport.step.5.desc': 'Travel with e-ticket/confirmation, 24/7 customer service on standby',
+                'transport.section4.tag': 'FAQ', 'transport.section4.title': 'Frequently Asked Questions',
+                'transport.faq.q1': 'How far in advance should I book international flights?', 'transport.faq.a1': 'We recommend booking international flights 30-60 days in advance for better prices. For peak seasons (summer/winter holidays, CNY, National Day), book 2-3 months ahead. We provide real-time fare monitoring to help you lock in the best price.',
+                'transport.faq.q2': 'Which regions are covered by airport transfer services?', 'transport.faq.a2': 'Our airport transfer service covers major global cities and popular destinations, including Southeast Asia, Middle East, Europe, North America, Japan, and Korea. Contact our advisor for specific city coverage.',
+                'transport.faq.q3': 'Can I get a Chinese-speaking driver/guide for local car rental?', 'transport.faq.a3': 'Yes. We provide local car rental with Chinese-speaking drivers/guides in Southeast Asia, Middle East, Europe, and more. The driver can assist with communication and recommend routes. Please inform us when booking.',
+                'transport.faq.q4': 'How are flight rebooking and refunds handled?', 'transport.faq.a4': 'Rebooking and refund policies vary by airline and fare type. We will clearly inform you of the rules before booking. If you need to change your itinerary, contact our advisor for assistance.',
+                'transport.faq.q5': 'How do I collect train tickets abroad?', 'transport.faq.a5': 'Most high-speed trains in Europe (Thalys, Eurostar), Japan (Shinkansen), and Southeast Asia support e-tickets. After booking, you will receive an e-confirmation/QR code — just travel with your passport and e-ticket, no paper ticket needed.',
+                'transport.faq.q6': 'What if my flight is delayed or cancelled?', 'transport.faq.a6': 'If your flight is delayed or cancelled, please contact our 24/7 customer service hotline immediately. We will assist you in communicating with the airline and handling rebooking, refunds, or accommodation arrangements.', 'transport.faq.q7': 'Which cities and brands are covered for hotel booking?', 'transport.faq.a7': 'We provide hotel booking in major cities worldwide, covering economy to premium international brands (Marriott, Hilton, IHG, Accor, Huazhu, etc.) across the Middle East, Southeast Asia, Europe, Japan, and Korea. Share your destination, check-in date, and room preference when booking, and our advisor will provide a tailored quote.',
+                'transport.trust.p1': 'One-stop booking: flights + hotels + transfers + car rental', 'transport.trust.p3': 'Transparent pricing, worry-free travel', 'transport.trust.p4': 'Global coverage, 100+ cities available',
+                'sidebar.contact.title': 'Travel Consultant', 'sidebar.contact.sub': 'Quick Response',
+                'sidebar.phone.label': 'Call Us', 'sidebar.email.label': 'Email Us',
+                'sidebar.qr.hint': 'Scan to add WeChat',
+                'sidebar.trust.title': 'Why Choose ZSTS?',
+                'footer.desc': 'Official authorized agency of the Saudi Embassy in China, dedicated to China-Saudi business services.',
+                'footer.navTitle': 'Quick Links', 'footer.contactTitle': 'Contact',
+                'footer.copyright': 'ZSTS International Business Development Co., Ltd.', 'footer.privacy': 'Privacy Policy', 'footer.terms': 'Terms', 'footer.qrHint': 'Scan to add WeChat', 'footer.sitemap': 'Sitemap',
+                'cta.title': 'Start Your Overseas Journey',
+                'cta.subtitle': 'Whether you are traveling for business, exhibitions, or tourism, ZSTS will provide you with professional and efficient one-stop transport and accommodation booking services.',
+                'cta.btn1': 'Contact Us',
+                'cta.btn2': 'WeChat',
+                'modal.title': 'Scan to Contact', 'modal.desc': 'Choose the most convenient way to contact us', 'modal.phone': 'Tel: 010-85656995 / 010-53670397 / 17190016075',
+            }
+        };
+
+        let currentLang = localStorage.getItem('zsts-lang') || 'zh';
+
+        function setLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('zsts-lang', lang);
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+            applyTranslations();
+            updateLangButtons();
+        }
+
+        function applyTranslations() {
+            const dict = i18n[currentLang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    if (el.tagName === 'TITLE') document.title = dict[key];
+                    else el.textContent = dict[key];
+                }
+            });
+        }
+
+        function updateLangButtons() {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === currentLang);
+            });
+        }
+
+        window.setLang = setLang;
+        document.addEventListener('DOMContentLoaded', () => { applyTranslations(); updateLangButtons(); });
+    })();
+    </script>
+
+    <!-- Main JS -->
+    <script>
+        lucide.createIcons();
+
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const langSwitcher = document.getElementById('lang-switcher');
+        const langBtns = document.querySelectorAll('.lang-btn');
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY > 50;
+            navbar.classList.toggle('nav-transparent', !scrolled);
+            navbar.classList.toggle('nav-scrolled', scrolled);
+                const logoImg = document.getElementById('nav-logo-img');
+                if (logoImg) { logoImg.src = scrolled ? 'images/logo-new.png' : 'images/logo-dark.png'; }
+
+            navLinks.forEach(link => {
+                link.classList.toggle('text-white', !scrolled);
+                link.classList.toggle('text-gray-700', scrolled);
+            });
+            if (langSwitcher) {
+                langSwitcher.classList.toggle('border-white/30', !scrolled);
+                langSwitcher.classList.toggle('border-gray-200', scrolled);
+            }
+            langBtns.forEach(btn => {
+                if (!btn.classList.contains('active')) {
+                    btn.classList.toggle('text-white', !scrolled);
+                    btn.classList.toggle('text-gray-500', scrolled);
+                } else {
+                    btn.classList.toggle('text-white', !scrolled);
+                    btn.classList.toggle('text-zsts-green', scrolled);
+                }
+            });
+        });
+
+        // Mobile menu
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Scroll to top
+        const scrollTopBtn = document.getElementById('scroll-top');
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.classList.toggle('opacity-0', window.scrollY <= 500);
+            scrollTopBtn.classList.toggle('invisible', window.scrollY <= 500);
+            scrollTopBtn.classList.toggle('opacity-100', window.scrollY > 500);
+            scrollTopBtn.classList.toggle('visible', window.scrollY > 500);
+        });
+        scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.closest('.faq-item');
+                const answer = item.querySelector('.faq-answer');
+                const isOpen = item.classList.contains('open');
+
+                document.querySelectorAll('.faq-item').forEach(i => {
+                    i.classList.remove('open');
+                    i.querySelector('.faq-answer').classList.remove('open');
+                });
+
+                if (!isOpen) {
+                    item.classList.add('open');
+                    answer.classList.add('open');
+                }
+            });
+        });
+
+        // Intersection Observer: fade-in sections
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
+
+        // QR Code Modal functions
+        function openQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Bind consult buttons to open QR modal
+        document.querySelectorAll('a[href="#contact"], .consult-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openQrModal();
+            });
+        });
+    </script>
+</body>
+</html>

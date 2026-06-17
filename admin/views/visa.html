@@ -1,0 +1,990 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page.title">全球签证办理 | 中盛启瀚 ZSTS</title>
+    <meta name="description" content="中盛启瀚ZSTS提供全球200+国家签证代办服务。专业团队一对一服务，98%出签率保障。">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <script src="/js/lucide.js"></script>
+    
+    <link href="/css/google-fonts.css" rel="stylesheet"><link href="/css/fonts.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'zsts-green': '#006341',
+                        'zsts-green-dark': '#004d33',
+                        'zsts-green-light': '#e6f2ed',
+                        'zsts-sand': '#C5A572',
+                        'zsts-sand-light': '#f5efe6',
+                        'zsts-dark': '#1a1a2e',
+                        'zsts-gray': '#f8f9fa',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'Noto Sans SC', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+        // QR Code Modal functions
+        function openQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Region tab switcher
+        function switchRegion(region) {
+            const tabs = document.querySelectorAll('.region-tab');
+            const panels = document.querySelectorAll('.region-panel');
+            tabs.forEach(t => {
+                t.classList.remove('bg-zsts-green', 'text-white');
+                t.classList.add('bg-gray-100', 'text-gray-600');
+            });
+            panels.forEach(p => p.classList.add('hidden'));
+            const activeTab = document.getElementById('tab-' + region);
+            const activePanel = document.getElementById('region-' + region);
+            if (activeTab) {
+                activeTab.classList.remove('bg-gray-100', 'text-gray-600');
+                activeTab.classList.add('bg-zsts-green', 'text-white');
+            }
+            if (activePanel) activePanel.classList.remove('hidden');
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-overlay { background: linear-gradient(135deg, rgba(0,99,65,0.88) 0%, rgba(26,26,46,0.80) 100%); }
+        .card-hover { transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -12px rgba(0,99,65,0.18); }
+        .btn-primary { background: linear-gradient(135deg, #006341 0%, #004d33 100%); transition: all 0.3s ease; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -10px rgba(0,99,65,0.5); }
+        .nav-scrolled { background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); box-shadow: 0 1px 20px rgba(0,0,0,0.08); }
+        .nav-transparent { background: transparent; }
+        .service-icon-bg { background: linear-gradient(135deg, #006341 0%, #004d33 100%); }
+        .gradient-line { height: 3px; background: linear-gradient(90deg, #006341, #C5A572); }
+        .step-connector { position: absolute; top: 28px; left: calc(50% + 28px); right: calc(-50% + 28px); height: 2px; background: linear-gradient(90deg, #006341, #C5A572); }
+        @media (max-width: 768px) { .step-connector { display: none; } }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
+        .faq-answer.open { max-height: 400px; }
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+        .faq-icon { transition: transform 0.3s ease; }
+        .fade-in-section { opacity: 0; transform: translateY(24px); transition: all 0.7s ease-out; }
+        .fade-in-section.visible { opacity: 1; transform: none; }
+        .lang-btn { transition: all 0.3s ease; }
+        .lang-btn.active { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.5); }
+        .lang-btn:not(.active) { opacity: 0.6; }
+        .lang-btn:hover { opacity: 1; }
+        .material-item { border-left: 3px solid #006341; background: #f8fffe; }
+        .material-item-optional { border-left: 3px solid #C5A572; background: #fdfaf6; }
+        /* Mobile table optimization */
+        @media (max-width: 767px) {
+            .overflow-x-auto {
+                position: relative;
+                -webkit-overflow-scrolling: touch;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+            .overflow-x-auto::after {
+                display: none !important;
+            }
+            .overflow-x-auto table {
+                min-width: 640px;
+                border-collapse: collapse;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+            .overflow-x-auto th,
+            .overflow-x-auto td {
+                white-space: nowrap;
+                font-size: 13px;
+                padding: 12px 14px;
+                border-radius: 0 !important;
+            }
+            .overflow-x-auto thead th {
+                border-radius: 0 !important;
+            }
+            .overflow-x-auto table tbody tr {
+                background-color: #ffffff !important;
+                border-bottom: 1px solid #f5f5f5 !important;
+            }
+            .overflow-x-auto table tbody tr:last-child {
+                border-bottom: none !important;
+            }
+            .overflow-x-auto table tbody tr td {
+                background-color: #ffffff !important;
+            }
+            .overflow-x-auto table tbody tr:nth-child(even),
+            .overflow-x-auto table tbody tr:nth-child(odd) {
+                background-color: #ffffff !important;
+            }
+            .overflow-x-auto table tbody tr * {
+                background-color: #ffffff !important;
+            }
+        }
+            .overflow-x-auto::after {
+                content: '';
+                position: absolute;
+                right: 0; top: 0; bottom: 0;
+                width: 24px;
+                background: linear-gradient(to right, transparent, rgba(0,0,0,0.06));
+                pointer-events: none;
+                border-radius: 0 16px 16px 0;
+            }
+            .overflow-x-auto table {
+                min-width: 640px;
+                border-collapse: collapse;
+            }
+            .overflow-x-auto th,
+            .overflow-x-auto td {
+                white-space: nowrap;
+                font-size: 13px;
+                padding: 12px 14px;
+            }
+            .overflow-x-auto table tbody tr {
+                background-color: #ffffff !important;
+                border-bottom: none !important;
+            }
+            .overflow-x-auto table tbody tr:last-child {
+                border-bottom: none !important;
+            }
+            .overflow-x-auto table tbody tr td {
+                background-color: #ffffff !important;
+                border-bottom: none !important;
+            }
+            .overflow-x-auto table tbody tr:nth-child(even) {
+                background-color: #ffffff !important;
+            }
+            .overflow-x-auto table tbody tr:nth-child(odd) {
+                background-color: #ffffff !important;
+            }
+            .overflow-x-auto table tbody tr * {
+                background-color: #ffffff !important;
+            }
+            .overflow-x-auto {
+                box-shadow: none !important;
+                border: none !important;
+            }
+            .overflow-x-auto table {
+                box-shadow: none !important;
+            }
+        }
+</style>
+</head>
+<body class="font-sans text-gray-800 antialiased">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-transparent transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="/" class="flex items-center space-x-3">
+                    <img src="/images/logo-dark.png" alt="ZSTS Logo" class="h-10 w-auto" id="nav-logo-img">
+                    </a>
+                <div class="hidden xl:flex items-center space-x-6">
+                    <a href="/" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.home">首页</a>
+                    <a href="/saudi-visa" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.saudiVisa">沙特签证</a>
+                    <a href="/visa" class="nav-link text-white font-semibold text-sm border-b-2 border-zsts-sand pb-0.5 hover:text-zsts-sand transition-colors" data-i18n="nav.visa">全球签证</a>
+                    <a href="/transport" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.transport">境外交通住宿</a>
+                    <a href="/insurance" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.insurance">境外保险</a>
+                    <a href="/enterprise" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.enterprise">企业出海</a>
+                    <a href="/inspection" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.inspection">企业考察</a>
+                    <a href="/news" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.news">沙特资讯</a>
+                    <a href="/about" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.about">关于我们</a>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="hidden sm:flex items-center space-x-1 border border-white/30 rounded-lg overflow-hidden" id="lang-switcher">
+                        <button onclick="setLang('zh')" class="lang-btn active px-3 py-1.5 text-xs font-semibold text-white" data-lang="zh">中</button>
+                        <button onclick="setLang('en')" class="lang-btn px-3 py-1.5 text-xs font-semibold text-white" data-lang="en">EN</button>
+                    </div>
+                    <button onclick="openQrModal()" class="hidden md:inline-flex btn-primary text-white px-5 py-2.5 rounded-lg font-medium text-sm cursor-pointer" data-i18n="nav.consult">立即咨询</button>
+                    <button id="mobile-menu-btn" class="xl:hidden text-white p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden xl:hidden bg-white shadow-lg max-h-[80vh] overflow-y-auto">
+            <div class="px-4 py-4 space-y-1">
+                <a href="/" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.home">首页</a>
+            <a href="/saudi-visa" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.saudiVisa">沙特签证</a>
+                <a href="/visa" class="block py-3 text-zsts-green font-semibold border-b border-gray-100" data-i18n="nav.visa">全球签证</a>
+                <a href="/transport" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.transport">境外交通住宿</a>
+                <a href="/insurance" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.insurance">境外保险</a>
+                <a href="/enterprise" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.enterprise">企业出海</a>
+                <a href="/inspection" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.inspection">企业考察</a>
+                <a href="/news" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.news">沙特资讯</a>
+                <a href="/about" class="block py-3 text-gray-800 hover:text-zsts-green font-medium" data-i18n="nav.about">关于我们</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="/images/riyadh-skyline.jpg" alt="全球签证 护照 旅行" class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center">
+            <div class="flex flex-col items-center justify-center">
+                <div class="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-5 border border-white/20">
+                    <i data-lucide="globe" class="w-4 h-4 text-zsts-sand"></i>
+                    <span class="text-white/90 text-sm font-medium" data-i18n="hero.badge">全球签证服务 · 一站式办理</span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-4">
+                    <span data-i18n="hero.title">全球签证</span><br>
+                    <span class="text-zsts-sand" data-i18n="hero.subtitle">极速办理 · 全程服务</span>
+                </h1>
+                <p class="text-white/80 text-lg max-w-xl mx-auto" data-i18n="hero.desc">覆盖全球200+国家签证代办，专业团队一对一服务，98%出签率保障</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="flex flex-col lg:flex-row gap-12">
+
+        <!-- Left: Main Content -->
+        <div class="flex-1 min-w-0">
+
+            <!-- Section 1: Process Steps -->
+            <div class="fade-in-section mb-20 bg-zsts-gray rounded-3xl p-8 md:p-12" id="process">
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="w-1 h-7 rounded-full bg-gradient-to-b from-zsts-green to-zsts-sand"></div>
+                    <span class="text-zsts-green font-semibold text-sm uppercase tracking-wider" data-i18n="section.process.tag">办理流程</span>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-2" data-i18n="section.process.title">简单5步，轻松出签</h2>
+                <p class="text-gray-500 mb-12" data-i18n="section.process.subtitle">从提交材料到拿到签证，全程专业顾问陪同指引</p>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-4">
+                    <div class="flex flex-col items-center text-center relative">
+                        <div class="w-14 h-14 rounded-full service-icon-bg flex items-center justify-center mb-4 shadow-lg"><span class="text-white font-bold text-lg">1</span></div>
+                        <div class="step-connector hidden md:block"></div>
+                        <h4 class="font-bold text-gray-900 mb-2" data-i18n="step.1.title">在线咨询</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed" data-i18n="step.1.desc">联系专属顾问，告知出行目的和国家，获取个性化签证方案</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center relative">
+                        <div class="w-14 h-14 rounded-full bg-white border-2 border-zsts-green flex items-center justify-center mb-4 shadow-md"><span class="text-zsts-green font-bold text-lg">2</span></div>
+                        <div class="step-connector hidden md:block"></div>
+                        <h4 class="font-bold text-gray-900 mb-2" data-i18n="step.2.title">准备材料</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed" data-i18n="step.2.desc">按目标国家清单准备申请材料，顾问免费审核，确保材料合规完整</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center relative">
+                        <div class="w-14 h-14 rounded-full bg-white border-2 border-zsts-green flex items-center justify-center mb-4 shadow-md"><span class="text-zsts-green font-bold text-lg">3</span></div>
+                        <div class="step-connector hidden md:block"></div>
+                        <h4 class="font-bold text-gray-900 mb-2" data-i18n="step.3.title">提交申请</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed" data-i18n="step.3.desc">材料审核通过后，代为向对应国家大使馆/签证中心提交正式申请</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center relative">
+                        <div class="w-14 h-14 rounded-full bg-white border-2 border-zsts-green flex items-center justify-center mb-4 shadow-md"><span class="text-zsts-green font-bold text-lg">4</span></div>
+                        <div class="step-connector hidden md:block"></div>
+                        <h4 class="font-bold text-gray-900 mb-2" data-i18n="step.4.title">审核跟进</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed" data-i18n="step.4.desc">全程跟进使馆/签证中心审核进度，第一时间反馈最新状态</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-14 h-14 rounded-full bg-zsts-sand flex items-center justify-center mb-4 shadow-lg"><i data-lucide="check" class="w-7 h-7 text-white"></i></div>
+                        <h4 class="font-bold text-gray-900 mb-2" data-i18n="step.5.title">出签寄回</h4>
+                        <p class="text-gray-500 text-xs leading-relaxed" data-i18n="step.5.desc">出签成功后通知取签或快递寄回，顺利踏上旅程</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Global Visa Regions -->
+            <div class="fade-in-section mb-20" id="regions">
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="w-1 h-7 rounded-full bg-gradient-to-b from-zsts-green to-zsts-sand"></div>
+                    <span class="text-zsts-green font-semibold text-sm uppercase tracking-wider" data-i18n="section.regions.tag">全球签证</span>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-2" data-i18n="section.regions.title">全球签证 · 按区域选择目的地</h2>
+                <p class="text-gray-500 mb-8" data-i18n="section.regions.subtitle">覆盖六大热门区域，提供旅游、商务、培训及加急等多种签证类型服务</p>
+
+                <!-- Region Tabs -->
+                <div class="flex flex-wrap gap-2 mb-8 border-b border-gray-200 pb-1" id="region-tabs">
+                    <button onclick="switchRegion('mea')" id="tab-mea" class="region-tab px-5 py-2.5 rounded-t-lg text-sm font-semibold bg-zsts-green text-white transition-colors" data-i18n="region.tab.mea">中东非</button>
+                    <button onclick="switchRegion('eu')" id="tab-eu" class="region-tab px-5 py-2.5 rounded-t-lg text-sm font-semibold bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors" data-i18n="region.tab.eu">欧洲</button>
+                    <button onclick="switchRegion('na')" id="tab-na" class="region-tab px-5 py-2.5 rounded-t-lg text-sm font-semibold bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors" data-i18n="region.tab.na">北美洲</button>
+                    <button onclick="switchRegion('sa')" id="tab-sa" class="region-tab px-5 py-2.5 rounded-t-lg text-sm font-semibold bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors" data-i18n="region.tab.sa">南美洲</button>
+                    <button onclick="switchRegion('jpkr')" id="tab-jpkr" class="region-tab px-5 py-2.5 rounded-t-lg text-sm font-semibold bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors" data-i18n="region.tab.jpkr">日韩</button>
+                    <button onclick="switchRegion('aunz')" id="tab-aunz" class="region-tab px-5 py-2.5 rounded-t-lg text-sm font-semibold bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors" data-i18n="region.tab.aunz">澳新</button>
+                </div>
+
+                <!-- Region Panel: Middle East & Africa -->
+                <div id="region-mea" class="region-panel">
+                    <div class="bg-zsts-gray rounded-2xl p-8">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2" data-i18n="region.mea.title">中东非地区签证</h3>
+                        <p class="text-gray-500 text-sm mb-6" data-i18n="region.mea.intro">中东及非洲地区签证类型丰富，多数国家对中国公民开放电子签或落地签，办理流程相对便捷。</p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-3" data-i18n="region.mea.types.title">签证种类与特点</h4>
+                                <ul class="space-y-2 text-sm text-gray-700">
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.mea.types.t1">沙特：商务签证、旅游签证、访问签证、朝觐副朝签证</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.mea.types.t2">阿联酋：旅游签证、商务签证，可申请电子签</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.mea.types.t3">土耳其：可申请电子签，材料简便</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.mea.types.t4">埃及、摩洛哥、南非、肯尼亚：可办电子签或贴纸签</span></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-3" data-i18n="region.mea.travel.title">旅游特色</h4>
+                                <ul class="space-y-2 text-sm text-gray-700">
+                                    <li class="flex items-start space-x-2"><i data-lucide="map-pin" class="w-4 h-4 text-zsts-sand flex-shrink-0 mt-0.5"></i><span data-i18n="region.mea.travel.p1">沙漠星空、海滨度假、世界遗产与现代都市并存</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="map-pin" class="w-4 h-4 text-zsts-sand flex-shrink-0 mt-0.5"></i><span data-i18n="region.mea.travel.p2">购物节庆、邮轮航线、户外探险资源丰富</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-6 bg-white rounded-xl p-5">
+                            <h4 class="font-semibold text-gray-900 mb-3 text-sm" data-i18n="region.mea.services.title">可办理签证业务</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.mea.services.s1">旅游签证</span>
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.mea.services.s2">商务签证</span>
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.mea.services.s3">培训签证</span>
+                                <span class="px-3 py-1 bg-zsts-sand-light text-zsts-sand text-xs rounded-full" data-i18n="region.mea.services.s4">签证加急</span>
+                                <span class="px-3 py-1 bg-zsts-sand-light text-zsts-sand text-xs rounded-full" data-i18n="region.mea.services.s5">电子签代办</span>
+                            </div>
+                            <p class="text-gray-500 text-xs mt-3" data-i18n="region.mea.note">具体签证类型与材料以最新使馆政策为准，欢迎咨询顾问获取详细方案。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Region Panel: Europe -->
+                <div id="region-eu" class="region-panel hidden">
+                    <div class="bg-zsts-gray rounded-2xl p-8">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2" data-i18n="region.eu.title">欧洲地区签证</h3>
+                        <p class="text-gray-500 text-sm mb-6" data-i18n="region.eu.intro">欧洲签证以申根国家为主流，可一签多国，覆盖商务考察、文化交流、休闲度假等多种出行目的。</p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-3" data-i18n="region.eu.types.title">签证种类与特点</h4>
+                                <ul class="space-y-2 text-sm text-gray-700">
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.eu.types.t1">申根短期签证（C类）：适用于旅游、商务、探亲、短期培训等</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.eu.types.t2">英国签证：独立申请系统，材料要求与申根有所差异</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.eu.types.t3">爱尔兰、俄罗斯：各有独立签证政策</span></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-3" data-i18n="region.eu.travel.title">旅游特色</h4>
+                                <ul class="space-y-2 text-sm text-gray-700">
+                                    <li class="flex items-start space-x-2"><i data-lucide="map-pin" class="w-4 h-4 text-zsts-sand flex-shrink-0 mt-0.5"></i><span data-i18n="region.eu.travel.p1">申根一签多国，历史人文、自然风光、购物美食多元</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="map-pin" class="w-4 h-4 text-zsts-sand flex-shrink-0 mt-0.5"></i><span data-i18n="region.eu.travel.p2">深度文化体验、艺术展览、节庆赛事资源丰富</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-6 bg-white rounded-xl p-5">
+                            <h4 class="font-semibold text-gray-900 mb-3 text-sm" data-i18n="region.eu.services.title">可办理签证业务</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.eu.services.s1">旅游签证</span>
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.eu.services.s2">商务签证</span>
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.eu.services.s3">培训签证</span>
+                                <span class="px-3 py-1 bg-zsts-sand-light text-zsts-sand text-xs rounded-full" data-i18n="region.eu.services.s4">签证加急</span>
+                                <span class="px-3 py-1 bg-zsts-sand-light text-zsts-sand text-xs rounded-full" data-i18n="region.eu.services.s5">申根保险</span>
+                            </div>
+                            <p class="text-gray-500 text-xs mt-3" data-i18n="region.eu.note">申根签证需根据行程选择申请国，建议咨询顾问避免因申请国选择不当影响结果。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Region Panel: North America -->
+                <div id="region-na" class="region-panel hidden">
+                    <div class="bg-zsts-gray rounded-2xl p-8">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2" data-i18n="region.na.title">北美洲地区签证</h3>
+                        <p class="text-gray-500 text-sm mb-6" data-i18n="region.na.intro">美国、加拿大签证需提前准备，预约面签周期较长，建议根据出行计划尽早启动申请流程。</p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-3" data-i18n="region.na.types.title">签证种类与特点</h4>
+                                <ul class="space-y-2 text-sm text-gray-700">
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.na.types.t1">美国 B1/B2：商务旅游综合签证，需面签</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.na.types.t2">加拿大：旅游签证、商务签证，可申请多年多次</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.na.types.t3">墨西哥：可申请美国签证免签入境，或单独申请墨西哥签证</span></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-3" data-i18n="region.na.travel.title">旅游特色</h4>
+                                <ul class="space-y-2 text-sm text-gray-700">
+                                    <li class="flex items-start space-x-2"><i data-lucide="map-pin" class="w-4 h-4 text-zsts-sand flex-shrink-0 mt-0.5"></i><span data-i18n="region.na.travel.p1">国家公园、城市地标、跨城自驾线路多元</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="map-pin" class="w-4 h-4 text-zsts-sand flex-shrink-0 mt-0.5"></i><span data-i18n="region.na.travel.p2">商务展会、学术交流、留学探亲需求集中</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-6 bg-white rounded-xl p-5">
+                            <h4 class="font-semibold text-gray-900 mb-3 text-sm" data-i18n="region.na.services.title">可办理签证业务</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.na.services.s1">旅游签证</span>
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.na.services.s2">商务签证</span>
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.na.services.s3">培训签证</span>
+                                <span class="px-3 py-1 bg-zsts-sand-light text-zsts-sand text-xs rounded-full" data-i18n="region.na.services.s4">签证加急</span>
+                                <span class="px-3 py-1 bg-zsts-sand-light text-zsts-sand text-xs rounded-full" data-i18n="region.na.services.s5">面签辅导</span>
+                            </div>
+                            <p class="text-gray-500 text-xs mt-3" data-i18n="region.na.note">美加签证面签准备较复杂，建议提前2-3个月启动；材料准备和面签应答均影响结果。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Region Panel: South America -->
+                <div id="region-sa" class="region-panel hidden">
+                    <div class="bg-zsts-gray rounded-2xl p-8">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2" data-i18n="region.sa.title">南美洲地区签证</h3>
+                        <p class="text-gray-500 text-sm mb-6" data-i18n="region.sa.intro">南美多国已对中国公民实施有条件免签或电子签，签证办理流程简便，适合商务及休闲出行。</p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-3" data-i18n="region.sa.types.title">签证种类与特点</h4>
+                                <ul class="space-y-2 text-sm text-gray-700">
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.sa.types.t1">巴西、阿根廷、智利：有条件免签或电子签</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.sa.types.t2">秘鲁、哥伦比亚、厄瓜多尔：可办旅游或商务签</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.sa.types.t3">玻利维亚、委内瑞拉：需办贴纸签，材料要求详尽</span></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-3" data-i18n="region.sa.travel.title">旅游特色</h4>
+                                <ul class="space-y-2 text-sm text-gray-700">
+                                    <li class="flex items-start space-x-2"><i data-lucide="map-pin" class="w-4 h-4 text-zsts-sand flex-shrink-0 mt-0.5"></i><span data-i18n="region.sa.travel.p1">亚马逊雨林、安第斯山脉、复活节岛等自然奇观</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="map-pin" class="w-4 h-4 text-zsts-sand flex-shrink-0 mt-0.5"></i><span data-i18n="region.sa.travel.p2">探戈、足球文化、节庆活动与特色美食</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-6 bg-white rounded-xl p-5">
+                            <h4 class="font-semibold text-gray-900 mb-3 text-sm" data-i18n="region.sa.services.title">可办理签证业务</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.sa.services.s1">旅游签证</span>
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.sa.services.s2">商务签证</span>
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.sa.services.s3">培训签证</span>
+                                <span class="px-3 py-1 bg-zsts-sand-light text-zsts-sand text-xs rounded-full" data-i18n="region.sa.services.s4">签证加急</span>
+                            </div>
+                            <p class="text-gray-500 text-xs mt-3" data-i18n="region.sa.note">部分南美国家支持美签/申根签证免签入境，建议根据行程选择最优方案。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Region Panel: Japan & Korea -->
+                <div id="region-jpkr" class="region-panel hidden">
+                    <div class="bg-zsts-gray rounded-2xl p-8">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2" data-i18n="region.jpkr.title">日韩地区签证</h3>
+                        <p class="text-gray-500 text-sm mb-6" data-i18n="region.jpkr.intro">日本、韩国签证政策透明稳定，办理周期较短，是中国公民出境游与商务出行的热门目的地。</p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-3" data-i18n="region.jpkr.types.title">签证种类与特点</h4>
+                                <ul class="space-y-2 text-sm text-gray-700">
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.jpkr.types.t1">日本：旅游签证（单次/三年/五年多次）、商务签证、访友签证</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.jpkr.types.t2">韩国：旅游签证（C-3-9）、商务签证、研修签证等</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.jpkr.types.t3">日韩多次签证：需符合一定财力或出行记录条件</span></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-3" data-i18n="region.jpkr.travel.title">旅游特色</h4>
+                                <ul class="space-y-2 text-sm text-gray-700">
+                                    <li class="flex items-start space-x-2"><i data-lucide="map-pin" class="w-4 h-4 text-zsts-sand flex-shrink-0 mt-0.5"></i><span data-i18n="region.jpkr.travel.p1">樱花红叶、温泉美食、动漫文化与现代都市</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="map-pin" class="w-4 h-4 text-zsts-sand flex-shrink-0 mt-0.5"></i><span data-i18n="region.jpkr.travel.p2">购物消费、医疗观光、亲子游学需求旺盛</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-6 bg-white rounded-xl p-5">
+                            <h4 class="font-semibold text-gray-900 mb-3 text-sm" data-i18n="region.jpkr.services.title">可办理签证业务</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.jpkr.services.s1">旅游签证</span>
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.jpkr.services.s2">商务签证</span>
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.jpkr.services.s3">培训签证</span>
+                                <span class="px-3 py-1 bg-zsts-sand-light text-zsts-sand text-xs rounded-full" data-i18n="region.jpkr.services.s4">签证加急</span>
+                                <span class="px-3 py-1 bg-zsts-sand-light text-zsts-sand text-xs rounded-full" data-i18n="region.jpkr.services.s5">多次签咨询</span>
+                            </div>
+                            <p class="text-gray-500 text-xs mt-3" data-i18n="region.jpkr.note">日韩签证材料相对简单，但收入及职业身份对签证结果有一定影响，欢迎咨询顾问。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Region Panel: Australia & New Zealand -->
+                <div id="region-aunz" class="region-panel hidden">
+                    <div class="bg-zsts-gray rounded-2xl p-8">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2" data-i18n="region.aunz.title">澳新地区签证</h3>
+                        <p class="text-gray-500 text-sm mb-6" data-i18n="region.aunz.intro">澳大利亚、新西兰签证均实行电子签制度，申请流程在线化，可办理多种签证类型。</p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-3" data-i18n="region.aunz.types.title">签证种类与特点</h4>
+                                <ul class="space-y-2 text-sm text-gray-700">
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.aunz.types.t1">澳大利亚：旅游签证（600类别）、商务签证、探亲签证</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.aunz.types.t2">新西兰：旅游签证、访问签证，多为电子签</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="check-circle" class="w-4 h-4 text-zsts-green flex-shrink-0 mt-0.5"></i><span data-i18n="region.aunz.types.t3">可办 3年/5年多次签证，需符合一定出行记录</span></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-3" data-i18n="region.aunz.travel.title">旅游特色</h4>
+                                <ul class="space-y-2 text-sm text-gray-700">
+                                    <li class="flex items-start space-x-2"><i data-lucide="map-pin" class="w-4 h-4 text-zsts-sand flex-shrink-0 mt-0.5"></i><span data-i18n="region.aunz.travel.p1">大堡礁、热带雨林、雪山与牧场自然景观</span></li>
+                                    <li class="flex items-start space-x-2"><i data-lucide="map-pin" class="w-4 h-4 text-zsts-sand flex-shrink-0 mt-0.5"></i><span data-i18n="region.aunz.travel.p2">亲子游学、户外运动、葡萄酒庄体验</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-6 bg-white rounded-xl p-5">
+                            <h4 class="font-semibold text-gray-900 mb-3 text-sm" data-i18n="region.aunz.services.title">可办理签证业务</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.aunz.services.s1">旅游签证</span>
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.aunz.services.s2">商务签证</span>
+                                <span class="px-3 py-1 bg-zsts-green-light text-zsts-green text-xs rounded-full" data-i18n="region.aunz.services.s3">培训签证</span>
+                                <span class="px-3 py-1 bg-zsts-sand-light text-zsts-sand text-xs rounded-full" data-i18n="region.aunz.services.s4">签证加急</span>
+                                <span class="px-3 py-1 bg-zsts-sand-light text-zsts-sand text-xs rounded-full" data-i18n="region.aunz.services.s5">电子签指导</span>
+                            </div>
+                            <p class="text-gray-500 text-xs mt-3" data-i18n="region.aunz.note">澳新签证需在线填写英文申请表并提供相关证明，材料真实性是审核重点。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="fade-in-section mb-20" id="faq">
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="w-1 h-7 rounded-full bg-gradient-to-b from-zsts-green to-zsts-sand"></div>
+                    <span class="text-zsts-green font-semibold text-sm uppercase tracking-wider" data-i18n="section.faq.tag">常见问题</span>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-8" data-i18n="section.faq.title">FAQ · 您最关心的问题</h2>
+                <div class="space-y-4" id="faq-container">
+                    <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"><span class="font-semibold text-gray-900 pr-4" data-i18n="faq.q1">中东非地区签证一般需要哪些基础材料？</span><i data-lucide="plus" class="w-5 h-5 text-zsts-green faq-icon flex-shrink-0"></i></button>
+                        <div class="faq-answer px-6"><p class="text-gray-600 text-sm leading-relaxed pb-6" data-i18n="faq.a1">中东非多数国家签证材料相对简洁，常规包括：有效期6个月以上的护照、近期白底彩色证件照、签证申请表、往返机票与酒店预订、覆盖行程的旅行保险。沙特等部分国家还可能需要邀请函或公司派遣函。具体材料因国家而异，欢迎咨询顾问获取针对性清单。</p></div>
+                    </div>
+                    <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"><span class="font-semibold text-gray-900 pr-4" data-i18n="faq.q2">申根签证应该选择哪个国家申请？</span><i data-lucide="plus" class="w-5 h-5 text-zsts-green faq-icon flex-shrink-0"></i></button>
+                        <div class="faq-answer px-6"><p class="text-gray-600 text-sm leading-relaxed pb-6" data-i18n="faq.a2">按申根规定：访问多个申根国家时，向停留时间最长的国家申请；停留时间相同时，向首个入境的国家申请。我们会根据您的具体行程帮您确定正确的申请国，避免因申请国选择不当影响结果。</p></div>
+                    </div>
+                    <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"><span class="font-semibold text-gray-900 pr-4" data-i18n="faq.q3">美国、加拿大签证一般需要提前多久准备？</span><i data-lucide="plus" class="w-5 h-5 text-zsts-green faq-icon flex-shrink-0"></i></button>
+                        <div class="faq-answer px-6"><p class="text-gray-600 text-sm leading-relaxed pb-6" data-i18n="faq.a3">美加签证需要预约面签，名额紧张时段可能等待数周，建议提前2-3个月启动申请流程。材料方面除常规护照、照片、申请表、行程单外，还需提供工作证明、财产证明、家庭关系证明等。中盛启瀚提供面签辅导与材料预审服务。</p></div>
+                    </div>
+                    <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"><span class="font-semibold text-gray-900 pr-4" data-i18n="faq.q4">南美洲哪些国家可以免签或电子签？</span><i data-lucide="plus" class="w-5 h-5 text-zsts-green faq-icon flex-shrink-0"></i></button>
+                        <div class="faq-answer px-6"><p class="text-gray-600 text-sm leading-relaxed pb-6" data-i18n="faq.a4">目前巴西、阿根廷、智利、厄瓜多尔等对持有有效美签/申根签证的中国公民实施免签或简化政策。具体免签条件因国家而异，且可能随政策调整变化，建议出行前向顾问确认最新政策，避免影响行程。</p></div>
+                    </div>
+                    <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"><span class="font-semibold text-gray-900 pr-4" data-i18n="faq.q5">日本、韩国多次签证需要什么条件？</span><i data-lucide="plus" class="w-5 h-5 text-zsts-green faq-icon flex-shrink-0"></i></button>
+                        <div class="faq-answer px-6"><p class="text-gray-600 text-sm leading-relaxed pb-6" data-i18n="faq.a5">日韩多次签证一般要求较高的收入水平、稳定的工作或良好的出行记录。常见条件包括：年收入达到一定标准、持有所属国房产/车产、有发达国家签证记录等。具体可申请的年限与频次根据申请人的综合条件评估，建议咨询顾问评估资格。</p></div>
+                    </div>
+                    <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <button class="faq-toggle w-full flex items-center justify-between p-6 text-left"><span class="font-semibold text-gray-900 pr-4" data-i18n="faq.q6">澳大利亚、新西兰签证需要面试吗？</span><i data-lucide="plus" class="w-5 h-5 text-zsts-green faq-icon flex-shrink-0"></i></button>
+                        <div class="faq-answer px-6"><p class="text-gray-600 text-sm leading-relaxed pb-6" data-i18n="faq.a6">澳新签证通常不要求面试，均为电子签在线申请。但材料真实性与一致性是审核重点，使馆可能要求补充材料或电话调查。我们会协助您规范填写英文申请表，并整理清晰的证明材料清单，提高申请效率。</p></div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- end left col -->
+
+        <!-- Right: Sticky Sidebar -->
+        <div class="lg:w-80 xl:w-96 flex-shrink-0">
+            <div class="sticky-sidebar space-y-6" style="position:sticky;top:100px;">
+
+                <!-- Contact Card -->
+                <div class="bg-zsts-dark rounded-2xl p-7 text-white" id="contact-section">
+                    <div class="flex items-center space-x-3 mb-5">
+                        <div class="w-10 h-10 rounded-xl service-icon-bg flex items-center justify-center"><i data-lucide="headphones" class="w-5 h-5 text-white"></i></div>
+                        <div><div class="font-bold" data-i18n="sidebar.contact.title">专属签证顾问</div><div class="text-white/60 text-xs" data-i18n="sidebar.contact.sub">快速响应</div></div>
+                    </div>
+                    <div class="space-y-3 mb-6">
+                        <a href="tel:010-85656995 / 010-53670397 / 17190016075" class="flex items-center space-x-3 bg-white/10 rounded-xl p-3 hover:bg-white/20 transition-colors">
+                            <i data-lucide="phone" class="w-5 h-5 text-zsts-sand flex-shrink-0"></i><div><div class="text-xs text-white/60" data-i18n="sidebar.phone.label">电话咨询</div><div class="font-bold text-sm">010-85656995 / 010-53670397 / 17190016075</div></div>
+                        </a>
+                        <a href="mailto:info@zsts.group" class="flex items-center space-x-3 bg-white/10 rounded-xl p-3 hover:bg-white/20 transition-colors">
+                            <i data-lucide="mail" class="w-5 h-5 text-zsts-sand flex-shrink-0"></i><div><div class="text-xs text-white/60" data-i18n="sidebar.email.label">邮件咨询</div><div class="font-bold text-sm">info@zsts.group</div></div>
+                        </a>
+                    </div>
+                    <div class="bg-white rounded-xl p-3 text-center mb-4">
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="flex flex-col items-center">
+                                <img src="/images/qr-personal.png" alt="微信客服一" class="w-full aspect-square rounded-lg object-contain bg-white">
+                                <span class="text-zsts-dark text-[10px] font-medium mt-1" data-i18n="sidebar.qr.personal">微信客服一</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <img src="/images/qr-enterprise.png" alt="微信客服二" class="w-full aspect-square rounded-lg object-contain bg-white">
+                                <span class="text-zsts-dark text-[10px] font-medium mt-1" data-i18n="sidebar.qr.enterprise">微信客服二</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <img src="/images/qr-whatsapp.png" alt="WhatsApp" class="w-full aspect-square rounded-lg object-contain bg-white">
+                                <span class="text-zsts-dark text-[10px] font-medium mt-1" data-i18n="sidebar.qr.whatsapp">WhatsApp</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                    <h4 class="font-bold text-gray-900 mb-4" data-i18n="sidebar.trust.title">为什么选择中盛启瀚？</h4>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-zsts-green-light flex items-center justify-center flex-shrink-0"><i data-lucide="globe" class="w-4 h-4 text-zsts-green"></i></div><div class="text-sm text-gray-700" data-i18n="sidebar.trust.p1">覆盖全球200+国家签证代办</div></div>
+                        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-zsts-green-light flex items-center justify-center flex-shrink-0"><i data-lucide="trending-up" class="w-4 h-4 text-zsts-green"></i></div><div class="text-sm text-gray-700" data-i18n="sidebar.trust.p2">98% 历史出签成功率</div></div>
+                        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-zsts-green-light flex items-center justify-center flex-shrink-0"><i data-lucide="users" class="w-4 h-4 text-zsts-green"></i></div><div class="text-sm text-gray-700" data-i18n="sidebar.trust.p3">5000+ 客户信任选择</div></div>
+                        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-zsts-green-light flex items-center justify-center flex-shrink-0"><i data-lucide="shield" class="w-4 h-4 text-zsts-green"></i></div><div class="text-sm text-gray-700" data-i18n="sidebar.trust.p4">透明报价，无隐形消费</div></div>
+                        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-lg bg-zsts-green-light flex items-center justify-center flex-shrink-0"><i data-lucide="clock" class="w-4 h-4 text-zsts-green"></i></div><div class="text-sm text-gray-700" data-i18n="sidebar.trust.p5">全程进度透明可追踪</div></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+    </div>
+
+    <!-- CTA Section (consistent with index.html) -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="/images/riyadh-skyline.jpg"
+                 alt="利雅得城市天际线"
+                 class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-zsts-dark/90"></div>
+        </div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6" data-i18n="cta.title">开启您的全球旅程</h2>
+            <p class="text-white/70 text-lg mb-10 max-w-2xl mx-auto" data-i18n="cta.subtitle">
+                无论您是计划出国旅游、商务考察，还是探亲访友，<br class="hidden sm:block">
+                中盛启瀚都将为您提供专业、高效的一站式签证服务。
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#contact" class="bg-white text-zsts-dark px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all flex items-center space-x-2">
+                    <i data-lucide="phone" class="w-5 h-5"></i>
+                    <span data-i18n="cta.btn1">立即咨询</span>
+                </a>
+                <a href="#contact" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/20 transition-all flex items-center space-x-2">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    <span data-i18n="cta.btn2">微信咨询</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (3-column grid consistent with index.html) -->
+    <footer id="contact" class="bg-zsts-dark text-white pt-20 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-12 mb-16">
+                <!-- Company Info -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center space-x-3 mb-6">
+                            <img src="/images/logo-dark.png" alt="ZSTS Logo" class="h-10 w-auto">
+                        </div>
+                        <p class="text-white/60 text-sm leading-relaxed mb-6" data-i18n="footer.desc">
+                        依托沙特阿拉伯授权签证中心，聚焦沙特市场的综合商业服务公司，致力于构筑中沙两国高质量发展桥梁。
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6" data-i18n="footer.navTitle">快速导航</h4>
+                    <ul class="grid grid-cols-2 gap-x-6 gap-y-3 text-white/60 text-sm">
+                        <li><a href="/saudi-visa" class="hover:text-zsts-sand transition-colors" data-i18n="nav.saudiVisa">沙特签证</a></li>
+                        <li><a href="/visa" class="hover:text-zsts-sand transition-colors" data-i18n="nav.visa">全球签证</a></li>
+                        <li><a href="/transport" class="hover:text-zsts-sand transition-colors" data-i18n="nav.transport">境外交通住宿</a></li>
+                        <li><a href="/insurance" class="hover:text-zsts-sand transition-colors" data-i18n="nav.insurance">境外保险</a></li>
+                        <li><a href="/enterprise" class="hover:text-zsts-sand transition-colors" data-i18n="nav.enterprise">企业出海</a></li>
+                        <li><a href="/inspection" class="hover:text-zsts-sand transition-colors" data-i18n="nav.inspection">企业考察</a></li>
+                        <li><a href="/news" class="hover:text-zsts-sand transition-colors" data-i18n="nav.news">沙特资讯</a></li>
+                        <li><a href="/about" class="hover:text-zsts-sand transition-colors" data-i18n="nav.about">关于我们</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6" data-i18n="footer.contactTitle">联系方式</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-zsts-sand flex-shrink-0"></i>
+                            <span class="text-white/60 text-sm">010-85656995 / 010-53670397 / 17190016075</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="mail" class="w-5 h-5 text-zsts-sand flex-shrink-0"></i>
+                            <span class="text-white/60 text-sm">info@zsts.group</span>
+                        </div>
+                        <div class="mt-4 grid grid-cols-3 gap-3">
+                            <div class="bg-white/10 rounded-xl p-3 text-center">
+                                <img src="/images/qr-personal.png" alt="微信客服一" class="w-16 h-16 rounded-lg mx-auto mb-1 object-contain bg-white">
+                                <span class="text-white/60 text-xs">微信客服一</span>
+                            </div>
+                            <div class="bg-white/10 rounded-xl p-3 text-center">
+                                <img src="/images/qr-enterprise.png" alt="微信客服二" class="w-16 h-16 rounded-lg mx-auto mb-1 object-contain bg-white">
+                                <span class="text-white/60 text-xs">微信客服二</span>
+                            </div>
+                            <div class="bg-white/10 rounded-xl p-3 text-center">
+                                <img src="/images/qr-whatsapp.png" alt="WhatsApp" class="w-16 h-16 rounded-lg mx-auto mb-1 object-contain bg-white">
+                                <span class="text-white/60 text-xs">WhatsApp</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between">
+                <p class="text-white/40 text-sm mb-4 md:mb-0">
+                    <span data-i18n="footer.copyright">中盛启瀚（ZSTS）国际商务发展有限公司</span>. All rights reserved.
+                </p>
+                <div class="flex items-center space-x-6 text-white/40 text-sm">
+                    <a href="privacy-policy.html" class="hover:text-white transition-colors" data-i18n="footer.privacy">隐私政策</a>
+                    <a href="terms.html" class="hover:text-white transition-colors" data-i18n="footer.terms">服务条款</a>
+                    <a href="sitemap.html" class="hover:text-white transition-colors" data-i18n="footer.sitemap">网站地图</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to top -->
+    <button id="scroll-top" class="fixed bottom-8 right-8 w-12 h-12 bg-zsts-green text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-zsts-green-dark z-50">
+        <i data-lucide="chevron-up" class="w-6 h-6"></i>
+    </button>
+
+    <!-- QR Code Modal -->
+<div id="qr-modal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm" onclick="closeQrModal()">
+    <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 text-center shadow-2xl relative" onclick="event.stopPropagation()">
+        <button onclick="closeQrModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+        <h3 class="text-lg font-bold text-gray-900 mb-2" data-i18n="modal.title">扫码咨询</h3>
+        <p class="text-gray-500 text-sm mb-6" data-i18n="modal.desc">选择您方便的方式联系我们</p>
+        <div class="grid grid-cols-3 gap-6">
+            <div class="flex flex-col items-center">
+                <img src="/images/qr-personal.png" alt="微信客服一二维码" class="w-36 h-36 rounded-lg shadow-md mb-3 object-contain">
+                <span class="text-sm font-semibold text-gray-700">微信客服一</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="/images/qr-enterprise.png" alt="微信客服二二维码" class="w-36 h-36 rounded-lg shadow-md mb-3 object-contain">
+                <span class="text-sm font-semibold text-gray-700">微信客服二</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="/images/qr-whatsapp.png" alt="WhatsApp二维码" class="w-36 h-36 rounded-lg shadow-md mb-3 object-contain">
+                <span class="text-sm font-semibold text-gray-700">WhatsApp</span>
+            </div>
+        </div>
+        <p class="text-sm text-gray-500 mt-6" data-i18n="modal.phone">客服电话：010-85656995 / 010-53670397 / 17190016075</p>
+    </div>
+</div>
+
+    <!-- i18n Script -->
+    <script>
+    (function() {
+        const i18n = {
+            zh: {
+                'page.title': '全球签证办理 | 中盛启瀚 ZSTS',
+                'nav.home': '首页',
+                'nav.brand': '中盛启瀚', 'nav.saudiVisa': '沙特签证', 'nav.visa': '全球签证', 'nav.transport': '境外交通住宿',
+                'nav.enterprise': '企业出海', 'nav.inspection': '企业考察', 'nav.insurance': '境外保险',
+                'nav.news': '沙特资讯', 'nav.about': '关于我们', 'nav.consult': '立即咨询',
+                'hero.badge': '全球签证服务 · 一站式办理',
+                'hero.title': '全球签证', 'hero.subtitle': '极速办理 · 全程服务',
+                'hero.desc': '覆盖全球200+国家签证代办，专业团队一对一服务，98%出签率保障',
+                'section.process.tag': '办理流程', 'section.process.title': '简单5步，轻松出签', 'section.process.subtitle': '从提交材料到拿到签证，全程专业顾问陪同指引',
+                'step.1.title': '在线咨询', 'step.1.desc': '联系专属顾问，告知出行目的和国家，获取个性化签证方案',
+                'step.2.title': '准备材料', 'step.2.desc': '按目标国家清单准备申请材料，顾问免费审核，确保材料合规完整',
+                'step.3.title': '提交申请', 'step.3.desc': '材料审核通过后，代为向对应国家大使馆/签证中心提交正式申请',
+                'step.4.title': '审核跟进', 'step.4.desc': '全程跟进使馆/签证中心审核进度，第一时间反馈最新状态',
+                'step.5.title': '出签寄回', 'step.5.desc': '出签成功后通知取签或快递寄回，顺利踏上旅程',
+
+                'section.faq.tag': '常见问题', 'section.faq.title': 'FAQ · 您最关心的问题',
+                'faq.q1': '中东非地区签证一般需要哪些基础材料？', 'faq.a1': '中东非多数国家签证材料相对简洁，常规包括：有效期6个月以上的护照、近期白底彩色证件照、签证申请表、往返机票与酒店预订、覆盖行程的旅行保险。沙特等部分国家还可能需要邀请函或公司派遣函。具体材料因国家而异，欢迎咨询顾问获取针对性清单。',
+                'faq.q2': '申根签证应该选择哪个国家申请？', 'faq.a2': '按申根规定：访问多个申根国家时，向停留时间最长的国家申请；停留时间相同时，向首个入境的国家申请。我们会根据您的具体行程帮您确定正确的申请国，避免因申请国选择不当影响结果。',
+                'faq.q3': '美国、加拿大签证一般需要提前多久准备？', 'faq.a3': '美加签证需要预约面签，名额紧张时段可能等待数周，建议提前2-3个月启动申请流程。材料方面除常规护照、照片、申请表、行程单外，还需提供工作证明、财产证明、家庭关系证明等。中盛启瀚提供面签辅导与材料预审服务。',
+                'faq.q4': '南美洲哪些国家可以免签或电子签？', 'faq.a4': '目前巴西、阿根廷、智利、厄瓜多尔等对持有有效美签/申根签证的中国公民实施免签或简化政策。具体免签条件因国家而异，且可能随政策调整变化，建议出行前向顾问确认最新政策，避免影响行程。',
+                'faq.q5': '日本、韩国多次签证需要什么条件？', 'faq.a5': '日韩多次签证一般要求较高的收入水平、稳定的工作或良好的出行记录。常见条件包括：年收入达到一定标准、持有所属国房产/车产、有发达国家签证记录等。具体可申请的年限与频次根据申请人的综合条件评估，建议咨询顾问评估资格。',
+                'faq.q6': '澳大利亚、新西兰签证需要面试吗？', 'faq.a6': '澳新签证通常不要求面试，均为电子签在线申请。但材料真实性与一致性是审核重点，使馆可能要求补充材料或电话调查。我们会协助您规范填写英文申请表，并整理清晰的证明材料清单，提高申请效率。',
+                'sidebar.contact.title': '专属签证顾问', 'sidebar.contact.sub': '快速响应',
+                'sidebar.phone.label': '电话咨询', 'sidebar.wechat.label': '微信咨询', 'sidebar.email.label': '邮件咨询',
+                'sidebar.qr.hint': '扫码添加微信客服',
+                'sidebar.trust.title': '为什么选择中盛启瀚？', 'sidebar.trust.p1': '覆盖全球200+国家签证代办', 'sidebar.trust.p2': '98% 历史出签成功率', 'sidebar.trust.p3': '5000+ 客户信任选择', 'sidebar.trust.p4': '透明报价，无隐形消费', 'sidebar.trust.p5': '全程进度透明可追踪',
+                'footer.desc': '沙特阿拉伯驻华使馆官方授权代办机构，致力于构筑中沙商业服务桥梁。',
+                'footer.navTitle': '快速导航', 'footer.contactTitle': '联系方式',
+                'footer.copyright': '中盛启瀚（ZSTS）国际商务发展有限公司', 'footer.privacy': '隐私政策', 'footer.terms': '服务条款', 'footer.qrHint': '扫码添加微信客服', 'footer.sitemap': '网站地图',
+                'cta.title': '开启您的全球旅程',
+                'cta.subtitle': '无论您是计划出国旅游、商务考察，还是探亲访友，中盛启瀚都将为您提供专业、高效的一站式签证服务。',
+                'cta.btn1': '立即咨询',
+                'cta.btn2': '微信咨询',
+                'modal.title': '扫码咨询', 'modal.desc': '选择您方便的方式联系我们', 'modal.phone': '客服电话：010-85656995 / 010-53670397 / 17190016075',
+            },
+            en: {
+                'page.title': 'Global Visa | ZSTS',
+                'nav.home': 'Home',
+                'nav.brand': 'ZSTS', 'nav.saudiVisa': 'Saudi Visa', 'nav.visa': 'Global Visa', 'nav.transport': 'Overseas Transport & Stay',
+                'nav.enterprise': 'Enterprise', 'nav.inspection': 'Inspection', 'nav.insurance': 'Overseas Insurance',
+                'nav.news': 'News', 'nav.about': 'About', 'nav.consult': 'Contact Us',
+                'hero.badge': 'Global Visa Service · One-Stop Solution',
+                'hero.title': 'Global Visa', 'hero.subtitle': 'Fast Processing · Full-Service',
+                'hero.desc': 'Visa agency for 200+ countries, dedicated consultant, 98% approval rate',
+                'section.process.tag': 'Process', 'section.process.title': '5 Simple Steps to Your Visa', 'section.process.subtitle': 'From document submission to visa collection, guided by professional advisors',
+                'section.regions.tag': 'Global Visa', 'section.regions.title': 'Global Visa · Choose by Region', 'section.regions.subtitle': 'Six major regions covered, with tourist, business, training, and expedited visa services available',
+                'region.tab.mea': 'Middle East & Africa', 'region.tab.eu': 'Europe', 'region.tab.na': 'North America', 'region.tab.sa': 'South America', 'region.tab.jpkr': 'Japan & Korea', 'region.tab.aunz': 'Australia & NZ',
+                'region.mea.title': 'Middle East & Africa Visas', 'region.mea.intro': 'MEA region offers a wide range of visa types. Most countries have e-visa or visa-on-arrival options for Chinese citizens, making the process relatively convenient.',
+                'region.mea.types.title': 'Visa Types & Features', 'region.mea.types.t1': 'Saudi Arabia: business, tourist, visit, and Hajj/Umrah visas', 'region.mea.types.t2': 'UAE: tourist and business visas, e-visa available', 'region.mea.types.t3': 'Türkiye: e-visa available with simplified documents', 'region.mea.types.t4': 'Egypt, Morocco, South Africa, Kenya: e-visa or sticker visa available',
+                'region.mea.travel.title': 'Travel Highlights', 'region.mea.travel.p1': 'Desert landscapes, seaside resorts, world heritage sites, and modern metropolises', 'region.mea.travel.p2': 'Shopping festivals, cruise routes, and abundant outdoor adventure resources',
+                'region.mea.services.title': 'Visa Services Available', 'region.mea.services.s1': 'Tourist Visa', 'region.mea.services.s2': 'Business Visa', 'region.mea.services.s3': 'Training Visa', 'region.mea.services.s4': 'Expedited', 'region.mea.services.s5': 'E-visa Service',
+                'region.mea.note': 'Specific visa types and document requirements are subject to the latest embassy policy; please consult our advisor for a tailored plan.',
+                'region.eu.title': 'Europe Visas', 'region.eu.intro': 'European visas are dominated by Schengen countries, allowing one visa to cover multiple countries. Suitable for business visits, cultural exchange, and leisure travel.',
+                'region.eu.types.title': 'Visa Types & Features', 'region.eu.types.t1': 'Schengen short-stay (Type C): for tourism, business, family visit, short-term training, etc.', 'region.eu.types.t2': 'UK visa: independent application system, document requirements differ from Schengen', 'region.eu.types.t3': 'Ireland and Russia: each has its own visa policy',
+                'region.eu.travel.title': 'Travel Highlights', 'region.eu.travel.p1': 'Schengen one-visa multi-country, history, culture, nature, shopping, and cuisine', 'region.eu.travel.p2': 'In-depth cultural experiences, art exhibitions, and festival events',
+                'region.eu.services.title': 'Visa Services Available', 'region.eu.services.s1': 'Tourist Visa', 'region.eu.services.s2': 'Business Visa', 'region.eu.services.s3': 'Training Visa', 'region.eu.services.s4': 'Expedited', 'region.eu.services.s5': 'Schengen Insurance',
+                'region.eu.note': 'For Schengen visas, the application country must be selected based on your itinerary. Please consult our advisor to avoid any negative impact from choosing the wrong one.',
+                'region.na.title': 'North America Visas', 'region.na.intro': 'US and Canada visas require advance preparation with long interview appointment lead times. We recommend starting the application process as early as possible based on your travel plan.',
+                'region.na.types.title': 'Visa Types & Features', 'region.na.types.t1': 'US B1/B2: combined business/tourist visa, interview required', 'region.na.types.t2': 'Canada: tourist and business visas, multi-year/multi-entry available', 'region.na.types.t3': 'Mexico: US visa holders may enter visa-free, or apply for a separate Mexican visa',
+                'region.na.travel.title': 'Travel Highlights', 'region.na.travel.p1': 'National parks, city landmarks, and cross-city road trip routes', 'region.na.travel.p2': 'Business exhibitions, academic exchanges, study abroad, and family visits',
+                'region.na.services.title': 'Visa Services Available', 'region.na.services.s1': 'Tourist Visa', 'region.na.services.s2': 'Business Visa', 'region.na.services.s3': 'Training Visa', 'region.na.services.s4': 'Expedited', 'region.na.services.s5': 'Interview Coaching',
+                'region.na.note': 'US and Canada visa interview preparation is complex. We recommend starting 2-3 months in advance, as both document preparation and interview responses affect the outcome.',
+                'region.sa.title': 'South America Visas', 'region.sa.intro': 'Many South American countries have implemented conditional visa-free or e-visa policies for Chinese citizens, with simple application processes suitable for business and leisure travel.',
+                'region.sa.types.title': 'Visa Types & Features', 'region.sa.types.t1': 'Brazil, Argentina, Chile: conditional visa-free or e-visa', 'region.sa.types.t2': 'Peru, Colombia, Ecuador: tourist or business visa available', 'region.sa.types.t3': 'Bolivia, Venezuela: sticker visa required with detailed document requirements',
+                'region.sa.travel.title': 'Travel Highlights', 'region.sa.travel.p1': 'Amazon rainforest, Andes mountains, Easter Island, and other natural wonders', 'region.sa.travel.p2': 'Tango, football culture, festivals, and distinctive cuisine',
+                'region.sa.services.title': 'Visa Services Available', 'region.sa.services.s1': 'Tourist Visa', 'region.sa.services.s2': 'Business Visa', 'region.sa.services.s3': 'Training Visa', 'region.sa.services.s4': 'Expedited',
+                'region.sa.note': 'Some South American countries allow visa-free entry for US/Schengen visa holders. We recommend selecting the optimal plan based on your itinerary.',
+                'region.jpkr.title': 'Japan & Korea Visas', 'region.jpkr.intro': 'Japan and Korea have transparent and stable visa policies with short processing times, making them popular destinations for Chinese tourists and business travelers.',
+                'region.jpkr.types.title': 'Visa Types & Features', 'region.jpkr.types.t1': 'Japan: tourist (single/3-year/5-year multi-entry), business, and visit visas', 'region.jpkr.types.t2': 'Korea: tourist (C-3-9), business, and training visas', 'region.jpkr.types.t3': 'Multi-entry Japan/Korea visas: subject to financial or travel history criteria',
+                'region.jpkr.travel.title': 'Travel Highlights', 'region.jpkr.travel.p1': 'Cherry blossoms, autumn leaves, hot springs, cuisine, anime culture, and modern cities', 'region.jpkr.travel.p2': 'Shopping, medical tourism, and family study tours',
+                'region.jpkr.services.title': 'Visa Services Available', 'region.jpkr.services.s1': 'Tourist Visa', 'region.jpkr.services.s2': 'Business Visa', 'region.jpkr.services.s3': 'Training Visa', 'region.jpkr.services.s4': 'Expedited', 'region.jpkr.services.s5': 'Multi-entry Consult',
+                'region.jpkr.note': 'Japan and Korea visa documents are relatively simple, but income and occupation may affect outcomes. Please consult our advisor.',
+                'region.aunz.title': 'Australia & NZ Visas', 'region.aunz.intro': 'Australia and New Zealand both operate e-visa systems with online application processes, supporting multiple visa types.',
+                'region.aunz.types.title': 'Visa Types & Features', 'region.aunz.types.t1': 'Australia: tourist (subclass 600), business, and family visit visas', 'region.aunz.types.t2': 'New Zealand: tourist and visit visas, mostly e-visa', 'region.aunz.types.t3': '3-year/5-year multi-entry visas available subject to travel history',
+                'region.aunz.travel.title': 'Travel Highlights', 'region.aunz.travel.p1': 'Great Barrier Reef, tropical rainforests, snow mountains, and ranch landscapes', 'region.aunz.travel.p2': 'Family study tours, outdoor sports, and winery experiences',
+                'region.aunz.services.title': 'Visa Services Available', 'region.aunz.services.s1': 'Tourist Visa', 'region.aunz.services.s2': 'Business Visa', 'region.aunz.services.s3': 'Training Visa', 'region.aunz.services.s4': 'Expedited', 'region.aunz.services.s5': 'E-visa Guidance',
+                'region.aunz.note': 'AU/NZ visas require completing an English application form online and providing supporting documents. Document authenticity is the key review focus.',
+                'step.1.title': 'Consult', 'step.1.desc': 'Contact your dedicated advisor with your travel purpose and destination for a personalized visa plan',
+                'step.2.title': 'Prepare Docs', 'step.2.desc': 'Prepare documents per checklist for target country; advisor reviews for free to ensure compliance',
+                'step.3.title': 'Submit', 'step.3.desc': 'After document approval, we submit the formal application to the embassy/visa center on your behalf',
+                'step.4.title': 'Track Progress', 'step.4.desc': 'We monitor embassy/visa center review progress and provide timely status updates',
+                'step.5.title': 'Visa Delivered', 'step.5.desc': 'Upon approval, collect your visa or have it delivered by courier, and embark on your journey',
+
+                'section.faq.tag': 'FAQ', 'section.faq.title': 'Frequently Asked Questions',
+                'faq.q1': 'What are the basic documents required for Middle East & Africa visas?', 'faq.a1': 'Most MEA country visas require a relatively simple set of documents, including a passport valid for 6+ months, a recent white-background color photo, the visa application form, round-trip flight and hotel bookings, and travel insurance covering the trip. Some countries (e.g. Saudi Arabia) may also require an invitation letter or company dispatch letter. Specific requirements vary by country; please consult our advisor for a tailored checklist.',
+                'faq.q2': 'Which country should I apply to for a Schengen visa?', 'faq.a2': 'Per Schengen rules: if visiting multiple Schengen countries, apply to the country where you will spend the longest time; if stays are equal, apply to the country of first entry. We will help you determine the correct application country based on your itinerary, avoiding any negative impact from choosing the wrong one.',
+                'faq.q3': 'How far in advance should I prepare for US or Canada visas?', 'faq.a3': 'US and Canada visas require an interview appointment, and waiting times during busy periods can be several weeks. We recommend starting the application 2-3 months in advance. Besides the standard passport, photo, application form, and itinerary, you will also need to provide employment proof, financial proof, and family relationship proof. ZSTS provides interview coaching and document pre-review services.',
+                'faq.q4': 'Which South American countries offer visa-free or e-visa entry?', 'faq.a4': 'Currently Brazil, Argentina, Chile, and Ecuador offer visa-free or simplified entry for Chinese citizens holding a valid US or Schengen visa. Specific visa-free conditions vary by country and may change with policy updates. We recommend confirming the latest policy with our advisor before departure to avoid any impact on your trip.',
+                'faq.q5': 'What are the requirements for multiple-entry Japan or Korea visas?', 'faq.a5': 'Multiple-entry Japan or Korea visas generally require a higher income level, stable employment, or a strong travel history. Common conditions include meeting a certain annual income threshold, holding domestic property/vehicles, or having prior visas from developed countries. The eligible validity and frequency depend on a comprehensive assessment of the applicant; we recommend consulting our advisor to evaluate eligibility.',
+                'faq.q6': 'Do Australia or New Zealand visas require an interview?', 'faq.a6': 'Australia and New Zealand visas usually do not require an interview, as both are applied for online as e-visas. However, document authenticity and consistency are key review focus areas, and embassies may request supplementary materials or phone verification. We will help you fill out the English application form correctly and organize a clear document checklist to improve processing efficiency.',
+                'sidebar.contact.title': 'Dedicated Visa Advisor', 'sidebar.contact.sub': 'Quick Response',
+                'sidebar.phone.label': 'Call Us', 'sidebar.wechat.label': 'WeChat', 'sidebar.email.label': 'Email Us',
+                'sidebar.qr.hint': 'Scan to add WeChat',
+                'sidebar.trust.title': 'Why Choose ZSTS?', 'sidebar.trust.p1': 'Visa agency for 200+ countries worldwide', 'sidebar.trust.p2': '98% historical approval rate', 'sidebar.trust.p3': '5000+ satisfied clients', 'sidebar.trust.p4': 'Transparent pricing, no hidden fees', 'sidebar.trust.p5': 'Full progress transparency',
+                'footer.desc': 'Official authorized agency of the Saudi Embassy in China, dedicated to China-Saudi business services.',
+                'footer.navTitle': 'Quick Links', 'footer.contactTitle': 'Contact',
+                'footer.copyright': 'ZSTS International Business Development Co., Ltd.', 'footer.privacy': 'Privacy Policy', 'footer.terms': 'Terms', 'footer.qrHint': 'Scan to add WeChat', 'footer.sitemap': 'Sitemap',
+                'cta.title': 'Start Your Global Journey',
+                'cta.subtitle': 'Whether you are planning international travel, business inspection, or visiting friends and family, ZSTS will provide you with professional and efficient one-stop visa services.',
+                'cta.btn1': 'Contact Us',
+                'cta.btn2': 'WeChat',
+                'modal.title': 'Scan to Consult', 'modal.desc': 'Choose the most convenient way to contact us', 'modal.phone': 'Tel: 010-85656995 / 010-53670397 / 17190016075',
+            }
+        };
+
+        let currentLang = localStorage.getItem('zsts-lang') || 'zh';
+
+        function setLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('zsts-lang', lang);
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+            applyTranslations();
+            updateLangButtons();
+        }
+
+        function applyTranslations() {
+            const dict = i18n[currentLang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    if (el.tagName === 'TITLE') document.title = dict[key];
+                    else el.textContent = dict[key];
+                }
+            });
+        }
+
+        function updateLangButtons() {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === currentLang);
+            });
+        }
+
+        window.setLang = setLang;
+        document.addEventListener('DOMContentLoaded', () => { applyTranslations(); updateLangButtons(); });
+    })();
+    </script>
+
+    <!-- Main JS -->
+    <script>
+        lucide.createIcons();
+
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const langSwitcher = document.getElementById('lang-switcher');
+        const langBtns = document.querySelectorAll('.lang-btn');
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY > 50;
+            navbar.classList.toggle('nav-transparent', !scrolled);
+            navbar.classList.toggle('nav-scrolled', scrolled);
+                const logoImg = document.getElementById('nav-logo-img');
+                if (logoImg) { logoImg.src = scrolled ? 'images/logo-new.png' : 'images/logo-dark.png'; }
+
+            navLinks.forEach(link => {
+                link.classList.toggle('text-white', !scrolled);
+                link.classList.toggle('text-gray-700', scrolled);
+            });
+            if (langSwitcher) {
+                langSwitcher.classList.toggle('border-white/30', !scrolled);
+                langSwitcher.classList.toggle('border-gray-200', scrolled);
+            }
+            langBtns.forEach(btn => {
+                if (!btn.classList.contains('active')) {
+                    btn.classList.toggle('text-white', !scrolled);
+                    btn.classList.toggle('text-gray-500', scrolled);
+                } else {
+                    btn.classList.toggle('text-white', !scrolled);
+                    btn.classList.toggle('text-zsts-green', scrolled);
+                }
+            });
+        });
+
+        // Mobile menu
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Scroll to top
+        const scrollTopBtn = document.getElementById('scroll-top');
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.classList.toggle('opacity-0', window.scrollY <= 500);
+            scrollTopBtn.classList.toggle('invisible', window.scrollY <= 500);
+            scrollTopBtn.classList.toggle('opacity-100', window.scrollY > 500);
+            scrollTopBtn.classList.toggle('visible', window.scrollY > 500);
+        });
+        scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.closest('.faq-item');
+                const answer = item.querySelector('.faq-answer');
+                const isOpen = item.classList.contains('open');
+
+                document.querySelectorAll('.faq-item').forEach(i => {
+                    i.classList.remove('open');
+                    i.querySelector('.faq-answer').classList.remove('open');
+                });
+
+                if (!isOpen) {
+                    item.classList.add('open');
+                    answer.classList.add('open');
+                }
+            });
+        });
+
+        // Intersection Observer: fade-in sections
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
+
+        // Bind consult buttons to open QR modal
+        document.querySelectorAll('a[href="#contact"], .consult-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openQrModal();
+            });
+        });
+    </script>
+</body>
+</html>

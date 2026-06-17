@@ -1,0 +1,775 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page.title">沙特资讯 | 中盛启瀚 ZSTS</title>
+    <meta name="description" content="中盛启瀚沙特资讯中心，提供沙特签证政策、市场洞察、商旅指南等最新资讯。">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <script src="/js/lucide.js"></script>
+    
+    <link href="/css/google-fonts.css" rel="stylesheet"><link href="/css/fonts.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'zsts-green': '#006341',
+                        'zsts-green-dark': '#004d33',
+                        'zsts-green-light': '#e6f2ed',
+                        'zsts-sand': '#C5A572',
+                        'zsts-sand-light': '#f5efe6',
+                        'zsts-dark': '#1a1a2e',
+                        'zsts-gray': '#f8f9fa',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'Noto Sans SC', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+        // QR Code Modal functions
+        function openQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Bind consult buttons to open QR modal
+        document.querySelectorAll('a[href="#contact"], .consult-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openQrModal();
+            });
+        });
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-overlay { background: linear-gradient(135deg, rgba(0,99,65,0.85) 0%, rgba(26,26,46,0.75) 100%); }
+        .nav-scrolled { background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); box-shadow: 0 1px 20px rgba(0,0,0,0.08); }
+        .nav-transparent { background: transparent; }
+        .card-hover { transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -12px rgba(0,99,65,0.15); }
+        .btn-primary { background: linear-gradient(135deg, #006341 0%, #004d33 100%); transition: all 0.3s ease; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -10px rgba(0,99,65,0.5); }
+        .lang-btn { transition: all 0.3s ease; }
+        .lang-btn.active { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.5); }
+        .nav-scrolled .lang-btn.active { background: rgba(0,99,65,0.1); border-color: rgba(0,99,65,0.3); color: #006341; }
+        .lang-btn:not(.active) { opacity: 0.6; }
+        .lang-btn:hover { opacity: 1; }
+        .fade-in-section { opacity: 0; transform: translateY(24px); transition: all 0.7s ease-out; }
+        .fade-in-section.visible { opacity: 1; transform: none; }
+        .category-btn { transition: all 0.3s ease; }
+        .category-btn.active { background: #006341; color: white; border-color: #006341; }
+        .category-btn:not(.active) { background: white; color: #374151; border-color: #e5e7eb; }
+        .category-btn:not(.active):hover { border-color: #006341; color: #006341; }
+        .pagination-btn { transition: all 0.2s ease; }
+        .pagination-btn.active { background: #006341; color: white; }
+        .pagination-btn:not(.active):hover { background: #f3f4f6; }
+        .news-card-img { transition: transform 0.5s ease; }
+        .news-card:hover .news-card-img { transform: scale(1.05); }
+        .sticky-sidebar { position: sticky; top: 100px; }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-transparent transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="/" class="flex items-center space-x-3">
+                    <img src="/images/logo-dark.png" alt="ZSTS Logo" class="h-10 w-auto" id="nav-logo-img">
+                    </a>
+                <div class="hidden xl:flex items-center space-x-6">
+                    <a href="/" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.home">首页</a>
+                    <a href="/saudi-visa" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.saudiVisa">沙特签证</a>
+                    <a href="/visa" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.visa">全球签证</a>
+                    <a href="/transport" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.transport">境外交通住宿</a>
+                    <a href="/insurance" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.insurance">境外保险</a>
+                    <a href="/enterprise" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.enterprise">企业出海</a>
+                    <a href="/inspection" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.inspection">企业考察</a>
+                    <a href="/news" class="nav-link text-white font-semibold text-sm border-b-2 border-zsts-sand pb-0.5 hover:text-zsts-sand transition-colors" data-i18n="nav.news">沙特资讯</a>
+                    <a href="/about" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.about">关于我们</a>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="hidden sm:flex items-center space-x-1 border border-white/30 rounded-lg overflow-hidden" id="lang-switcher">
+                        <button onclick="setLang('zh')" class="lang-btn active px-3 py-1.5 text-xs font-semibold text-white" data-lang="zh">中</button>
+                        <button onclick="setLang('en')" class="lang-btn px-3 py-1.5 text-xs font-semibold text-white" data-lang="en">EN</button>
+                    </div>
+                    <button onclick="openQrModal()" class="hidden md:inline-flex btn-primary text-white px-5 py-2.5 rounded-lg font-medium text-sm cursor-pointer" data-i18n="nav.consult">立即咨询</button>
+                    <button id="mobile-menu-btn" class="xl:hidden text-white p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden xl:hidden bg-white shadow-lg max-h-[80vh] overflow-y-auto">
+            <div class="px-4 py-4 space-y-1">
+                <a href="/" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.home">首页</a>
+            <a href="/saudi-visa" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.saudiVisa">沙特签证</a>
+                <a href="/visa" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.visa">全球签证</a>
+                <a href="/transport" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.transport">境外交通住宿</a>
+                <a href="/insurance" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.insurance">境外保险</a>
+                <a href="/enterprise" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.enterprise">企业出海</a>
+                <a href="/inspection" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.inspection">企业考察</a>
+                <a href="/news" class="block py-3 text-zsts-green font-semibold border-b border-gray-100" data-i18n="nav.news">沙特资讯</a>
+                <a href="/about" class="block py-3 text-gray-800 hover:text-zsts-green font-medium" data-i18n="nav.about">关于我们</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-[50vh] min-h-[350px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="/images/riyadh-skyline.jpg" alt="利雅得天际线" class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-5 py-2 mb-6 border border-white/20">
+                <i data-lucide="newspaper" class="w-4 h-4 text-zsts-sand"></i>
+                <span class="text-white/90 text-sm font-medium" data-i18n="hero.badge">中盛启瀚 · 沙特资讯中心</span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 leading-tight" data-i18n="hero.title">沙特资讯</h1>
+            <p class="text-white/80 text-lg max-w-2xl mx-auto" data-i18n="hero.subtitle">签证政策 · 市场洞察 · 商旅指南 · 最新动态</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="bg-zsts-gray min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="flex flex-col lg:flex-row gap-10">
+
+        <!-- Left: News List -->
+        <div class="flex-1 min-w-0">
+
+            <!-- Category Filter -->
+            <div class="fade-in-section mb-10">
+                <div class="flex flex-wrap gap-3" id="category-filter">
+                    <button onclick="filterCategory('all', this)" class="category-btn active px-5 py-2.5 rounded-full text-sm font-semibold border-2" data-i18n="cat.all">全部</button>
+                    <button onclick="filterCategory('visa', this)" class="category-btn px-5 py-2.5 rounded-full text-sm font-semibold border-2" data-i18n="cat.visa">签证政策</button>
+                    <button onclick="filterCategory('market', this)" class="category-btn px-5 py-2.5 rounded-full text-sm font-semibold border-2" data-i18n="cat.market">市场洞察</button>
+                    <button onclick="filterCategory('travel', this)" class="category-btn px-5 py-2.5 rounded-full text-sm font-semibold border-2" data-i18n="cat.travel">商旅指南</button>
+                    <button onclick="filterCategory('culture', this)" class="category-btn px-5 py-2.5 rounded-full text-sm font-semibold border-2" data-i18n="cat.culture">文化交流</button>
+                    <button onclick="filterCategory('policy', this)" class="category-btn px-5 py-2.5 rounded-full text-sm font-semibold border-2" data-i18n="cat.policy">政策法规</button>
+                </div>
+            </div>
+
+            <!-- News Cards Container -->
+            <div id="news-container" class="space-y-8 mb-12">
+
+                <!-- News 1: Featured -->
+                <article class="news-card card-hover fade-in-section bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer" data-category="visa" onclick="location.href='news-detail.html?id=1'">
+                    <div class="md:flex">
+                        <div class="md:w-2/5 relative overflow-hidden">
+                            <img src="/images/riyadh-skyline.jpg" alt="沙特商务城市景观" class="news-card-img w-full h-52 md:h-full object-cover">
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-zsts-green text-white text-xs font-bold px-3 py-1.5 rounded-full" data-i18n="news.1.tag">签证政策</span>
+                            </div>
+                        </div>
+                        <div class="md:w-3/5 p-6 md:p-8 flex flex-col justify-center">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <span class="text-gray-400 text-sm">2025-06-01</span>
+                                <span class="text-gray-300">|</span>
+                                <span class="text-gray-400 text-sm" data-i18n="news.1.author">ZSTS 签证中心</span>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 hover:text-zsts-green transition-colors leading-snug" data-i18n="news.1.title">沙特推出商务电子签证快速通道，中国公民申请更便捷</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed line-clamp-3" data-i18n="news.1.desc">沙特阿拉伯外交部宣布进一步优化商务签证政策，简化中国公民申请材料，缩短审批周期。新政策允许在线提交材料，最快3个工作日出签，大幅提升办理效率……</p>
+                            <div class="flex items-center mt-4 pt-4 border-t border-gray-100">
+                                <span class="text-zsts-green text-sm font-semibold flex items-center space-x-1 hover:underline">
+                                    <span data-i18n="news.readMore">阅读全文</span>
+                                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- News 2 -->
+                <article class="news-card card-hover fade-in-section bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer" data-category="market" onclick="location.href='news-detail.html?id=2'">
+                    <div class="md:flex flex-row-reverse">
+                        <div class="md:w-2/5 relative overflow-hidden">
+                            <img src="/images/qasr-al-farid.jpg" alt="玛甸沙勒遗址" class="news-card-img w-full h-52 md:h-full object-cover">
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-zsts-sand text-white text-xs font-bold px-3 py-1.5 rounded-full" data-i18n="news.2.tag">市场洞察</span>
+                            </div>
+                        </div>
+                        <div class="md:w-3/5 p-6 md:p-8 flex flex-col justify-center">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <span class="text-gray-400 text-sm">2025-05-28</span>
+                                <span class="text-gray-300">|</span>
+                                <span class="text-gray-400 text-sm" data-i18n="news.2.author">ZSTS 研究中心</span>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 hover:text-zsts-green transition-colors leading-snug" data-i18n="news.2.title">Vision 2030下的沙特商机：中国企业出海指南</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed line-clamp-3" data-i18n="news.2.desc">沙特"愿景2030"计划为中国企业带来前所未有的机遇，涵盖基建、能源、科技、旅游等多个领域。了解如何把握政策红利，规避市场风险……</p>
+                            <div class="flex items-center mt-4 pt-4 border-t border-gray-100">
+                                <span class="text-zsts-green text-sm font-semibold flex items-center space-x-1 hover:underline">
+                                    <span data-i18n="news.readMore">阅读全文</span>
+                                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- News 3 -->
+                <article class="news-card card-hover fade-in-section bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer" data-category="travel" onclick="location.href='news-detail.html?id=3'">
+                    <div class="md:flex">
+                        <div class="md:w-2/5 relative overflow-hidden">
+                            <img src="/images/jeddah-waterfront.jpg" alt="吉达海滨" class="news-card-img w-full h-52 md:h-full object-cover">
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded-full" data-i18n="news.3.tag">商旅指南</span>
+                            </div>
+                        </div>
+                        <div class="md:w-3/5 p-6 md:p-8 flex flex-col justify-center">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <span class="text-gray-400 text-sm">2025-05-20</span>
+                                <span class="text-gray-300">|</span>
+                                <span class="text-gray-400 text-sm" data-i18n="news.3.author">ZSTS 商旅部</span>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 hover:text-zsts-green transition-colors leading-snug" data-i18n="news.3.title">首次赴沙特商务出行必备：文化礼仪与实用攻略</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed line-clamp-3" data-i18n="news.3.desc">了解沙特当地商务文化、社交礼仪和商务沟通习惯，助您在沙特商务活动中游刃有余。本文涵盖着装要求、会面礼仪、跨文化沟通等实用信息……</p>
+                            <div class="flex items-center mt-4 pt-4 border-t border-gray-100">
+                                <span class="text-zsts-green text-sm font-semibold flex items-center space-x-1 hover:underline">
+                                    <span data-i18n="news.readMore">阅读全文</span>
+                                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- News 4 -->
+                <article class="news-card card-hover fade-in-section bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer" data-category="policy" onclick="location.href='news-detail.html?id=4'">
+                    <div class="md:flex flex-row-reverse">
+                        <div class="md:w-2/5 relative overflow-hidden">
+                            <img src="/images/kafd-january-2025.jpg" alt="利雅得金融区" class="news-card-img w-full h-52 md:h-full object-cover">
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-purple-600 text-white text-xs font-bold px-3 py-1.5 rounded-full" data-i18n="news.4.tag">政策法规</span>
+                            </div>
+                        </div>
+                        <div class="md:w-3/5 p-6 md:p-8 flex flex-col justify-center">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <span class="text-gray-400 text-sm">2025-05-15</span>
+                                <span class="text-gray-300">|</span>
+                                <span class="text-gray-400 text-sm" data-i18n="news.4.author">ZSTS 法务部</span>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 hover:text-zsts-green transition-colors leading-snug" data-i18n="news.4.title">沙特外商投资法最新修订解读：准入门槛与优惠政策</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed line-clamp-3" data-i18n="news.4.desc">沙特于2025年更新外商投资法，进一步扩大外资准入领域，简化审批流程。本文详细解读新法变化，帮助企业把握投资机遇……</p>
+                            <div class="flex items-center mt-4 pt-4 border-t border-gray-100">
+                                <span class="text-zsts-green text-sm font-semibold flex items-center space-x-1 hover:underline">
+                                    <span data-i18n="news.readMore">阅读全文</span>
+                                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- News 5 -->
+                <article class="news-card card-hover fade-in-section bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer" data-category="culture" onclick="location.href='news-detail.html?id=5'">
+                    <div class="md:flex">
+                        <div class="md:w-2/5 relative overflow-hidden">
+                            <img src="/images/the-boulevard-riyadh.jpg" alt="利雅得大道" class="news-card-img w-full h-52 md:h-full object-cover">
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-pink-600 text-white text-xs font-bold px-3 py-1.5 rounded-full" data-i18n="news.5.tag">文化交流</span>
+                            </div>
+                        </div>
+                        <div class="md:w-3/5 p-6 md:p-8 flex flex-col justify-center">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <span class="text-gray-400 text-sm">2025-05-10</span>
+                                <span class="text-gray-300">|</span>
+                                <span class="text-gray-400 text-sm" data-i18n="news.5.author">ZSTS 文化部</span>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 hover:text-zsts-green transition-colors leading-snug" data-i18n="news.5.title">中沙文化交流年：探索丝路之上的新篇章</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed line-clamp-3" data-i18n="news.5.desc">2025年中沙文化交流年正式启动，两国将在文化、教育、旅游等领域开展深度合作。了解交流年亮点活动及商务出行便利新政……</p>
+                            <div class="flex items-center mt-4 pt-4 border-t border-gray-100">
+                                <span class="text-zsts-green text-sm font-semibold flex items-center space-x-1 hover:underline">
+                                    <span data-i18n="news.readMore">阅读全文</span>
+                                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- News 6 -->
+                <article class="news-card card-hover fade-in-section bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer" data-category="visa" onclick="location.href='news-detail.html?id=6'">
+                    <div class="md:flex flex-row-reverse">
+                        <div class="md:w-2/5 relative overflow-hidden">
+                            <img src="/images/jeddah-tower.jpg" alt="吉达塔" class="news-card-img w-full h-52 md:h-full object-cover">
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-zsts-green text-white text-xs font-bold px-3 py-1.5 rounded-full" data-i18n="news.6.tag">签证政策</span>
+                            </div>
+                        </div>
+                        <div class="md:w-3/5 p-6 md:p-8 flex flex-col justify-center">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <span class="text-gray-400 text-sm">2025-05-05</span>
+                                <span class="text-gray-300">|</span>
+                                <span class="text-gray-400 text-sm" data-i18n="news.6.author">ZSTS 签证中心</span>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 hover:text-zsts-green transition-colors leading-snug" data-i18n="news.6.title">沙特落地签证政策更新：机场办理流程全解析</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed line-clamp-3" data-i18n="news.6.desc">沙特主要国际机场现已支持符合条件的中国公民办理落地签证。本文详细介绍落地签申请条件、所需材料及通关注意事项……</p>
+                            <div class="flex items-center mt-4 pt-4 border-t border-gray-100">
+                                <span class="text-zsts-green text-sm font-semibold flex items-center space-x-1 hover:underline">
+                                    <span data-i18n="news.readMore">阅读全文</span>
+                                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Pagination -->
+            <div class="fade-in-section flex items-center justify-center space-x-2" id="pagination">
+                <button onclick="changePage(-1)" class="pagination-btn w-10 h-10 rounded-lg border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors">
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+                <button onclick="goPage(1, this)" class="pagination-btn active w-10 h-10 rounded-lg border border-gray-200 flex items-center justify-center text-sm font-semibold">1</button>
+                <button onclick="goPage(2, this)" class="pagination-btn w-10 h-10 rounded-lg border border-gray-200 flex items-center justify-center text-sm font-semibold text-gray-500">2</button>
+                <button onclick="goPage(3, this)" class="pagination-btn w-10 h-10 rounded-lg border border-gray-200 flex items-center justify-center text-sm font-semibold text-gray-500">3</button>
+                <span class="text-gray-400 px-2">...</span>
+                <button onclick="goPage(5, this)" class="pagination-btn w-10 h-10 rounded-lg border border-gray-200 flex items-center justify-center text-sm font-semibold text-gray-500">5</button>
+                <button onclick="changePage(1)" class="pagination-btn w-10 h-10 rounded-lg border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors">
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Right: Sidebar -->
+        <div class="lg:w-80 xl:w-96 flex-shrink-0">
+            <div class="sticky-sidebar space-y-6">
+
+                <!-- Search -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    <h4 class="font-bold text-gray-900 mb-4" data-i18n="sidebar.search">资讯搜索</h4>
+                    <div class="relative">
+                        <input type="text" placeholder="搜索关键词..." class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-zsts-green focus:ring-2 focus:ring-zsts-green/20 outline-none text-sm" data-i18n-placeholder="sidebar.searchPlaceholder">
+                        <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                    </div>
+                </div>
+
+                <!-- Hot News -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    <h4 class="font-bold text-gray-900 mb-5 flex items-center space-x-2">
+                        <i data-lucide="flame" class="w-4 h-4 text-orange-500"></i>
+                        <span data-i18n="sidebar.hot">热门资讯</span>
+                    </h4>
+                    <div class="space-y-4">
+                        <a href="news-detail.html?id=1" class="flex items-start space-x-3 group">
+                            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-zsts-green text-white text-xs font-bold flex items-center justify-center mt-0.5">1</span>
+                            <span class="text-sm text-gray-700 group-hover:text-zsts-green transition-colors leading-snug" data-i18n="sidebar.hot1">沙特推出商务电子签证快速通道</span>
+                        </a>
+                        <a href="news-detail.html?id=2" class="flex items-start space-x-3 group">
+                            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-zsts-sand text-white text-xs font-bold flex items-center justify-center mt-0.5">2</span>
+                            <span class="text-sm text-gray-700 group-hover:text-zsts-green transition-colors leading-snug" data-i18n="sidebar.hot2">Vision 2030下的沙特商机</span>
+                        </a>
+                        <a href="news-detail.html?id=4" class="flex items-start space-x-3 group">
+                            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-gray-300 text-white text-xs font-bold flex items-center justify-center mt-0.5">3</span>
+                            <span class="text-sm text-gray-700 group-hover:text-zsts-green transition-colors leading-snug" data-i18n="sidebar.hot3">沙特外商投资法最新修订解读</span>
+                        </a>
+                        <a href="news-detail.html?id=3" class="flex items-start space-x-3 group">
+                            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-gray-300 text-white text-xs font-bold flex items-center justify-center mt-0.5">4</span>
+                            <span class="text-sm text-gray-700 group-hover:text-zsts-green transition-colors leading-snug" data-i18n="sidebar.hot4">首次赴沙特商务出行必备攻略</span>
+                        </a>
+                        <a href="news-detail.html?id=6" class="flex items-start space-x-3 group">
+                            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-gray-300 text-white text-xs font-bold flex items-center justify-center mt-0.5">5</span>
+                            <span class="text-sm text-gray-700 group-hover:text-zsts-green transition-colors leading-snug" data-i18n="sidebar.hot5">沙特落地签证政策更新全解析</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tags Cloud -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    <h4 class="font-bold text-gray-900 mb-4" data-i18n="sidebar.tags">标签云</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="#" class="px-3 py-1.5 bg-zsts-green-light text-zsts-green text-xs font-semibold rounded-full hover:bg-zsts-green hover:text-white transition-colors">签证政策</a>
+                        <a href="#" class="px-3 py-1.5 bg-zsts-sand-light text-zsts-sand text-xs font-semibold rounded-full hover:bg-zsts-sand hover:text-white transition-colors">市场洞察</a>
+                        <a href="#" class="px-3 py-1.5 bg-blue-50 text-blue-600 text-xs font-semibold rounded-full hover:bg-blue-600 hover:text-white transition-colors">商旅指南</a>
+                        <a href="#" class="px-3 py-1.5 bg-purple-50 text-purple-600 text-xs font-semibold rounded-full hover:bg-purple-600 hover:text-white transition-colors">政策法规</a>
+                        <a href="#" class="px-3 py-1.5 bg-pink-50 text-pink-600 text-xs font-semibold rounded-full hover:bg-pink-600 hover:text-white transition-colors">文化交流</a>
+                        <a href="#" class="px-3 py-1.5 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full hover:bg-gray-600 hover:text-white transition-colors">一带一路</a>
+                        <a href="#" class="px-3 py-1.5 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full hover:bg-gray-600 hover:text-white transition-colors">Vision2030</a>
+                        <a href="#" class="px-3 py-1.5 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full hover:bg-gray-600 hover:text-white transition-colors">中沙合作</a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+    </div>
+
+    <!-- CTA Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="/images/riyadh-skyline.jpg" 
+                 alt="利雅得城市天际线" 
+                 class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-zsts-dark/90"></div>
+        </div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6" data-i18n="cta.title">开启您的沙特商务之旅</h2>
+            <p class="text-white/70 text-lg mb-10 max-w-2xl mx-auto" data-i18n="cta.subtitle">
+                无论您是计划商务考察、参展参会，还是企业出海落地，<br class="hidden sm:block">
+                中盛启瀚都将为您提供专业、高效的一站式服务。
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#contact" class="bg-white text-zsts-dark px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all flex items-center space-x-2">
+                    <i data-lucide="phone" class="w-5 h-5"></i>
+                    <span data-i18n="cta.btn1">立即咨询</span>
+                </a>
+                <a href="#contact" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/20 transition-all flex items-center space-x-2">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    <span data-i18n="cta.btn2">微信咨询</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-zsts-dark text-white pt-20 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-12 mb-16">
+                <!-- Company Info -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center space-x-3 mb-6">
+                            <img src="/images/logo-dark.png" alt="ZSTS Logo" class="h-10 w-auto">
+                        </div>
+                        <p class="text-white/60 text-sm leading-relaxed mb-6" data-i18n="footer.desc">
+                        依托沙特阿拉伯授权签证中心，聚焦沙特市场的综合商业服务公司，致力于构筑中沙两国高质量发展桥梁。
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6" data-i18n="footer.navTitle">快速导航</h4>
+                    <ul class="grid grid-cols-2 gap-x-6 gap-y-3 text-white/60 text-sm">
+                        <li><a href="/saudi-visa" class="hover:text-zsts-sand transition-colors" data-i18n="nav.saudiVisa">沙特签证</a></li>
+                        <li><a href="/visa" class="hover:text-zsts-sand transition-colors" data-i18n="nav.visa">全球签证</a></li>
+                        <li><a href="/transport" class="hover:text-zsts-sand transition-colors" data-i18n="nav.transport">境外交通住宿</a></li>
+                        <li><a href="/insurance" class="hover:text-zsts-sand transition-colors" data-i18n="nav.insurance">境外保险</a></li>
+                        <li><a href="/enterprise" class="hover:text-zsts-sand transition-colors" data-i18n="nav.enterprise">企业出海</a></li>
+                        <li><a href="/inspection" class="hover:text-zsts-sand transition-colors" data-i18n="nav.inspection">企业考察</a></li>
+                        <li><a href="/news" class="hover:text-zsts-sand transition-colors" data-i18n="nav.news">沙特资讯</a></li>
+                        <li><a href="/about" class="hover:text-zsts-sand transition-colors" data-i18n="nav.about">关于我们</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6" data-i18n="footer.contactTitle">联系方式</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-zsts-sand flex-shrink-0"></i>
+                            <span class="text-white/60 text-sm">010-85656995 / 010-53670397 / 17190016075</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="mail" class="w-5 h-5 text-zsts-sand flex-shrink-0"></i>
+                            <span class="text-white/60 text-sm">info@zsts.group</span>
+                        </div>
+                        <div class="mt-4 grid grid-cols-3 gap-3">
+                            <div class="bg-white/10 rounded-xl p-3 text-center">
+                                <img src="/images/qr-personal.png" alt="微信客服一" class="w-16 h-16 rounded-lg mx-auto mb-1 object-contain bg-white">
+                                <span class="text-white/60 text-xs">微信客服一</span>
+                            </div>
+                            <div class="bg-white/10 rounded-xl p-3 text-center">
+                                <img src="/images/qr-enterprise.png" alt="微信客服二" class="w-16 h-16 rounded-lg mx-auto mb-1 object-contain bg-white">
+                                <span class="text-white/60 text-xs">微信客服二</span>
+                            </div>
+                            <div class="bg-white/10 rounded-xl p-3 text-center">
+                                <img src="/images/qr-whatsapp.png" alt="WhatsApp" class="w-16 h-16 rounded-lg mx-auto mb-1 object-contain bg-white">
+                                <span class="text-white/60 text-xs">WhatsApp</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between">
+                <p class="text-white/40 text-sm mb-4 md:mb-0">
+                    <span data-i18n="footer.copyright">中盛启瀚（ZSTS）国际商务发展有限公司</span>. All rights reserved.
+                </p>
+                <div class="flex items-center space-x-6 text-white/40 text-sm">
+                    <a href="privacy-policy.html" class="hover:text-white transition-colors" data-i18n="footer.privacy">隐私政策</a>
+                    <a href="terms.html" class="hover:text-white transition-colors" data-i18n="footer.terms">服务条款</a>
+                    <a href="sitemap.html" class="hover:text-white transition-colors" data-i18n="footer.sitemap">网站地图</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button id="scroll-top" class="fixed bottom-8 right-8 w-12 h-12 bg-zsts-green text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-zsts-green-dark z-50">
+        <i data-lucide="chevron-up" class="w-6 h-6"></i>
+    </button>
+
+    <!-- i18n -->
+    <script>
+    (function() {
+        const i18n = {
+            zh: {
+                'page.title': '沙特资讯 | 中盛启瀚 ZSTS',
+                'nav.home': '首页',
+                'nav.brand': '中盛启瀚', 'nav.saudiVisa': '沙特签证', 'nav.visa': '全球签证', 'nav.transport': '境外交通住宿',
+                'nav.enterprise': '企业出海', 'nav.inspection': '企业考察', 'nav.insurance': '境外保险',
+                'nav.news': '沙特资讯', 'nav.about': '关于我们', 'nav.consult': '立即咨询',
+                'modal.title': '扫码咨询',
+                'modal.desc': '选择您方便的方式联系我们',
+                'modal.phone': '客服电话：010-85656995 / 010-53670397 / 17190016075',
+                'lang.zh': '中文', 'lang.en': 'English',
+                'hero.badge': '中盛启瀚 · 沙特资讯中心',
+                'hero.title': '沙特资讯',
+                'hero.subtitle': '签证政策 · 市场洞察 · 商旅指南 · 最新动态',
+                'cat.all': '全部', 'cat.visa': '签证政策', 'cat.market': '市场洞察', 'cat.travel': '商旅指南', 'cat.culture': '文化交流', 'cat.policy': '政策法规',
+                'news.1.tag': '签证政策', 'news.1.author': 'ZSTS 签证中心', 'news.1.title': '沙特推出商务电子签证快速通道，中国公民申请更便捷',
+                'news.1.desc': '沙特阿拉伯外交部宣布进一步优化商务签证政策，简化中国公民申请材料，缩短审批周期。新政策允许在线提交材料，最快3个工作日出签，大幅提升办理效率……',
+                'news.2.tag': '市场洞察', 'news.2.author': 'ZSTS 研究中心', 'news.2.title': 'Vision 2030下的沙特商机：中国企业出海指南',
+                'news.2.desc': '沙特"愿景2030"计划为中国企业带来前所未有的机遇，涵盖基建、能源、科技、旅游等多个领域。了解如何把握政策红利，规避市场风险……',
+                'news.3.tag': '商旅指南', 'news.3.author': 'ZSTS 商旅部', 'news.3.title': '首次赴沙特商务出行必备：文化礼仪与实用攻略',
+                'news.3.desc': '了解沙特当地商务文化、社交礼仪和商务沟通习惯，助您在沙特商务活动中游刃有余。本文涵盖着装要求、会面礼仪、跨文化沟通等实用信息……',
+                'news.4.tag': '政策法规', 'news.4.author': 'ZSTS 法务部', 'news.4.title': '沙特外商投资法最新修订解读：准入门槛与优惠政策',
+                'news.4.desc': '沙特于2025年更新外商投资法，进一步扩大外资准入领域，简化审批流程。本文详细解读新法变化，帮助企业把握投资机遇……',
+                'news.5.tag': '文化交流', 'news.5.author': 'ZSTS 文化部', 'news.5.title': '中沙文化交流年：探索丝路之上的新篇章',
+                'news.5.desc': '2025年中沙文化交流年正式启动，两国将在文化、教育、旅游等领域开展深度合作。了解交流年亮点活动及商务出行便利新政……',
+                'news.6.tag': '签证政策', 'news.6.author': 'ZSTS 签证中心', 'news.6.title': '沙特落地签证政策更新：机场办理流程全解析',
+                'news.6.desc': '沙特主要国际机场现已支持符合条件的中国公民办理落地签证。本文详细介绍落地签申请条件、所需材料及通关注意事项……',
+                'news.readMore': '阅读全文',
+                'sidebar.search': '资讯搜索', 'sidebar.searchPlaceholder': '搜索关键词...',
+                'sidebar.hot': '热门资讯',
+                'sidebar.hot1': '沙特推出商务电子签证快速通道', 'sidebar.hot2': 'Vision 2030下的沙特商机', 'sidebar.hot3': '沙特外商投资法最新修订解读',
+                'sidebar.hot4': '首次赴沙特商务出行必备攻略', 'sidebar.hot5': '沙特落地签证政策更新全解析',
+                'sidebar.tags': '标签云',
+                
+                'footer.desc': '依托沙特阿拉伯授权签证中心，聚焦沙特市场的综合商业服务公司，致力于构筑中沙两国高质量发展桥梁。',
+                'footer.navTitle': '快速导航', 'footer.contactTitle': '联系方式',
+                'footer.copyright': '中盛启瀚（ZSTS）国际商务发展有限公司', 'footer.qrHint': '扫码添加微信客服', 'footer.privacy': '隐私政策', 'footer.terms': '服务条款', 'footer.sitemap': '网站地图',
+            },
+            en: {
+                'page.title': 'Saudi News | ZSTS',
+                'nav.home': 'Home',
+                'nav.brand': 'ZSTS', 'nav.saudiVisa': 'Saudi Visa', 'nav.visa': 'Global Visa', 'nav.transport': 'Overseas Transport & Stay',
+                'nav.enterprise': 'Enterprise', 'nav.inspection': 'Inspection', 'nav.insurance': 'Overseas Insurance',
+                'nav.news': 'News', 'nav.about': 'About', 'nav.consult': 'Contact Us',
+                'modal.title': 'Scan to Consult',
+                'modal.desc': 'Choose the most convenient way to contact us',
+                'modal.phone': 'Tel: 010-85656995 / 010-53670397 / 17190016075',
+                'lang.zh': '中文', 'lang.en': 'English',
+                'hero.badge': 'ZSTS · Saudi News Center',
+                'hero.title': 'Saudi News',
+                'hero.subtitle': 'Visa Policy · Market Insight · Travel Guide · Latest Updates',
+                'cat.all': 'All', 'cat.visa': 'Visa Policy', 'cat.market': 'Market Insight', 'cat.travel': 'Travel Guide', 'cat.culture': 'Cultural Exchange', 'cat.policy': 'Policy & Law',
+                'news.1.tag': 'Visa Policy', 'news.1.author': 'ZSTS Visa Center', 'news.1.title': 'Saudi Launches Fast-Track Business E-Visa for Chinese Citizens',
+                'news.1.desc': 'The Saudi Ministry of Foreign Affairs announced further optimization of business visa policies, simplifying application materials for Chinese citizens...',
+                'news.2.tag': 'Market Insight', 'news.2.author': 'ZSTS Research', 'news.2.title': 'Opportunities Under Vision 2030: A Guide for Chinese Enterprises',
+                'news.2.desc': 'Saudi Vision 2030 brings unprecedented opportunities for Chinese enterprises across infrastructure, energy, technology, tourism...',
+                'news.3.tag': 'Travel Guide', 'news.3.author': 'ZSTS Travel', 'news.3.title': 'Essential Guide for First-Time Saudi Business Travelers',
+                'news.3.desc': 'Understanding Saudi business culture, religious customs and social etiquette for successful business activities...',
+                'news.4.tag': 'Policy & Law', 'news.4.author': 'ZSTS Legal', 'news.4.title': 'Saudi Foreign Investment Law Update: Access & Incentives',
+                'news.4.desc': 'Saudi Arabia updated its foreign investment law in 2025, further expanding market access for foreign capital...',
+                'news.5.tag': 'Cultural Exchange', 'news.5.author': 'ZSTS Culture', 'news.5.title': 'China-Saudi Cultural Exchange Year: New Chapters Along the Silk Road',
+                'news.5.desc': 'The 2025 China-Saudi Cultural Exchange Year was officially launched, with in-depth cooperation in culture, education, tourism...',
+                'news.6.tag': 'Visa Policy', 'news.6.author': 'ZSTS Visa Center', 'news.6.title': 'Saudi Visa on Arrival Policy Update: Complete Airport Guide',
+                'news.6.desc': 'Major Saudi international airports now support eligible Chinese citizens to apply for visa on arrival...',
+                'news.readMore': 'Read More',
+                'sidebar.search': 'Search News', 'sidebar.searchPlaceholder': 'Search keywords...',
+                'sidebar.hot': 'Hot News',
+                'sidebar.hot1': 'Saudi Fast-Track Business E-Visa', 'sidebar.hot2': 'Opportunities Under Vision 2030', 'sidebar.hot3': 'Saudi Foreign Investment Law Update',
+                'sidebar.hot4': 'Essential Guide for First-Time Travelers', 'sidebar.hot5': 'Saudi Visa on Arrival Guide',
+                'sidebar.tags': 'Popular Tags',
+                'sidebar.qr.hint': 'Scan to add WeChat',
+                'footer.desc': 'A comprehensive business service company focused on the Saudi market, authorized by the Saudi visa center.',
+                'footer.navTitle': 'Quick Links', 'footer.contactTitle': 'Contact',
+                'footer.copyright': 'ZSTS International Business Development Co., Ltd.', 'footer.qrHint': 'Scan to add WeChat', 'footer.privacy': 'Privacy Policy', 'footer.terms': 'Terms', 'footer.sitemap': 'Sitemap',
+            }
+        };
+        let currentLang = localStorage.getItem('zsts-lang') || 'zh';
+        function setLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('zsts-lang', lang);
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+            applyTranslations();
+            updateLangButtons();
+        }
+        function applyTranslations() {
+            const dict = i18n[currentLang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    if (el.tagName === 'TITLE') document.title = dict[key];
+                    else el.textContent = dict[key];
+                }
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (dict[key]) el.placeholder = dict[key];
+            });
+        }
+        function updateLangButtons() {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === currentLang);
+            });
+        }
+        window.setLang = setLang;
+        document.addEventListener('DOMContentLoaded', () => { applyTranslations(); updateLangButtons(); });
+    })();
+        // QR Code Modal functions
+        function openQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Bind consult buttons to open QR modal
+        document.querySelectorAll('a[href="#contact"], .consult-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openQrModal();
+            });
+        });
+    </script>
+
+    <script>
+        lucide.createIcons();
+
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const langSwitcher = document.getElementById('lang-switcher');
+        const langBtns = document.querySelectorAll('.lang-btn');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY > 50;
+            navbar.classList.toggle('nav-transparent', !scrolled);
+            navbar.classList.toggle('nav-scrolled', scrolled);
+                const logoImg = document.getElementById('nav-logo-img');
+                if (logoImg) { logoImg.src = scrolled ? 'images/logo-new.png' : 'images/logo-dark.png'; }
+
+            navLinks.forEach(link => {
+                link.classList.toggle('text-white', !scrolled);
+                link.classList.toggle('text-gray-700', scrolled);
+            });
+            if (langSwitcher) {
+                langSwitcher.classList.toggle('border-white/30', !scrolled);
+                langSwitcher.classList.toggle('border-gray-200', scrolled);
+            }
+            langBtns.forEach(btn => {
+                if (!btn.classList.contains('active')) {
+                    btn.classList.toggle('text-white', !scrolled);
+                    btn.classList.toggle('text-gray-500', scrolled);
+                } else {
+                    btn.classList.toggle('text-white', !scrolled);
+                    btn.classList.toggle('text-zsts-green', scrolled);
+                }
+            });
+        });
+
+        // Mobile menu
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Scroll to top
+        const scrollTopBtn = document.getElementById('scroll-top');
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.classList.toggle('opacity-0', window.scrollY <= 500);
+            scrollTopBtn.classList.toggle('invisible', window.scrollY <= 500);
+            scrollTopBtn.classList.toggle('opacity-100', window.scrollY > 500);
+            scrollTopBtn.classList.toggle('visible', window.scrollY > 500);
+        });
+        scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // Category filter
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('#news-container article').forEach(article => {
+                if (cat === 'all' || article.dataset.category === cat) {
+                    article.style.display = '';
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+        }
+
+        // Pagination (demo)
+        function goPage(n, btn) {
+            document.querySelectorAll('.pagination-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+        }
+        function changePage(dir) {
+            // demo only
+        }
+
+        // Intersection Observer
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
+        // QR Code Modal functions
+        function openQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Bind consult buttons to open QR modal
+        document.querySelectorAll('a[href="#contact"], .consult-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openQrModal();
+            });
+        });
+    </script>
+
+    <!-- QR Code Modal -->
+<div id="qr-modal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm" onclick="closeQrModal()">
+    <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 text-center shadow-2xl relative" onclick="event.stopPropagation()">
+        <button onclick="closeQrModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+        <h3 class="text-lg font-bold text-gray-900 mb-2" data-i18n="modal.title">扫码咨询</h3>
+        <p class="text-gray-500 text-sm mb-6" data-i18n="modal.desc">选择您方便的方式联系我们</p>
+        <div class="grid grid-cols-3 gap-6">
+            <div class="flex flex-col items-center">
+                <img src="/images/qr-personal.png" alt="微信客服一二维码" class="w-36 h-36 rounded-lg shadow-md mb-3 object-contain">
+                <span class="text-sm font-semibold text-gray-700">微信客服一</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="/images/qr-enterprise.png" alt="微信客服二二维码" class="w-36 h-36 rounded-lg shadow-md mb-3 object-contain">
+                <span class="text-sm font-semibold text-gray-700">微信客服二</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="/images/qr-whatsapp.png" alt="WhatsApp二维码" class="w-36 h-36 rounded-lg shadow-md mb-3 object-contain">
+                <span class="text-sm font-semibold text-gray-700">WhatsApp</span>
+            </div>
+        </div>
+        <p class="text-sm text-gray-500 mt-6" data-i18n="modal.phone">客服电话：010-85656995 / 010-53670397 / 17190016075</p>
+    </div>
+</div>
+
+</body>
+</html>

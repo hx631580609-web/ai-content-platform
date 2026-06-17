@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中盛启瀚 - AI 创作助手</title>
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <link href="/css/fonts.css" rel="stylesheet">
+    <script src="/js/lucide.js"></script>
+    <style>
+        body { 
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%);
+        }
+        
+        /* 侧边栏 */
+        .sidebar {
+            width: 260px;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .sidebar-logo {
+            background: rgba(0, 99, 65, 0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .nav-item {
+            position: relative;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            margin: 4px 12px;
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 60%;
+            background: linear-gradient(90deg, #006341, transparent);
+            border-radius: 0 4px 4px 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-item:hover::before,
+        .nav-item.active::before {
+            width: 4px;
+        }
+        
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(0, 99, 65, 0.1);
+        }
+        
+        .nav-item.active {
+            color: #C5A572;
+        }
+        
+        /* 主内容区 */
+        .main-content {
+            margin-left: 260px;
+        }
+        
+        /* 头部 */
+        .header {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* 内容类型按钮 */
+        .ct-btn {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid transparent;
+        }
+        
+        .ct-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .ct-btn.active {
+            background: linear-gradient(135deg, #006341 0%, #004d33 100%);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px -5px rgba(0, 99, 65, 0.5);
+        }
+        
+        /* 聊天容器 */
+        .chat-container {
+            background: rgba(15, 15, 26, 0.5);
+        }
+        
+        /* 消息样式 */
+        .message {
+            animation: messageSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        @keyframes messageSlide {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .message-avatar {
+            transition: transform 0.3s ease;
+        }
+        
+        .message:hover .message-avatar {
+            transform: scale(1.1);
+        }
+        
+        /* 用户消息气泡 */
+        .bubble-user {
+            background: linear-gradient(135deg, #006341 0%, #004d33 100%);
+            color: white;
+            box-shadow: 0 8px 25px -8px rgba(0, 99, 65, 0.4);
+        }
+        
+        /* AI消息气泡 */
+        .bubble-ai {
+            background: rgba(45, 55, 72, 0.95);
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* 操作按钮 */
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        
+        .action-btn {
+            padding: 8px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(45, 55, 72, 0.8);
+            color: #e2e8f0;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            background: rgba(74, 85, 104, 0.9);
+            border-color: rgba(0, 99, 65, 0.5);
+        }
+        
+        .action-btn.primary {
+            background: linear-gradient(135deg, #2b6cb0 0%, #1a4f7a 100%);
+            border-color: transparent;
+        }
+        
+        .action-btn.primary:hover {
+            box-shadow: 0 8px 20px -8px rgba(43, 108, 176, 0.5);
+        }
+        
+        .action-btn.success {
+            background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+            border-color: transparent;
+        }
+        
+        .action-btn.success:hover {
+            box-shadow: 0 8px 20px -8px rgba(56, 161, 105, 0.5);
+        }
+        
+        /* 输入区域 */
+        .input-area {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .input-field {
+            background: rgba(45, 55, 72, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            border-color: #006341;
+            box-shadow: 0 0 0 4px rgba(0, 99, 65, 0.1);
+        }
+        
+        /* 发送按钮 */
+        .send-btn {
+            background: linear-gradient(135deg, #006341 0%, #004d33 100%);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .send-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .send-btn:hover::before {
+            left: 100%;
+        }
+        
+        .send-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px -10px rgba(0, 99, 65, 0.5);
+        }
+        
+        /* Toast提示 */
+        .toast {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+            color: #fff;
+            border-radius: 12px;
+            font-size: 14px;
+            z-index: 9999;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 30px -10px rgba(56, 161, 105, 0.5);
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .toast.error {
+            background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+            box-shadow: 0 10px 30px -10px rgba(229, 62, 62, 0.5);
+        }
+        
+        /* 打字指示器 */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 8px 12px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #C5A572;
+            border-radius: 50%;
+            animation: typingBounce 1.4s ease-in-out infinite;
+        }
+        
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
+        
+        /* 退出按钮 */
+        .logout-btn {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 80px;
+            }
+            .sidebar .nav-text,
+            .sidebar .section-title,
+            .sidebar .brand-text {
+                display: none;
+            }
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: fixed;
+                z-index: 50;
+                height: auto;
+            }
+            .main-content {
+                margin-left: 0;
+                margin-top: 80px;
+            }
+        }
+        
+        /* 滚动条 */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 99, 65, 0.3);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 侧边栏 -->
+    <div class="sidebar min-h-screen fixed top-0 left-0 h-full overflow-y-auto">
+        <div class="sidebar-logo p-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-zsts-green to-zsts-green-dark flex items-center justify-center shadow-lg">
+                    <i data-lucide="shield-check" class="w-6 h-6 text-white"></i>
+                </div>
+                <div class="brand-text">
+                    <h1 class="font-bold text-white text-lg">中盛启瀚</h1>
+                    <p class="text-xs text-gray-400">管理后台</p>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="py-4">
+            <div class="section-title text-xs font-semibold text-gray-500 uppercase tracking-wider px-6 mb-3">网站管理</div>
+            
+            <a href="/admin" class="nav-item flex items-center space-x-3 px-4 py-3 text-gray-400 hover:text-gray-300">
+                <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                <span class="nav-text">仪表盘</span>
+            </a>
+            <a href="/admin/contents" class="nav-item flex items-center space-x-3 px-4 py-3 text-gray-400 hover:text-gray-300">
+                <i data-lucide="file-text" class="w-5 h-5"></i>
+                <span class="nav-text">内容管理</span>
+            </a>
+            <a href="/admin/blog-posts" class="nav-item flex items-center space-x-3 px-4 py-3 text-gray-400 hover:text-gray-300">
+                <i data-lucide="newspaper" class="w-5 h-5"></i>
+                <span class="nav-text">博客管理</span>
+            </a>
+            <a href="/admin/navigation" class="nav-item flex items-center space-x-3 px-4 py-3 text-gray-400 hover:text-gray-300">
+                <i data-lucide="navigation" class="w-5 h-5"></i>
+                <span class="nav-text">导航管理</span>
+            </a>
+            
+            <div class="section-title text-xs font-semibold text-gray-500 uppercase tracking-wider px-6 mb-3 mt-6">AI 工具</div>
+            <a href="/admin/ai_assistant" class="nav-item active flex items-center space-x-3 px-4 py-3 text-gray-300">
+                <i data-lucide="sparkles" class="w-5 h-5"></i>
+                <span class="nav-text">AI 创作助手</span>
+            </a>
+            
+            <div class="section-title text-xs font-semibold text-gray-500 uppercase tracking-wider px-6 mb-3 mt-6">系统设置</div>
+            <a href="/admin/users" class="nav-item flex items-center space-x-3 px-4 py-3 text-gray-400 hover:text-gray-300">
+                <i data-lucide="users" class="w-5 h-5"></i>
+                <span class="nav-text">用户管理</span>
+            </a>
+            <a href="/admin/system-logs" class="nav-item flex items-center space-x-3 px-4 py-3 text-gray-400 hover:text-gray-300">
+                <i data-lucide="activity" class="w-5 h-5"></i>
+                <span class="nav-text">系统日志</span>
+            </a>
+        </nav>
+        
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-white/5">
+            <button onclick="logout()" class="logout-btn w-full flex items-center space-x-3 px-4 py-3 text-gray-400">
+                <i data-lucide="log-out" class="w-5 h-5"></i>
+                <span class="nav-text">退出登录</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 主内容区 -->
+    <div class="main-content min-h-screen flex flex-col">
+        <!-- 头部 -->
+        <header class="header p-6 flex items-center justify-between">
+            <div>
+                <h2 class="text-xl font-bold text-white flex items-center tracking-tight">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-zsts-green to-zsts-green-dark flex items-center justify-center mr-3">
+                        <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+                    </div>
+                    AI 创作助手
+                </h2>
+                <p class="text-sm text-gray-400 mt-1 ml-13">与 AI 对话，生成高质量内容</p>
+            </div>
+            <div class="flex items-center space-x-3">
+                <span class="text-xs text-gray-500">内容类型:</span>
+                <div class="flex space-x-2">
+                    <button class="ct-btn active px-4 py-2 text-xs rounded-xl text-white" data-type="article">
+                        <i data-lucide="file-text" class="w-4 h-4 inline mr-1"></i>文章
+                    </button>
+                    <button class="ct-btn px-4 py-2 text-xs rounded-xl bg-gray-700 text-gray-400" data-type="video">
+                        <i data-lucide="video" class="w-4 h-4 inline mr-1"></i>视频脚本
+                    </button>
+                    <button class="ct-btn px-4 py-2 text-xs rounded-xl bg-gray-700 text-gray-400" data-type="poster">
+                        <i data-lucide="image" class="w-4 h-4 inline mr-1"></i>海报文案
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <!-- 聊天区域 -->
+        <div id="chat-container" class="chat-container flex-1 overflow-y-auto p-6 space-y-6">
+            <!-- 欢迎消息 -->
+            <div class="message flex items-start space-x-4">
+                <div class="message-avatar w-11 h-11 rounded-xl bg-gradient-to-br from-zsts-green to-zsts-green-dark flex items-center justify-center flex-shrink-0 shadow-lg">
+                    <i data-lucide="bot" class="w-5 h-5 text-white"></i>
+                </div>
+                <div class="flex-1 max-w-3xl">
+                    <div class="bubble-ai rounded-2xl rounded-tl-none p-5">
+                        <p class="text-base leading-relaxed">您好！我是您的 AI 创作助手。请告诉我您想要生成什么内容，例如：</p>
+                        <ul class="mt-4 space-y-3 text-sm text-gray-300">
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-zsts-green"></i>
+                                <span>介绍沙特商务签证的总体情况</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-zsts-green"></i>
+                                <span>写一篇关于中东市场投资机会的文章</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-zsts-green"></i>
+                                <span>生成一个企业考察的宣传视频脚本</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 输入区域 -->
+        <div class="input-area p-6">
+            <form id="chat-form" class="flex space-x-4">
+                <div class="flex-1">
+                    <textarea 
+                        id="user-input" 
+                        class="input-field w-full rounded-xl px-5 py-4 text-gray-100 placeholder-gray-400 focus:outline-none resize-none"
+                        rows="3"
+                        placeholder="输入您的问题或需求..."
+                    ></textarea>
+                </div>
+                <button type="submit" id="sendBtn" class="send-btn px-8 py-4 rounded-xl font-semibold text-white flex items-center space-x-2">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                    <span>发送</span>
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+    
+    <script src="/admin/ai-assistant.js?v=20260616"></script>
+    <script>
+        // 内容类型切换
+        document.querySelectorAll('.ct-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.ct-btn').forEach(b => {
+                    b.classList.remove('active');
+                    b.classList.add('bg-gray-700', 'text-gray-400');
+                });
+                this.classList.add('active');
+                this.classList.remove('bg-gray-700', 'text-gray-400');
+                lucide.createIcons();
+            });
+        });
+        
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/login';
+        }
+    </script>
+</body>
+</html>

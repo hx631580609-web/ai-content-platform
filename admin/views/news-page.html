@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>沙特资讯 | 中盛启瀚 ZSTS</title>
+    <meta name="description" content="中盛启瀚ZSTS提供沙特阿拉伯最新政策资讯、签证政策解读、市场洞察等内容">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <script src="/js/lucide.js"></script>
+    
+    <link href="/css/fonts.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'zsts-green': '#006341',
+                        'zsts-green-dark': '#004d33',
+                        'zsts-green-light': '#e6f2ed',
+                        'zsts-sand': '#C5A572',
+                        'zsts-sand-light': '#f5efe6',
+                        'zsts-dark': '#1a1a2e',
+                        'zsts-gray': '#f8f9fa',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'Noto Sans SC', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+
+        function openQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-overlay { background: linear-gradient(135deg, rgba(0,99,65,0.88) 0%, rgba(26,26,46,0.80) 100%); }
+        .card-hover { transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -12px rgba(0,99,65,0.18); }
+        .btn-primary { background: linear-gradient(135deg, #006341 0%, #004d33 100%); transition: all 0.3s ease; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -10px rgba(0,99,65,0.5); }
+        .nav-scrolled { background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); box-shadow: 0 1px 20px rgba(0,0,0,0.08); }
+        .nav-transparent { background: transparent; }
+        
+        /* Navigation Styles */
+        #nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 0.625rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+            white-space: nowrap;
+        }
+        
+        .nav-link:hover {
+            color: #C5A572;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-link.active {
+            color: #C5A572;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0.25rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #C5A572;
+            transition: width 0.3s ease;
+            border-radius: 1px;
+        }
+        
+        .nav-link:hover::after {
+            width: 50%;
+        }
+        
+        .nav-link.active::after {
+            width: 60%;
+        }
+        
+        /* Navbar Animation */
+        #navbar {
+            transition: all 0.3s ease;
+        }
+        
+        #navbar.scrolled {
+            background: rgba(0, 99, 65, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased">
+
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 h-20 flex items-center" style="background: rgba(0, 99, 65, 0.95); backdrop-filter: blur(20px);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="flex items-center justify-between h-full">
+                <a href="/" class="flex items-center space-x-3">
+                    <img src="/images/logo-dark.png" alt="ZSTS Logo" class="h-10 w-auto" id="nav-logo-img">
+                </a>
+                <div id="nav-links" class="hidden lg:flex items-center space-x-1">
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center border border-white/30 rounded-lg overflow-hidden" id="lang-switcher">
+                        <button onclick="setLang('zh')" class="lang-btn active px-4 py-2 text-xs font-bold text-white bg-white/20" data-lang="zh">中</button>
+                        <button onclick="setLang('en')" class="lang-btn px-4 py-2 text-xs font-bold text-white/70 hover:text-white" data-lang="en">EN</button>
+                    </div>
+                    <button onclick="openQrModal()" class="hidden md:inline-block bg-zsts-green text-white px-6 py-2.5 rounded-lg font-medium text-sm hover:bg-zsts-green-dark transition-colors">
+                        立即咨询
+                    </button>
+                    <button id="mobile-menu-btn" class="lg:hidden text-white p-2 hover:bg-white/10 rounded-lg">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white shadow-lg max-h-[80vh] overflow-y-auto rounded-b-2xl fixed top-20 left-0 right-0 z-40">
+            <div id="mobile-nav-links" class="px-4 py-4 space-y-1">
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="/images/masjid-al-haram-panorama.jpg" alt="麦加大清真寺" class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center">
+            <div class="flex flex-col items-center justify-center">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-4">沙特资讯</h1>
+                <p class="text-white/80 text-lg max-w-xl mx-auto">最新政策解读、市场洞察、旅行指南</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="flex-1">
+                    <div id="blog-list" class="space-y-8"></div>
+                    <div id="pagination" class="mt-12 flex justify-center"></div>
+                </div>
+                <div class="lg:w-80">
+                    <div class="sticky top-24">
+                        <div class="bg-zsts-gray rounded-2xl p-6 mb-6">
+                            <h4 class="font-semibold mb-4">热门标签</h4>
+                            <div class="flex flex-wrap gap-2" id="tags-container"></div>
+                        </div>
+                        <div class="bg-zsts-gray rounded-2xl p-6">
+                            <h4 class="font-semibold mb-4">最新文章</h4>
+                            <div id="latest-posts" class="space-y-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-zsts-dark text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="/" class="flex items-center space-x-3 mb-6">
+                        <img src="/images/logo-transparent.png" alt="ZSTS Logo" class="h-10 w-auto">
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">中盛启瀚(ZSTS)专注沙特及中东地区商务签证服务，为中国企业和个人提供专业、高效、可靠的跨境服务解决方案。</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">快速链接</h4>
+                    <div id="footer-links" class="space-y-3">
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">联系我们</h4>
+                    <div class="space-y-3 text-sm text-gray-400">
+                        <div class="flex items-center space-x-2"><i data-lucide="phone" class="w-4 h-4"></i><span>咨询电话: 010-85658095 / 010-53670397 / 17790016075</span></div>
+                        <div class="flex items-center space-x-2"><i data-lucide="mail" class="w-4 h-4"></i><span>contact@zsts.com</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+                © 2024 中盛启瀚 ZSTS. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <div id="qr-modal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4" onclick="closeQrModal()">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 relative" onclick="event.stopPropagation()">
+            <button onclick="closeQrModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="text-center">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">扫码咨询</h3>
+                <p class="text-gray-500 text-sm mb-6">选择您方便的方式联系我们</p>
+                <div class="grid grid-cols-3 gap-4 mb-6">
+                    <div class="text-center">
+                        <img src="/images/qr-wechat.png" alt="微信客服一" class="w-full h-auto rounded-lg mb-2">
+                        <span class="text-xs text-gray-600">微信客服一</span>
+                    </div>
+                    <div class="text-center">
+                        <img src="/images/qr-personal.png" alt="微信客服二" class="w-full h-auto rounded-lg mb-2">
+                        <span class="text-xs text-gray-600">微信客服二</span>
+                    </div>
+                    <div class="text-center">
+                        <img src="/images/qr-whatsapp.png" alt="WhatsApp" class="w-full h-auto rounded-lg mb-2">
+                        <span class="text-xs text-gray-600">WhatsApp</span>
+                    </div>
+                </div>
+                <div class="bg-zsts-green-light rounded-lg p-4">
+                    <div class="flex items-center justify-center space-x-2 text-zsts-green text-sm">
+                        <i data-lucide="phone" class="w-4 h-4"></i>
+                        <span>咨询电话: 010-85658095 / 010-53670397 / 17790016075</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let navItems = [];
+        let currentPage = 1;
+        let totalPages = 1;
+        let currentCategory = '';
+
+        window.setLang = function(lang) {
+            localStorage.setItem('zsts-lang', lang);
+            document.querySelector('html').setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
+            renderNavItems(lang);
+        };
+
+        async function loadNavItems() {
+            try {
+                const response = await fetch('/nav-items');
+                const data = await response.json();
+                navItems = data.nav_items || [];
+                // Sort navItems: home first, then by position
+                navItems.sort((a, b) => {
+                    if (a.slug === 'home') return -1;
+                    if (b.slug === 'home') return 1;
+                    return a.position - b.position;
+                });
+                const currentLang = localStorage.getItem('zsts-lang') || 'zh';
+                renderNavItems(currentLang);
+            } catch (error) {
+                console.error('Failed to load navigation items:', error);
+            }
+        }
+
+        function renderNavItems(lang) {
+            const navLinksContainer = document.getElementById('nav-links');
+            const mobileNavLinksContainer = document.getElementById('mobile-nav-links');
+            const footerLinksContainer = document.getElementById('footer-links');
+            
+            if (!navLinksContainer || !mobileNavLinksContainer) return;
+            
+            navLinksContainer.innerHTML = '';
+            mobileNavLinksContainer.innerHTML = '';
+            
+            const currentPath = window.location.pathname;
+            
+            navItems.forEach(item => {
+                if (!item.enabled) return;
+                
+                const isHome = item.slug === 'home';
+                const href = isHome ? '/' : '/' + item.slug;
+                const text = lang === 'zh' ? item.name : (item.name_en || item.name);
+                const isActive = currentPath === href;
+                
+                const desktopLink = document.createElement('a');
+                desktopLink.href = href;
+                desktopLink.className = isActive
+                    ? 'nav-link active'
+                    : 'nav-link';
+                desktopLink.textContent = text;
+                navLinksContainer.appendChild(desktopLink);
+                
+                const mobileLink = document.createElement('a');
+                mobileLink.href = href;
+                mobileLink.className = isActive
+                    ? 'block py-3 px-4 text-zsts-green font-semibold border-b-2 border-zsts-green bg-zsts-green-light'
+                    : 'block py-3 px-4 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100 hover:bg-gray-50';
+                mobileLink.textContent = text;
+                mobileNavLinksContainer.appendChild(mobileLink);
+            });
+            
+            if (footerLinksContainer) {
+                footerLinksContainer.innerHTML = '';
+                navItems.slice(1).forEach(item => {
+                    if (!item.enabled) return;
+                    const isHome = item.slug === 'home';
+                    const href = isHome ? '/' : '/' + item.slug;
+                    const text = lang === 'zh' ? item.name : (item.name_en || item.name);
+                    const link = document.createElement('a');
+                    link.href = href;
+                    link.className = 'block text-gray-400 hover:text-white text-sm transition-colors';
+                    link.textContent = text;
+                    footerLinksContainer.appendChild(link);
+                });
+            }
+        }
+
+        async function loadBlogPosts(page = 1, category = '') {
+            let url = `/blog-posts?page=${page}&limit=6&status=published`;
+            if (category) {
+                url += `&category=${encodeURIComponent(category)}`;
+            }
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                renderBlogPosts(data.blog_posts);
+                renderPagination(data.pagination);
+                renderLatestPosts(data.blog_posts.slice(0, 5));
+            } catch (error) {
+                console.error('Failed to load blog posts:', error);
+            }
+        }
+
+        function renderBlogPosts(posts) {
+            const container = document.getElementById('blog-list');
+            if (!posts || posts.length === 0) {
+                container.innerHTML = '<div class="text-center py-20"><h2 class="text-2xl font-bold text-gray-900 mb-4">暂无文章</h2><p class="text-gray-500">抱歉，当前没有可用的文章</p></div>';
+                return;
+            }
+            
+            container.innerHTML = posts.map(post => `
+                <article class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow p-6 card-hover">
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/3">
+                            <img src="${post.CoverImage || '/images/kafd-january-2025.jpg'}" alt="${post.Title}" class="w-full h-48 object-cover rounded-xl">
+                        </div>
+                        <div class="md:w-2/3">
+                            <div class="flex items-center space-x-2 mb-3">
+                                <span class="bg-zsts-green-light text-zsts-green px-3 py-1 rounded-full text-xs font-medium">${post.Category || '资讯'}</span>
+                                <span class="text-gray-400 text-sm">${formatDate(post.CreatedAt)}</span>
+                            </div>
+                            <h2 class="text-xl font-bold text-gray-900 mb-3 hover:text-zsts-green transition-colors">
+                                <a href="/news-detail?slug=${post.Slug}">${post.Title}</a>
+                            </h2>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-4">${post.Summary || post.Content.substring(0, 150) + '...'}</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2 text-gray-400 text-sm">
+                                    <i data-lucide="eye" class="w-4 h-4"></i>
+                                    <span>${post.ViewCount || 0}</span>
+                                </div>
+                                <a href="/news-detail?slug=${post.Slug}" class="text-zsts-green font-medium text-sm hover:underline">阅读更多 →</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+            
+            lucide.createIcons();
+        }
+
+        function renderPagination(pagination) {
+            const container = document.getElementById('pagination');
+            if (!pagination || pagination.total <= 6) {
+                container.innerHTML = '';
+                return;
+            }
+            
+            currentPage = pagination.page;
+            totalPages = Math.ceil(pagination.total / pagination.limit);
+            
+            let html = `<nav class="flex items-center space-x-2">`;
+            
+            if (currentPage > 1) {
+                html += `<button onclick="loadBlogPosts(${currentPage - 1}, '${currentCategory}')" class="px-4 py-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-zsts-green hover:text-white hover:border-zsts-green transition-colors">上一页</button>`;
+            }
+            
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    html += `<button class="px-4 py-2 rounded-lg bg-zsts-green text-white font-medium">${i}</button>`;
+                } else {
+                    html += `<button onclick="loadBlogPosts(${i}, '${currentCategory}')" class="px-4 py-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-zsts-green hover:text-white hover:border-zsts-green transition-colors">${i}</button>`;
+                }
+            }
+            
+            if (currentPage < totalPages) {
+                html += `<button onclick="loadBlogPosts(${currentPage + 1}, '${currentCategory}')" class="px-4 py-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-zsts-green hover:text-white hover:border-zsts-green transition-colors">下一页</button>`;
+            }
+            
+            html += `</nav>`;
+            container.innerHTML = html;
+        }
+
+        function renderLatestPosts(posts) {
+            const container = document.getElementById('latest-posts');
+            container.innerHTML = posts.map(post => `
+                <div class="flex gap-3">
+                    <img src="${post.CoverImage || '/images/kafd-january-2025.jpg'}" alt="${post.Title}" class="w-16 h-16 object-cover rounded-lg">
+                    <div>
+                        <a href="/news-detail?slug=${post.Slug}" class="text-sm font-medium text-gray-900 hover:text-zsts-green transition-colors line-clamp-2">${post.Title}</a>
+                        <span class="text-xs text-gray-400">${formatDate(post.CreatedAt)}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderTags() {
+            const tags = ['政策解读', '市场洞察', '旅行指南', '签证资讯', '企业出海'];
+            const container = document.getElementById('tags-container');
+            container.innerHTML = tags.map(tag => `
+                <button onclick="filterByCategory('${tag}')" class="px-3 py-1.5 rounded-full text-xs font-medium ${currentCategory === tag ? 'bg-zsts-green text-white' : 'bg-white text-gray-600 hover:bg-zsts-green-light'} transition-colors">
+                    ${tag}
+                </button>
+            `).join('');
+        }
+
+        function filterByCategory(category) {
+            currentCategory = currentCategory === category ? '' : category;
+            renderTags();
+            loadBlogPosts(1, currentCategory);
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('zsts-lang') || 'zh';
+            window.setLang(savedLang);
+            loadNavItems();
+            loadBlogPosts(1);
+            renderTags();
+            lucide.createIcons();
+            
+            // Navbar scroll effect - add shadow on scroll
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
+                } else {
+                    navbar.style.boxShadow = 'none';
+                }
+            });
+        });
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

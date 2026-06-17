@@ -1,0 +1,710 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page.title">沙特推出商务电子签证快速通道 | 沙特资讯 | 中盛启瀚 ZSTS</title>
+    <meta name="description" content="沙特阿拉伯外交部宣布进一步优化商务签证政策，简化中国公民申请材料，缩短审批周期。">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <script src="/js/lucide.js"></script>
+    
+    <link href="/css/google-fonts.css" rel="stylesheet"><link href="/css/fonts.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'zsts-green': '#006341',
+                        'zsts-green-dark': '#004d33',
+                        'zsts-green-light': '#e6f2ed',
+                        'zsts-sand': '#C5A572',
+                        'zsts-sand-light': '#f5efe6',
+                        'zsts-dark': '#1a1a2e',
+                        'zsts-gray': '#f8f9fa',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'Noto Sans SC', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+        // QR Code Modal functions
+        function openQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Bind consult buttons to open QR modal
+        document.querySelectorAll('a[href="#contact"], .consult-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openQrModal();
+            });
+        });
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .nav-scrolled { background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); box-shadow: 0 1px 20px rgba(0,0,0,0.08); }
+        .nav-transparent { background: transparent; }
+        .btn-primary { background: linear-gradient(135deg, #006341 0%, #004d33 100%); transition: all 0.3s ease; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -10px rgba(0,99,65,0.5); }
+        .lang-btn { transition: all 0.3s ease; }
+        .lang-btn.active { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.5); }
+        .nav-scrolled .lang-btn.active { background: rgba(0,99,65,0.1); border-color: rgba(0,99,65,0.3); color: #006341; }
+        .lang-btn:not(.active) { opacity: 0.6; }
+        .lang-btn:hover { opacity: 1; }
+        .fade-in-section { opacity: 0; transform: translateY(24px); transition: all 0.7s ease-out; }
+        .fade-in-section.visible { opacity: 1; transform: none; }
+        .article-content h2 { font-size: 1.25rem; font-weight: 700; color: #111827; margin-top: 2rem; margin-bottom: 1rem; line-height: 1.4; }
+        .article-content h3 { font-size: 1.05rem; font-weight: 600; color: #1f2937; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        .article-content p { color: #4b5563; line-height: 1.8; margin-bottom: 1.25rem; font-size: 0.95rem; }
+        .article-content ul, .article-content ol { color: #4b5563; line-height: 1.8; margin-bottom: 1.25rem; padding-left: 1.5rem; }
+        .article-content li { margin-bottom: 0.5rem; }
+        .article-content blockquote { border-left: 4px solid #006341; background: #e6f2ed; padding: 1rem 1.5rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.5rem 0; color: #1f2937; font-style: italic; }
+        .article-content strong { color: #111827; font-weight: 600; }
+        .article-content a { color: #006341; text-decoration: underline; text-underline-offset: 3px; }
+        .article-content a:hover { color: #004d33; }
+        .article-content hr { margin: 2rem 0; border: none; height: 1px; background: #e5e7eb; }
+        .share-btn { transition: all 0.2s ease; }
+        .share-btn:hover { transform: translateY(-2px); }
+        .sticky-sidebar { position: sticky; top: 100px; }
+        .related-card { transition: all 0.3s ease; }
+        .related-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-white">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-transparent transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="/" class="flex items-center space-x-3">
+                    <img src="/images/logo-dark.png" alt="ZSTS Logo" class="h-10 w-auto" id="nav-logo-img">
+                    </a>
+                <div class="hidden xl:flex items-center space-x-6">
+                    <a href="/" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.home">首页</a>
+                    <a href="/saudi-visa" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.saudiVisa">沙特签证</a>
+                    <a href="/visa" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.visa">全球签证</a>
+                    <a href="/transport" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.transport">境外交通住宿</a>
+                    <a href="/insurance" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.insurance">境外保险</a>
+                    <a href="/enterprise" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.enterprise">企业出海</a>
+                    <a href="/inspection" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.inspection">企业考察</a>
+                    <a href="/news" class="nav-link text-white font-semibold text-sm border-b-2 border-zsts-sand pb-0.5 hover:text-zsts-sand transition-colors" data-i18n="nav.news">沙特资讯</a>
+                    <a href="/about" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.about">关于我们</a>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="hidden sm:flex items-center space-x-1 border border-white/30 rounded-lg overflow-hidden" id="lang-switcher">
+                        <button onclick="setLang('zh')" class="lang-btn active px-3 py-1.5 text-xs font-semibold text-white" data-lang="zh">中</button>
+                        <button onclick="setLang('en')" class="lang-btn px-3 py-1.5 text-xs font-semibold text-white" data-lang="en">EN</button>
+                    </div>
+                    <button onclick="openQrModal()" class="hidden md:inline-flex btn-primary text-white px-5 py-2.5 rounded-lg font-medium text-sm cursor-pointer" data-i18n="nav.consult">立即咨询</button>
+                    <button id="mobile-menu-btn" class="xl:hidden text-white p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden xl:hidden bg-white shadow-lg max-h-[80vh] overflow-y-auto">
+            <div class="px-4 py-4 space-y-1">
+                <a href="/" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.home">首页</a>
+            <a href="/saudi-visa" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.saudiVisa">沙特签证</a>
+                <a href="/visa" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.visa">全球签证</a>
+                <a href="/transport" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.transport">境外交通住宿</a>
+                <a href="/insurance" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.insurance">境外保险</a>
+                <a href="/enterprise" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.enterprise">企业出海</a>
+                <a href="/inspection" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.inspection">企业考察</a>
+                <a href="/news" class="block py-3 text-zsts-green font-semibold border-b border-gray-100" data-i18n="nav.news">沙特资讯</a>
+                <a href="/about" class="block py-3 text-gray-800 hover:text-zsts-green font-medium" data-i18n="nav.about">关于我们</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-[45vh] min-h-[320px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="/images/riyadh-skyline.jpg" alt="利雅得天际线" class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-5 py-2 mb-6 border border-white/20">
+                <i data-lucide="newspaper" class="w-4 h-4 text-zsts-sand"></i>
+                <span class="text-white/90 text-sm font-medium" id="hero-article-tag">签证政策</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-tight" id="hero-article-title">沙特推出商务电子签证快速通道</h1>
+            <div class="flex items-center justify-center space-x-4 text-white/70 text-sm">
+                <span class="flex items-center space-x-1"><i data-lucide="calendar" class="w-3.5 h-3.5"></i><span id="hero-article-date">2025年12月15日</span></span>
+                <span class="flex items-center space-x-1"><i data-lucide="eye" class="w-3.5 h-3.5"></i><span id="hero-article-views">2,847 阅读</span></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <div class="bg-zsts-gray pt-6 pb-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center space-x-2 text-sm text-gray-500">
+                <a href="/" class="hover:text-zsts-green transition-colors">首页</a>
+                <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                <a href="/news" class="hover:text-zsts-green transition-colors">沙特资讯</a>
+                <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                <span class="text-gray-900 font-medium" id="breadcrumb-title">沙特推出商务电子签证快速通道</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Article Main -->
+    <div class="bg-white min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="flex flex-col lg:flex-row gap-12">
+
+        <!-- Left: Article Content -->
+        <div class="flex-1 min-w-0">
+
+            <!-- Article Header -->
+            <div class="mb-10 fade-in-section">
+                <div class="flex items-center space-x-3 mb-4">
+                    <span class="bg-zsts-green text-white text-xs font-bold px-3 py-1 rounded-full" id="article-tag">签证政策</span>
+                    <span class="text-gray-400 text-sm" id="article-date">2025-06-01</span>
+                </div>
+                <h1 class="text-2xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight" id="article-title" data-i18n="article.title">沙特推出商务电子签证快速通道，中国公民申请更便捷</h1>
+                <div class="flex items-center space-x-6 mb-8">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-zsts-green-light flex items-center justify-center">
+                            <i data-lucide="user" class="w-4 h-4 text-zsts-green"></i>
+                        </div>
+                        <span class="text-sm text-gray-600" id="article-author">ZSTS 签证中心</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-gray-400">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                        <span class="text-sm" id="article-views">1,258</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-gray-400">
+                        <i data-lucide="clock" class="w-4 h-4"></i>
+                        <span class="text-sm" id="article-read-time">阅读时长 5 分钟</span>
+                    </div>
+                </div>
+                <!-- Featured Image -->
+                <div class="rounded-2xl overflow-hidden mb-10 shadow-md">
+                    <img src="/images/riyadh-skyline.jpg" alt="沙特商务城市景观" class="w-full h-64 md:h-96 object-cover" id="article-hero-img">
+                </div>
+            </div>
+
+            <!-- Article Body -->
+            <div class="article-content fade-in-section mb-12" id="article-body">
+                <!-- 中文内容 -->
+                <div id="content-zh">
+                    <p>沙特阿拉伯王国外交部于2025年5月30日正式宣布，针对包括中国在内的主要贸易伙伴国家，推出<strong>商务电子签证快速通道</strong>服务。此举是沙特"愿景2030"框架下优化营商环境的重要举措，旨在大幅简化签证申请流程，缩短审批周期。</p>
+
+                    <h2>政策核心变化</h2>
+                    <p>根据最新发布的实施细则，此次政策优化主要体现在以下几个方面：</p>
+                    <ul class="list-disc">
+                        <li><strong>全程在线办理</strong>：申请人无需前往签证中心递交纸质材料，所有流程均可通过沙特外交部官方电子签证平台在线完成。</li>
+                        <li><strong>审批周期缩短</strong>：商务签证标准审批时间由原来的5-7个工作日，缩短至<strong>最快3个工作日</strong>出签。</li>
+                        <li><strong>材料要求简化</strong>：取消部分辅助证明材料要求，在线提交的邀请函扫描件获官方认可，无需额外公证认证。</li>
+                        <li><strong>多次往返便利</strong>：符合条件的商务签证申请人可获发1年多次往返签证，每次停留最长可达90天。</li>
+                    </ul>
+
+                    <h2>申请条件与适用人群</h2>
+                    <p>本次快速通道政策主要面向以下类型申请人开放：</p>
+                    <ol class="list-decimal">
+                        <li>持有效中国护照、且护照有效期在6个月以上的商务人士；</li>
+                        <li>已获得沙特境内注册企业出具的正式商务邀请函；</li>
+                        <li>邀请方企业须在沙特外交部电子签证系统进行过备案登记；</li>
+                        <li>无沙特入境不良记录及国际旅行禁令记录。</li>
+                    </ol>
+
+                    <blockquote>沙特外交部发言人在发布会上表示："我们致力于为中国商务人士提供更加高效、便利的签证服务，这充分体现了沙特对中国市场的高度重视，以及推动双边经贸合作迈向新高度的坚定决心。"</blockquote>
+
+                    <h2>办理流程详解</h2>
+                    <h3>第一步：在线注册</h3>
+                    <p>访问沙特外交部电子签证官方平台（eviza.mofa.gov.sa），使用邮箱注册账户并完成手机验证。系统支持中文界面引导，全程操作友好便捷。</p>
+
+                    <h3>第二步：填写申请表</h3>
+                    <p>在线填写签证申请表格，包括个人基本信息、出行目的、在沙行程安排等。请务必确保所填信息与邀请函内容保持一致，避免因信息不符导致审核延误。</p>
+
+                    <h3>第三步：上传材料</h3>
+                    <p>按系统提示上传护照扫描件、证件照片、沙特方邀请函等电子版材料。文件格式支持PDF、JPG、PNG，单个文件大小不超过5MB。</p>
+
+                    <h3>第四步：在线缴费</h3>
+                    <p>审核通过后，系统将发送缴费通知。支持Visa/Mastercard国际信用卡在线支付，签证费约合人民币800-1200元（以使馆实际收费为准）。</p>
+
+                    <h3>第五步：下载电子签证</h3>
+                    <p>缴费确认后，电子签证（PDF格式）将在1-2个工作日内签发至申请人注册邮箱。凭打印件或手机电子版均可通关入境。</p>
+
+                    <h2>中盛启瀚的专业建议</h2>
+                    <p>作为沙特阿拉伯驻华大使馆官方授权代办机构，中盛启瀚凭借多年专业经验，为广大申请人提供以下建议：</p>
+                    <ul class="list-disc">
+                        <li><strong>提前规划</strong>：建议出发前至少<strong>10-15个工作日</strong>启动申请流程，以便预留充足的补充材料时间；</li>
+                        <li><strong>邀请函合规</strong>：确保沙特方出具的邀请函包含完整的访问目的、行程日期、接待方联系方式，并已在沙特外交部系统备案；</li>
+                        <li><strong>材料审核</strong>：我司提供<strong>免费材料预审核</strong>服务，在正式提交前为您排查潜在风险，确保98%以上出签率；</li>
+                        <li><strong>加急需求</strong>：如行程紧急，可选择我司加急代办服务，最快<strong>24小时内</strong>完成递交并跟进审批进度。</li>
+                    </ul>
+
+                    <h2>常见问题解答</h2>
+                    <h3>电子签证是否需要贴签？</h3>
+                    <p>不需要。电子签证以PDF文件形式发放，申请人可自行打印或保存电子版，入境时出示即可。但仍建议打印纸质版以备不时之需。</p>
+
+                    <h3>商务签证可以用于旅游吗？</h3>
+                    <p>持有有效商务签证期间，持有人可以从事旅游观光活动，但<strong>不得从事任何形式的有偿工作或商业经营活动</strong>。如主要目的为旅游，建议另行申请旅游签证。</p>
+
+                    <hr>
+
+                    <p style="color:#6b7280; font-size:0.9rem;">以上信息根据沙特外交部2025年5月30日发布之政策整理，仅供参考。实际办理要求以沙特驻华使馆最新通知及电子签证平台实时提示为准。中盛启瀚将持续跟踪政策动态，为广大客户提供最新、最专业的签证服务。</p>
+                </div>
+
+                <!-- English Content (hidden by default) -->
+                <div id="content-en" style="display:none;">
+                    <p>The Ministry of Foreign Affairs of the Kingdom of Saudi Arabia officially announced on May 30, 2025 the launch of the <strong>Fast-Track Business E-Visa Channel</strong> for major trade partner countries including China. This initiative is a key measure under Saudi Vision 2030 to optimize the business environment and significantly streamline the visa application process.</p>
+
+                    <h2>Key Policy Changes</h2>
+                    <p>According to the newly released implementation rules, the optimization mainly covers:</p>
+                    <ul class="list-disc">
+                        <li><strong>Fully Online Process</strong>: Applicants no longer need to visit visa centers; all steps are completed online via the official MOFA e-visa platform.</li>
+                        <li><strong>Reduced Processing Time</strong>: Standard business visa processing time is shortened from 5-7 business days to <strong>as fast as 3 business days</strong>.</li>
+                        <li><strong>Simplified Documentation</strong>: Certain auxiliary documents are no longer required; scanned invitation letters are officially accepted without extra notarization.</li>
+                        <li><strong>Multiple-Entry Convenience</strong>: Qualified applicants may receive a 1-year multiple-entry visa with up to 90 days per stay.</li>
+                    </ul>
+
+                    <h2>Eligibility & Applicants</h2>
+                    <ol class="list-decimal">
+                        <li>Chinese passport holders with at least 6 months validity remaining;</li>
+                        <li>In possession of a formal business invitation letter from a Saudi-registered company;</li>
+                        <li>The inviting company must be registered in the MOFA e-visa system;</li>
+                        <li>No adverse entry records or international travel restrictions.</li>
+                    </ol>
+
+                    <blockquote>A MOFA spokesperson stated: "We are committed to providing Chinese business travelers with more efficient and convenient visa services, which fully reflects Saudi Arabia's high regard for the Chinese market and our firm determination to promote bilateral economic and trade cooperation to new heights."</blockquote>
+
+                    <h2>Application Process</h2>
+                    <h3>Step 1: Online Registration</h3>
+                    <p>Visit the official MOFA e-visa platform (eviza.mofa.gov.sa), register with email and complete phone verification. The system supports Chinese interface guidance.</p>
+
+                    <h3>Step 2: Complete Application Form</h3>
+                    <p>Fill in personal information, purpose of visit, and itinerary online. Ensure all information is consistent with the invitation letter.</p>
+
+                    <h3>Step 3: Upload Documents</h3>
+                    <p>Upload scanned passport, photo, and invitation letter as prompted. Supported formats: PDF, JPG, PNG (max 5MB each).</p>
+
+                    <h3>Step 4: Online Payment</h3>
+                    <p>Upon approval, pay the visa fee online via international credit card (Visa/Mastercard). Fee is approx. ¥800-1,200 (subject to actual embassy charges).</p>
+
+                    <h3>Step 5: Download E-Visa</h3>
+                    <p>After payment confirmation, the e-visa (PDF) will be issued within 1-2 business days to your registered email. Both printed and digital copies are accepted for entry.</p>
+
+                    <h2>ZSTS Professional Advice</h2>
+                    <ul class="list-disc">
+                        <li><strong>Plan Ahead</strong>: Start the application at least <strong>10-15 business days</strong> before departure;</li>
+                        <li><strong>Compliant Invitation</strong>: Ensure the invitation letter is properly issued and registered in the MOFA system;</li>
+                        <li><strong>Document Review</strong>: ZSTS provides <strong>free pre-submission review</strong> to maximize approval rate (98%+ historically);</li>
+                        <li><strong>Expedited Service</strong>: For urgent travel, our expedited service can submit and track within <strong>24 hours</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Share & Tags -->
+            <div class="fade-in-section mb-10 pb-8 border-b border-gray-200">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div class="flex items-center space-x-3">
+                        <button class="share-btn flex items-center space-x-2 px-4 py-2 rounded-full bg-gray-100 text-gray-600 hover:bg-zsts-green hover:text-white transition-colors text-sm" title="复制链接" onclick="copyLink()">
+                            <i data-lucide="link" class="w-4 h-4"></i>
+                            <span>复制分享文章链接</span>
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="tag" class="w-4 h-4 text-gray-400"></i>
+                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">签证政策</span>
+                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">电子签证</span>
+                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">沙特</span>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div><!-- end left col -->
+
+        <!-- Right: Sidebar -->
+        <div class="lg:w-80 xl:w-96 flex-shrink-0">
+            <div class="sticky-sidebar space-y-6">
+
+                <!-- Author Card -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 fade-in-section">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-12 h-12 rounded-full" style="background:linear-gradient(135deg,#006341,#004d33);" class="flex items-center justify-center">
+                            <i data-lucide="user-check" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <div class="font-bold text-gray-900 text-sm" id="sidebar-author">ZSTS 签证中心</div>
+                            <div class="text-xs text-gray-400">官方授权代办机构</div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 leading-relaxed" data-i18n="sidebar.author.desc">中盛启瀚签证中心由沙特驻华大使馆授权，提供专业签证咨询与代办服务，98%出签率保障。</p>
+                </div>
+
+                <!-- Table of Contents -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 fade-in-section">
+                    <h4 class="font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                        <i data-lucide="list" class="w-4 h-4 text-zsts-green"></i>
+                        <span>文章目录</span>
+                    </h4>
+                    <div class="space-y-2 text-sm" id="toc-list">
+                        <a href="#sec1" class="block text-gray-600 hover:text-zsts-green transition-colors py-1">政策核心变化</a>
+                        <a href="#sec2" class="block text-gray-600 hover:text-zsts-green transition-colors py-1">申请条件与适用人群</a>
+                        <a href="#sec3" class="block text-gray-600 hover:text-zsts-green transition-colors py-1">办理流程详解</a>
+                        <a href="#sec4" class="block text-gray-600 hover:text-zsts-green transition-colors py-1">中盛启瀚的专业建议</a>
+                        <a href="#sec5" class="block text-gray-600 hover:text-zsts-green transition-colors py-1">常见问题解答</a>
+                    </div>
+                </div>
+
+                <!-- Hot News Sidebar -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 fade-in-section">
+                    <h4 class="font-bold text-gray-900 mb-5 flex items-center space-x-2">
+                        <i data-lucide="flame" class="w-4 h-4 text-orange-500"></i>
+                        <span>相关推荐</span>
+                    </h4>
+                    <div class="space-y-4" id="related-list">
+                        <a href="news-detail.html?id=6" class="related-card block bg-zsts-gray rounded-xl p-4">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="bg-zsts-green text-white text-xs px-2 py-0.5 rounded-full">签证政策</span>
+                                <span class="text-xs text-gray-400">2025-05-05</span>
+                            </div>
+                            <div class="text-sm font-semibold text-gray-900 leading-snug hover:text-zsts-green">沙特落地签证政策更新：机场办理流程全解析</div>
+                        </a>
+                        <a href="news-detail.html?id=3" class="related-card block bg-zsts-gray rounded-xl p-4">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded-full">商旅指南</span>
+                                <span class="text-xs text-gray-400">2025-05-20</span>
+                            </div>
+                            <div class="text-sm font-semibold text-gray-900 leading-snug hover:text-zsts-green">首次赴沙特商务出行必备：文化礼仪与实用攻略</div>
+                        </a>
+                        <a href="news-detail.html?id=2" class="related-card block bg-zsts-gray rounded-xl p-4">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="bg-zsts-sand text-white text-xs px-2 py-0.5 rounded-full">市场洞察</span>
+                                <span class="text-xs text-gray-400">2025-05-28</span>
+                            </div>
+                            <div class="text-sm font-semibold text-gray-900 leading-snug hover:text-zsts-green">Vision 2030下的沙特商机：中国企业出海指南</div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+    </div>
+
+    <!-- CTA Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="/images/riyadh-skyline.jpg" 
+                 alt="利雅得城市天际线" 
+                 class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-zsts-dark/90"></div>
+        </div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6" data-i18n="cta.title">开启您的沙特商务之旅</h2>
+            <p class="text-white/70 text-lg mb-10 max-w-2xl mx-auto" data-i18n="cta.subtitle">
+                无论您是计划商务考察、参展参会，还是企业出海落地，<br class="hidden sm:block">
+                中盛启瀚都将为您提供专业、高效的一站式服务。
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#contact" class="bg-white text-zsts-dark px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all flex items-center space-x-2">
+                    <i data-lucide="phone" class="w-5 h-5"></i>
+                    <span data-i18n="cta.btn1">立即咨询</span>
+                </a>
+                <a href="#contact" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/20 transition-all flex items-center space-x-2">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    <span data-i18n="cta.btn2">微信咨询</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Contact Section -->
+    <footer id="contact" class="bg-zsts-dark text-white pt-20 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-12 mb-16">
+                <!-- Company Info -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center space-x-3 mb-6">
+                            <img src="/images/logo-dark.png" alt="ZSTS Logo" class="h-10 w-auto">
+                        </div>
+                        <p class="text-white/60 text-sm leading-relaxed mb-6" data-i18n="footer.desc">
+                        依托沙特阿拉伯授权签证中心，聚焦沙特市场的综合商业服务公司，致力于构筑中沙两国高质量发展桥梁。
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6" data-i18n="footer.navTitle">快速导航</h4>
+                    <ul class="grid grid-cols-2 gap-x-6 gap-y-3 text-white/60 text-sm">
+                        <li><a href="/saudi-visa" class="hover:text-zsts-sand transition-colors" data-i18n="nav.saudiVisa">沙特签证</a></li>
+                        <li><a href="/visa" class="hover:text-zsts-sand transition-colors" data-i18n="nav.visa">全球签证</a></li>
+                        <li><a href="/transport" class="hover:text-zsts-sand transition-colors" data-i18n="nav.transport">境外交通住宿</a></li>
+                        <li><a href="/insurance" class="hover:text-zsts-sand transition-colors" data-i18n="nav.insurance">境外保险</a></li>
+                        <li><a href="/enterprise" class="hover:text-zsts-sand transition-colors" data-i18n="nav.enterprise">企业出海</a></li>
+                        <li><a href="/inspection" class="hover:text-zsts-sand transition-colors" data-i18n="nav.inspection">企业考察</a></li>
+                        <li><a href="/news" class="hover:text-zsts-sand transition-colors" data-i18n="nav.news">沙特资讯</a></li>
+                        <li><a href="/about" class="hover:text-zsts-sand transition-colors" data-i18n="nav.about">关于我们</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6" data-i18n="footer.contactTitle">联系方式</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-zsts-sand flex-shrink-0"></i>
+                            <span class="text-white/60 text-sm">010-85656995 / 010-53670397 / 17190016075</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="mail" class="w-5 h-5 text-zsts-sand flex-shrink-0"></i>
+                            <span class="text-white/60 text-sm">info@zsts.group</span>
+                        </div>
+                        <div class="mt-4 grid grid-cols-3 gap-3">
+                            <div class="bg-white/10 rounded-xl p-3 text-center">
+                                <img src="/images/qr-personal.png" alt="微信客服一" class="w-16 h-16 rounded-lg mx-auto mb-1 object-contain bg-white">
+                                <span class="text-white/60 text-xs">微信客服一</span>
+                            </div>
+                            <div class="bg-white/10 rounded-xl p-3 text-center">
+                                <img src="/images/qr-enterprise.png" alt="微信客服二" class="w-16 h-16 rounded-lg mx-auto mb-1 object-contain bg-white">
+                                <span class="text-white/60 text-xs">微信客服二</span>
+                            </div>
+                            <div class="bg-white/10 rounded-xl p-3 text-center">
+                                <img src="/images/qr-whatsapp.png" alt="WhatsApp" class="w-16 h-16 rounded-lg mx-auto mb-1 object-contain bg-white">
+                                <span class="text-white/60 text-xs">WhatsApp</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between">
+                <p class="text-white/40 text-sm mb-4 md:mb-0">
+                    <span data-i18n="footer.copyright">中盛启瀚（ZSTS）国际商务发展有限公司</span>. All rights reserved.
+                </p>
+                <div class="flex items-center space-x-6 text-white/40 text-sm">
+                    <a href="/privacy-policy" class="hover:text-white transition-colors" data-i18n="footer.privacy">隐私政策</a>
+                    <a href="/terms" class="hover:text-white transition-colors" data-i18n="footer.terms">服务条款</a>
+                    <a href="/sitemap" class="hover:text-white transition-colors" data-i18n="footer.sitemap">网站地图</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- QR Code Modal -->
+<div id="qr-modal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm" onclick="closeQrModal()">
+    <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 text-center shadow-2xl relative" onclick="event.stopPropagation()">
+        <button onclick="closeQrModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+        <h3 class="text-lg font-bold text-gray-900 mb-2" data-i18n="modal.title">扫码咨询</h3>
+        <p class="text-gray-500 text-sm mb-6" data-i18n="modal.desc">选择您方便的方式联系我们</p>
+        <div class="grid grid-cols-3 gap-6">
+            <div class="flex flex-col items-center">
+                <img src="/images/qr-personal.png" alt="微信客服一二维码" class="w-36 h-36 rounded-lg shadow-md mb-3 object-contain">
+                <span class="text-sm font-semibold text-gray-700">微信客服一</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="/images/qr-enterprise.png" alt="微信客服二二维码" class="w-36 h-36 rounded-lg shadow-md mb-3 object-contain">
+                <span class="text-sm font-semibold text-gray-700">微信客服二</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="/images/qr-whatsapp.png" alt="WhatsApp二维码" class="w-36 h-36 rounded-lg shadow-md mb-3 object-contain">
+                <span class="text-sm font-semibold text-gray-700">WhatsApp</span>
+            </div>
+        </div>
+        <p class="text-sm text-gray-500 mt-6" data-i18n="modal.phone">客服电话：010-85656995 / 010-53670397 / 17190016075</p>
+    </div>
+</div>
+
+    <!-- Scroll to Top -->
+    <button id="scroll-top" class="fixed bottom-8 right-8 w-12 h-12 bg-zsts-green text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-zsts-green-dark z-50">
+        <i data-lucide="chevron-up" class="w-6 h-6"></i>
+    </button>
+
+    <!-- i18n -->
+    <script>
+    (function() {
+        const i18n = {
+            zh: {
+                'page.title': '沙特推出商务电子签证快速通道 | 沙特资讯 | 中盛启瀚 ZSTS',
+                'nav.home': '首页',
+                'nav.brand': '中盛启瀚',
+                'nav.consult': '立即咨询',
+                'article.title': '沙特推出商务电子签证快速通道，中国公民申请更便捷',
+                'sidebar.author.desc': '中盛启瀚签证中心由沙特驻华大使馆授权，提供专业签证咨询与代办服务，98%出签率保障。',
+                'cta.title': '开启您的沙特商务之旅',
+                'cta.subtitle': '无论您是计划商务考察、参展参会，还是企业出海落地，中盛启瀚都将为您提供专业、高效的一站式服务。',
+                'cta.btn1': '立即咨询',
+                'cta.btn2': '微信咨询',
+                'modal.title': '扫码咨询',
+                'modal.desc': '选择您方便的方式联系我们',
+                'modal.phone': '客服电话：010-85656995 / 010-53670397 / 17190016075', 'nav.saudiVisa': '沙特签证', 'nav.visa': '全球签证', 'nav.transport': '境外交通住宿', 'nav.enterprise': '企业出海', 'nav.inspection': '企业考察', 'nav.insurance': '境外保险', 'nav.news': '沙特资讯', 'nav.about': '关于我们', 'footer.desc': '依托沙特阿拉伯授权签证中心，聚焦沙特市场的综合商业服务公司，致力于构筑中沙两国高质量发展桥梁。', 'footer.navTitle': '快速导航', 'footer.contactTitle': '联系方式', 'footer.qrHint': '扫码添加微信客服', 'footer.copyright': '中盛启瀚（ZSTS）国际商务发展有限公司', 'footer.privacy': '隐私政策', 'footer.terms': '服务条款', 'footer.sitemap': '网站地图',
+            },
+            en: {
+                'page.title': 'Saudi Launches Fast-Track Business E-Visa | Saudi News | ZSTS',
+                'nav.home': 'Home',
+                'nav.brand': 'ZSTS',
+                'nav.consult': 'Contact Us',
+                'article.title': 'Saudi Launches Fast-Track Business E-Visa for Chinese Citizens',
+                'sidebar.author.desc': 'ZSTS Visa Center is authorized by the Saudi Embassy in China, providing professional visa consultation with 98% approval rate.',
+                'cta.title': 'Start Your Saudi Business Journey',
+                'cta.subtitle': 'Whether you are planning business inspections, exhibitions, or enterprise landing, ZSTS will provide you with professional and efficient one-stop services.',
+                'cta.btn1': 'Contact Us',
+                'cta.btn2': 'WeChat',
+                'modal.title': 'Scan to Consult',
+                'modal.desc': 'Choose the most convenient way to contact us',
+                'modal.phone': 'Tel: 010-85656995 / 010-53670397 / 17190016075', 'nav.saudiVisa': 'Saudi Visa', 'nav.visa': 'Global Visa', 'nav.transport': 'Overseas Transport & Stay', 'nav.enterprise': 'Enterprise', 'nav.inspection': 'Inspection', 'nav.insurance': 'Overseas Insurance', 'nav.news': 'News', 'nav.about': 'About', 'footer.desc': 'A comprehensive business service company focused on the Saudi market, authorized by the Saudi visa center.', 'footer.navTitle': 'Quick Links', 'footer.contactTitle': 'Contact', 'footer.qrHint': 'Scan to add WeChat', 'footer.copyright': 'ZSTS International Business Development Co., Ltd.', 'footer.privacy': 'Privacy Policy', 'footer.terms': 'Terms', 'footer.sitemap': 'Sitemap',
+            }
+        };
+        let currentLang = localStorage.getItem('zsts-lang') || 'zh';
+        function setLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('zsts-lang', lang);
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+            applyTranslations();
+            updateLangButtons();
+            // Toggle content
+            document.getElementById('content-zh').style.display = lang === 'zh' ? '' : 'none';
+            document.getElementById('content-en').style.display = lang === 'en' ? '' : 'none';
+        }
+        function applyTranslations() {
+            const dict = i18n[currentLang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    if (el.tagName === 'TITLE') document.title = dict[key];
+                    else el.textContent = dict[key];
+                }
+            });
+        }
+        function updateLangButtons() {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === currentLang);
+            });
+        }
+        window.setLang = setLang;
+        document.addEventListener('DOMContentLoaded', () => {
+            applyTranslations();
+            updateLangButtons();
+            // Show correct content
+            document.getElementById('content-zh').style.display = currentLang === 'zh' ? '' : 'none';
+            document.getElementById('content-en').style.display = currentLang === 'en' ? '' : 'none';
+        });
+    })();
+        // QR Code Modal functions
+        function openQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Bind consult buttons to open QR modal
+        document.querySelectorAll('a[href="#contact"], .consult-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openQrModal();
+            });
+        });
+    </script>
+
+    <script>
+        lucide.createIcons();
+
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const langSwitcher = document.getElementById('lang-switcher');
+        const langBtns = document.querySelectorAll('.lang-btn');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY > 50;
+            navbar.classList.toggle('nav-transparent', !scrolled);
+            navbar.classList.toggle('nav-scrolled', scrolled);
+                const logoImg = document.getElementById('nav-logo-img');
+                if (logoImg) { logoImg.src = scrolled ? 'images/logo-new.png' : 'images/logo-dark.png'; }
+
+            navLinks.forEach(link => {
+                link.classList.toggle('text-white', !scrolled);
+                link.classList.toggle('text-gray-700', scrolled);
+            });
+            if (langSwitcher) {
+                langSwitcher.classList.toggle('border-white/30', !scrolled);
+                langSwitcher.classList.toggle('border-gray-200', scrolled);
+            }
+            langBtns.forEach(btn => {
+                if (!btn.classList.contains('active')) {
+                    btn.classList.toggle('text-white', !scrolled);
+                    btn.classList.toggle('text-gray-500', scrolled);
+                } else {
+                    btn.classList.toggle('text-white', !scrolled);
+                    btn.classList.toggle('text-zsts-green', scrolled);
+                }
+            });
+        });
+
+        // Mobile menu
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Scroll to top
+        const scrollTopBtn = document.getElementById('scroll-top');
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.classList.toggle('opacity-0', window.scrollY <= 500);
+            scrollTopBtn.classList.toggle('invisible', window.scrollY <= 500);
+            scrollTopBtn.classList.toggle('opacity-100', window.scrollY > 500);
+            scrollTopBtn.classList.toggle('visible', window.scrollY > 500);
+        });
+        scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // Copy link
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('链接已复制！');
+            });
+        }
+
+        // Intersection Observer
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
+        // QR Code Modal functions
+        function openQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Bind consult buttons to open QR modal
+        document.querySelectorAll('a[href="#contact"], .consult-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openQrModal();
+            });
+        });
+    </script>
+</body>
+</html>

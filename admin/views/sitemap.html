@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站地图 | 中盛启瀚 ZSTS</title>
+    <meta name="description" content="中盛启瀚（ZSTS）网站地图，快速导航至所有主要页面。">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <script src="/js/lucide.js"></script>
+    
+    <link href="/css/google-fonts.css" rel="stylesheet"><link href="/css/fonts.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'zsts-green': '#006341',
+                        'zsts-green-dark': '#004d33',
+                        'zsts-green-light': '#e6f2ed',
+                        'zsts-sand': '#C5A572',
+                        'zsts-sand-light': '#f5efe6',
+                        'zsts-dark': '#1a1a2e',
+                        'zsts-gray': '#f8f9fa',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'Noto Sans SC', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+        function openQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+        function closeQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .nav-scrolled { background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); box-shadow: 0 1px 20px rgba(0,0,0,0.08); }
+        .nav-transparent { background: transparent; }
+        .btn-primary { background: linear-gradient(135deg, #006341 0%, #004d33 100%); transition: all 0.3s ease; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -10px rgba(0,99,65,0.5); }
+        .hero-overlay { background: linear-gradient(135deg, rgba(0,99,65,0.85) 0%, rgba(26,26,46,0.75) 100%); }
+        .lang-btn { transition: all 0.3s ease; }
+        .lang-btn.active { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.5); }
+        .nav-scrolled .lang-btn.active { background: rgba(0,99,65,0.1); border-color: rgba(0,99,65,0.3); color: #006341; }
+        .lang-btn:not(.active) { opacity: 0.6; }
+        .lang-btn:hover { opacity: 1; }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-white">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-transparent transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="/" class="flex items-center space-x-3">
+                    <img src="images/logo-dark.png" alt="ZSTS Logo" class="h-10 w-auto" id="nav-logo-img">
+                    </a>
+                <div class="hidden xl:flex items-center space-x-6">
+                    <a href="/" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm" data-i18n="nav.home">首页</a>
+                    <a href="/saudi-visa" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm">沙特签证</a>
+                    <a href="/visa" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm">全球签证</a>
+                    <a href="/transport" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm">境外交通住宿</a>
+                    <a href="/enterprise" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm">企业出海</a>
+                    <a href="/inspection" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm">企业考察</a>
+                    <a href="/insurance" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm">境外保险</a>
+                    <a href="/news" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm">沙特资讯</a>
+                    <a href="/about" class="nav-link text-white hover:text-zsts-sand transition-colors font-medium text-sm">关于我们</a>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="hidden sm:flex items-center space-x-1 border border-white/30 rounded-lg overflow-hidden" id="lang-switcher">
+                        <button class="lang-btn active px-3 py-1.5 text-xs font-semibold text-white">中</button>
+                        <button class="lang-btn px-3 py-1.5 text-xs font-semibold text-white">EN</button>
+                    </div>
+                    <button onclick="openQrModal()" class="hidden md:inline-flex btn-primary text-white px-5 py-2.5 rounded-lg font-medium text-sm cursor-pointer">立即咨询</button>
+                    <button id="mobile-menu-btn" class="xl:hidden text-white p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden xl:hidden bg-white shadow-lg max-h-[80vh] overflow-y-auto">
+            <div class="px-4 py-4 space-y-1">
+                <a href="/" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100" data-i18n="nav.home">首页</a>
+            <a href="/saudi-visa" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100">沙特签证</a>
+                <a href="/visa" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100">全球签证</a>
+                <a href="/transport" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100">境外交通住宿</a>
+                <a href="/enterprise" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100">企业出海</a>
+                <a href="/inspection" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100">企业考察</a>
+                <a href="/insurance" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100">境外保险</a>
+                <a href="/news" class="block py-3 text-gray-800 hover:text-zsts-green font-medium border-b border-gray-100">沙特资讯</a>
+                <a href="/about" class="block py-3 text-gray-800 hover:text-zsts-green font-medium">关于我们</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-[40vh] min-h-[280px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="images/riyadh-skyline.jpg" alt="背景" class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">网站地图</h1>
+            <p class="text-white/80 text-lg max-w-2xl mx-auto">快速导航至网站各主要页面</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="bg-white min-h-screen">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        
+        <div class="prose prose-lg max-w-none">
+            <div class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">网站地图</h2>
+                <p class="text-gray-500">快速导航至网站各主要页面</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-zsts-gray rounded-2xl p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                        <i data-lucide="file-text" class="w-5 h-5 text-zsts-green"></i>
+                        <span>核心页面</span>
+                    </h3>
+                    <ul class="space-y-3">
+                        <li><a href="/" class="text-gray-600 hover:text-zsts-green transition-colors flex items-center space-x-2"><i data-lucide="chevron-right" class="w-4 h-4"></i><span>首页</span></a></li>
+                        <li><a href="/saudi-visa" class="text-gray-600 hover:text-zsts-green transition-colors flex items-center space-x-2"><i data-lucide="chevron-right" class="w-4 h-4"></i><span>沙特签证</span></a></li>
+                        <li><a href="/about" class="text-gray-600 hover:text-zsts-green transition-colors flex items-center space-x-2"><i data-lucide="chevron-right" class="w-4 h-4"></i><span>关于我们</span></a></li>
+                        <li><a href="/news" class="text-gray-600 hover:text-zsts-green transition-colors flex items-center space-x-2"><i data-lucide="chevron-right" class="w-4 h-4"></i><span>沙特资讯</span></a></li>
+                    </ul>
+                </div>
+                <div class="bg-zsts-gray rounded-2xl p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                        <i data-lucide="briefcase" class="w-5 h-5 text-zsts-green"></i>
+                        <span>服务项目</span>
+                    </h3>
+                    <ul class="space-y-3">
+                        <li><a href="/visa" class="text-gray-600 hover:text-zsts-green transition-colors flex items-center space-x-2"><i data-lucide="chevron-right" class="w-4 h-4"></i><span>全球签证</span></a></li>
+                        <li><a href="/transport" class="text-gray-600 hover:text-zsts-green transition-colors flex items-center space-x-2"><i data-lucide="chevron-right" class="w-4 h-4"></i><span>境外交通住宿</span></a></li>
+                        <li><a href="/enterprise" class="text-gray-600 hover:text-zsts-green transition-colors flex items-center space-x-2"><i data-lucide="chevron-right" class="w-4 h-4"></i><span>企业出海</span></a></li>
+                        <li><a href="/inspection" class="text-gray-600 hover:text-zsts-green transition-colors flex items-center space-x-2"><i data-lucide="chevron-right" class="w-4 h-4"></i><span>企业考察</span></a></li>
+                        <li><a href="/insurance" class="text-gray-600 hover:text-zsts-green transition-colors flex items-center space-x-2"><i data-lucide="chevron-right" class="w-4 h-4"></i><span>境外保险</span></a></li>
+                    </ul>
+                </div>
+                <div class="bg-zsts-gray rounded-2xl p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                        <i data-lucide="newspaper" class="w-5 h-5 text-zsts-green"></i>
+                        <span>资讯中心</span>
+                    </h3>
+                    <ul class="space-y-3">
+                        <li><a href="/news" class="text-gray-600 hover:text-zsts-green transition-colors flex items-center space-x-2"><i data-lucide="chevron-right" class="w-4 h-4"></i><span>全部资讯</span></a></li>
+                        <li><a href="news.html?cat=visa" class="text-gray-600 hover:text-zsts-green transition-colors flex items-center space-x-2"><i data-lucide="chevron-right" class="w-4 h-4"></i><span>签证政策</span></a></li>
+                        <li><a href="news.html?cat=market" class="text-gray-600 hover:text-zsts-green transition-colors flex items-center space-x-2"><i data-lucide="chevron-right" class="w-4 h-4"></i><span>市场洞察</span></a></li>
+                        <li><a href="news.html?cat=travel" class="text-gray-600 hover:text-zsts-green transition-colors flex items-center space-x-2"><i data-lucide="chevron-right" class="w-4 h-4"></i><span>商旅指南</span></a></li>
+                    </ul>
+                </div>
+                <div class="bg-zsts-gray rounded-2xl p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                        <i data-lucide="shield" class="w-5 h-5 text-zsts-green"></i>
+                        <span>法律信息</span>
+                    </h3>
+                    <ul class="space-y-3">
+                        <li><a href="/privacy-policy" class="text-gray-600 hover:text-zsts-green transition-colors flex items-center space-x-2"><i data-lucide="chevron-right" class="w-4 h-4"></i><span>隐私政策</span></a></li>
+                        <li><a href="/terms" class="text-gray-600 hover:text-zsts-green transition-colors flex items-center space-x-2"><i data-lucide="chevron-right" class="w-4 h-4"></i><span>服务条款</span></a></li>
+                        <li><a href="/sitemap" class="text-gray-600 hover:text-zsts-green transition-colors flex items-center space-x-2"><i data-lucide="chevron-right" class="w-4 h-4"></i><span>网站地图</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-zsts-dark text-white pt-20 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-12 mb-16">
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <img src="images/logo-dark.png" alt="ZSTS Logo" class="h-10 w-auto">
+                        </div>
+                    <p class="text-white/60 text-sm leading-relaxed mb-6">
+                        依托沙特阿拉伯授权签证中心，聚焦沙特市场的综合商业服务公司，致力于构筑中沙两国高质量发展桥梁。
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-6">快速导航</h4>
+                    <ul class="grid grid-cols-2 gap-x-6 gap-y-3 text-white/60 text-sm">
+                        <li><a href="/saudi-visa" class="hover:text-zsts-sand transition-colors">沙特签证</a></li>
+                        <li><a href="/visa" class="hover:text-zsts-sand transition-colors">全球签证</a></li>
+                        <li><a href="/transport" class="hover:text-zsts-sand transition-colors">境外交通住宿</a></li>
+                        <li><a href="/enterprise" class="hover:text-zsts-sand transition-colors">企业出海</a></li>
+                        <li><a href="/inspection" class="hover:text-zsts-sand transition-colors">企业考察</a></li>
+                        <li><a href="/insurance" class="hover:text-zsts-sand transition-colors">境外保险</a></li>
+                        <li><a href="/news" class="hover:text-zsts-sand transition-colors">沙特资讯</a></li>
+                        <li><a href="/about" class="hover:text-zsts-sand transition-colors">关于我们</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-6">联系方式</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-zsts-sand flex-shrink-0"></i>
+                            <span class="text-white/60 text-sm">010-85656995 / 010-53670397 / 17190016075</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="mail" class="w-5 h-5 text-zsts-sand flex-shrink-0"></i>
+                            <span class="text-white/60 text-sm">info@zsts.group</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="message-circle" class="w-5 h-5 text-zsts-sand flex-shrink-0"></i>
+                            <span class="text-white/60 text-sm">微信号：ZSTS-Service</span>
+                        </div>
+                        <div class="mt-4 grid grid-cols-3 gap-3">
+                            <div class="bg-white/10 rounded-xl p-3 text-center">
+                                <img src="images/qr-personal.png" alt="微信客服一" class="w-16 h-16 rounded-lg mx-auto mb-1 object-contain bg-white">
+                                <span class="text-white/60 text-xs">微信客服一</span>
+                            </div>
+                            <div class="bg-white/10 rounded-xl p-3 text-center">
+                                <img src="images/qr-enterprise.png" alt="微信客服二" class="w-16 h-16 rounded-lg mx-auto mb-1 object-contain bg-white">
+                                <span class="text-white/60 text-xs">微信客服二</span>
+                            </div>
+                            <div class="bg-white/10 rounded-xl p-3 text-center">
+                                <img src="images/qr-whatsapp.png" alt="WhatsApp" class="w-16 h-16 rounded-lg mx-auto mb-1 object-contain bg-white">
+                                <span class="text-white/60 text-xs">WhatsApp</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between">
+                <p class="text-white/40 text-sm mb-4 md:mb-0">
+                    中盛启瀚（ZSTS）国际商务发展有限公司. All rights reserved.
+                </p>
+                <div class="flex items-center space-x-6 text-white/40 text-sm">
+                    <a href="/privacy-policy" class="hover:text-white transition-colors">隐私政策</a>
+                    <a href="/terms" class="hover:text-white transition-colors">服务条款</a>
+                    <a href="/sitemap" class="hover:text-white transition-colors">网站地图</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- QR Code Modal -->
+<div id="qr-modal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm" onclick="closeQrModal()">
+    <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 text-center shadow-2xl relative" onclick="event.stopPropagation()">
+        <button onclick="closeQrModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+        <h3 class="text-lg font-bold text-gray-900 mb-2" data-i18n="modal.title">扫码咨询</h3>
+        <p class="text-gray-500 text-sm mb-6" data-i18n="modal.desc">选择您方便的方式联系我们</p>
+        <div class="grid grid-cols-3 gap-6">
+            <div class="flex flex-col items-center">
+                <img src="images/qr-personal.png" alt="微信客服一二维码" class="w-36 h-36 rounded-lg shadow-md mb-3 object-contain">
+                <span class="text-sm font-semibold text-gray-700">微信客服一</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="images/qr-enterprise.png" alt="微信客服二二维码" class="w-36 h-36 rounded-lg shadow-md mb-3 object-contain">
+                <span class="text-sm font-semibold text-gray-700">微信客服二</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <img src="images/qr-whatsapp.png" alt="WhatsApp二维码" class="w-36 h-36 rounded-lg shadow-md mb-3 object-contain">
+                <span class="text-sm font-semibold text-gray-700">WhatsApp</span>
+            </div>
+        </div>
+        <p class="text-sm text-gray-500 mt-6" data-i18n="modal.phone">客服电话：010-85656995 / 010-53670397 / 17190016075</p>
+    </div>
+</div>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.remove('nav-transparent');
+                navbar.classList.add('nav-scrolled');
+                const logoImg = document.getElementById('nav-logo-img');
+                if (logoImg) { logoImg.src = '/images/logo-new.png'; }
+                navbar.querySelectorAll('.nav-link').forEach(el => {
+                    el.classList.remove('text-white');
+                    el.classList.add('text-gray-800');
+                });
+
+
+            } else {
+                navbar.classList.add('nav-transparent');
+                navbar.classList.remove('nav-scrolled');
+                const logoImg = document.getElementById('nav-logo-img');
+                if (logoImg) { logoImg.src = '/images/logo-dark.png'; }
+                navbar.querySelectorAll('.nav-link').forEach(el => {
+                    el.classList.add('text-white');
+                    el.classList.remove('text-gray-800');
+                });
+
+
+            }
+        });
+        // Mobile menu
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        lucide.createIcons();
+    </script>
+</body>
+</html>

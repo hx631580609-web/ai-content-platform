@@ -1,0 +1,525 @@
+﻿﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中盛启瀚 - 用户管理</title>
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <link href="/css/fonts.css" rel="stylesheet">
+    <script src="/js/lucide.js"></script>
+    <style>
+        body { 
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 4px 0 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .sidebar-logo {
+            background: linear-gradient(135deg, rgba(0, 99, 65, 0.2) 0%, rgba(0, 77, 51, 0.3) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1.75rem;
+        }
+        
+        .brand-icon {
+            background: linear-gradient(135deg, #006341 0%, #004d33 100%);
+            box-shadow: 0 8px 25px -5px rgba(0, 99, 65, 0.5);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .brand-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .nav-item {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 14px;
+            margin: 6px 14px;
+            padding: 14px 16px;
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            background: linear-gradient(135deg, #006341 0%, #00a86b 100%);
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+        
+        .nav-item:hover::before,
+        .nav-item.active::before {
+            width: 4px;
+            height: 60%;
+            opacity: 1;
+        }
+        
+        .nav-item:hover,
+        .nav-item.active {
+            background: linear-gradient(135deg, rgba(0, 99, 65, 0.15) 0%, rgba(0, 99, 65, 0.05) 100%);
+            transform: translateX(4px);
+        }
+        
+        .nav-item.active {
+            color: #C5A572;
+        }
+        
+        .nav-icon {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .nav-item:hover .nav-icon {
+            transform: scale(1.15) translateX(4px);
+        }
+        
+        .section-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 0 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .main-content {
+            margin-left: 280px;
+            transition: margin-left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1.5rem 2rem;
+        }
+        
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .content-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 24px;
+        }
+        
+        .content-card:hover {
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #006341 0%, #004d33 100%);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px -10px rgba(0, 99, 65, 0.5);
+        }
+        
+        .table-row {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+        
+        .table-row:hover {
+            background: linear-gradient(135deg, rgba(0, 99, 65, 0.08) 0%, rgba(0, 99, 65, 0.02) 100%);
+        }
+        
+        .action-btn {
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            padding: 8px;
+        }
+        
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .action-btn.role:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+        
+        .action-btn.delete:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+        
+        .role-badge {
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .role-badge:hover {
+            transform: scale(1.1);
+        }
+        
+        .user-avatar {
+            background: linear-gradient(135deg, #e6f2ed 0%, rgba(0, 99, 65, 0.2) 100%);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .user-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px -5px rgba(0, 99, 65, 0.3);
+        }
+        
+        .logout-btn {
+            transition: all 0.3s ease;
+            border-radius: 14px;
+            margin: 6px 14px;
+            padding: 14px 16px;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+        
+        .fade-in-delay-1 { animation-delay: 0.1s; }
+        .fade-in-delay-2 { animation-delay: 0.2s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 100px;
+            }
+            .sidebar .nav-text,
+            .sidebar .section-title,
+            .sidebar .brand-text {
+                display: none;
+            }
+            .sidebar-logo {
+                padding: 1.25rem;
+                justify-content: center;
+            }
+            .sidebar-logo > div:first-child {
+                margin: 0 auto;
+            }
+            .nav-item {
+                margin: 4px 8px;
+                padding: 14px;
+                justify-content: center;
+            }
+            .logout-btn {
+                margin: 4px 8px;
+                padding: 14px;
+                justify-content: center;
+            }
+            .logout-btn span {
+                display: none;
+            }
+            .main-content {
+                margin-left: 100px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: fixed;
+                z-index: 50;
+                height: auto;
+            }
+            .main-content {
+                margin-left: 0;
+                margin-top: 100px;
+            }
+        }
+        
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgba(0, 99, 65, 0.3), rgba(0, 99, 65, 0.1));
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 侧边栏 -->
+    <div class="sidebar min-h-screen fixed top-0 left-0 h-full overflow-y-auto">
+        <div class="sidebar-logo">
+            <div class="flex items-center space-x-4">
+                <div class="brand-icon w-12 h-12 rounded-xl flex items-center justify-center">
+                    <i data-lucide="shield-check" class="w-7 h-7 text-white"></i>
+                </div>
+                <div class="brand-text">
+                    <h1 class="font-bold text-white text-xl tracking-tight">中盛启瀚</h1>
+                    <p class="text-xs text-gray-400 mt-1">管理后台</p>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="py-6">
+            <div class="section-title text-gray-500 mb-4">网站管理</div>
+            
+            <a href="/admin" class="nav-item flex items-center space-x-4 text-gray-400 hover:text-gray-300">
+                <i data-lucide="layout-dashboard" class="nav-icon w-6 h-6"></i>
+                <span class="nav-text font-medium">仪表盘</span>
+            </a>
+            <a href="/admin/contents" class="nav-item flex items-center space-x-4 text-gray-400 hover:text-gray-300">
+                <i data-lucide="file-text" class="nav-icon w-6 h-6"></i>
+                <span class="nav-text font-medium">内容管理</span>
+            </a>
+            <a href="/admin/blog-posts" class="nav-item flex items-center space-x-4 text-gray-400 hover:text-gray-300">
+                <i data-lucide="newspaper" class="nav-icon w-6 h-6"></i>
+                <span class="nav-text font-medium">博客管理</span>
+            </a>
+            <a href="/admin/navigation" class="nav-item flex items-center space-x-4 text-gray-400 hover:text-gray-300">
+                <i data-lucide="navigation" class="nav-icon w-6 h-6"></i>
+                <span class="nav-text font-medium">导航管理</span>
+            </a>
+            
+            <div class="section-title text-gray-500 mt-8 mb-4">AI 工具</div>
+            <a href="/admin/ai_assistant" class="nav-item flex items-center space-x-4 text-gray-400 hover:text-gray-300">
+                <i data-lucide="sparkles" class="nav-icon w-6 h-6"></i>
+                <span class="nav-text font-medium">AI 创作助手</span>
+            </a>
+            
+            <div class="section-title text-gray-500 mt-8 mb-4">系统设置</div>
+            <a href="/admin/users" class="nav-item active flex items-center space-x-4 text-gray-300">
+                <i data-lucide="users" class="nav-icon w-6 h-6"></i>
+                <span class="nav-text font-medium">用户管理</span>
+            </a>
+            <a href="/admin/system-logs" class="nav-item flex items-center space-x-4 text-gray-400 hover:text-gray-300">
+                <i data-lucide="activity" class="nav-icon w-6 h-6"></i>
+                <span class="nav-text font-medium">系统日志</span>
+            </a>
+        </nav>
+        
+        <div class="absolute bottom-0 left-0 right-0">
+            <button onclick="logout()" class="logout-btn w-full flex items-center space-x-4 text-gray-400">
+                <i data-lucide="log-out" class="nav-icon w-6 h-6"></i>
+                <span class="nav-text font-medium">退出登录</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 主内容区 -->
+    <div class="main-content min-h-screen">
+        <!-- 头部 -->
+        <header class="header flex items-center justify-between">
+            <div>
+                <h1 class="page-title">用户管理</h1>
+                <p class="text-sm text-gray-500 mt-2">管理系统用户和权限</p>
+            </div>
+            <button onclick="createNewUser()" class="btn-primary text-white px-6 py-3 rounded-xl font-semibold flex items-center space-x-2 shadow-lg">
+                <i data-lucide="user-plus" class="w-5 h-5"></i>
+                <span>新建用户</span>
+            </button>
+        </header>
+        
+        <!-- 内容区域 -->
+        <div class="p-8">
+            <div class="content-card rounded-2xl p-8 fade-in fade-in-delay-1">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b-2 border-gray-100">
+                                <th class="text-left py-4 px-4 text-sm font-bold text-gray-600">ID</th>
+                                <th class="text-left py-4 px-4 text-sm font-bold text-gray-600">用户名</th>
+                                <th class="text-left py-4 px-4 text-sm font-bold text-gray-600">邮箱</th>
+                                <th class="text-left py-4 px-4 text-sm font-bold text-gray-600">角色</th>
+                                <th class="text-left py-4 px-4 text-sm font-bold text-gray-600">创建时间</th>
+                                <th class="text-left py-4 px-4 text-sm font-bold text-gray-600">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table">
+                            <tr>
+                                <td colspan="6" class="text-center py-12 text-gray-400">
+                                    <i data-lucide="loader-2" class="w-6 h-6 mx-auto animate-spin"></i>
+                                    <span class="ml-2">加载中...</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+            loadUsers();
+        });
+        
+        async function loadUsers() {
+            const token = localStorage.getItem('token');
+            const headers = token ? { 'Authorization': 'Bearer ' + token } : {};
+            
+            try {
+                const response = await fetch('/users', { headers });
+                const users = await response.json();
+                renderUsers(users);
+            } catch (error) {
+                console.error('Failed to load users:', error);
+                document.getElementById('users-table').innerHTML = '<tr><td colspan="6" class="text-center py-12 text-red-400"><i data-lucide="alert-circle" class="w-6 h-6 mx-auto"></i><p class="mt-2">加载失败</p></td></tr>';
+                lucide.createIcons();
+            }
+        }
+        
+        function renderUsers(users) {
+            const tbody = document.getElementById('users-table');
+            if (!users || users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-12 text-gray-400"><i data-lucide="users" class="w-10 h-10 mx-auto opacity-30"></i><p class="mt-2">暂无用户</p></td></tr>';
+                lucide.createIcons();
+                return;
+            }
+            
+            tbody.innerHTML = users.map(user => `
+                <tr class="table-row">
+                    <td class="py-4 px-4 text-sm text-gray-500 font-mono">${user.id}</td>
+                    <td class="py-4 px-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="user-avatar w-10 h-10 rounded-xl flex items-center justify-center">
+                                <i data-lucide="user" class="w-5 h-5 text-zsts-green"></i>
+                            </div>
+                            <span class="font-semibold text-gray-800">${user.username}</span>
+                        </div>
+                    </td>
+                    <td class="py-4 px-4 text-sm text-gray-500">${user.email || '-'}</td>
+                    <td class="py-4 px-4">
+                        <span class="role-badge ${user.role === 'admin' ? 'bg-gradient-to-r from-red-100 to-red-50 text-red-600' : 'bg-gradient-to-r from-blue-100 to-blue-50 text-blue-600'}">
+                            ${user.role === 'admin' ? '管理员' : '普通用户'}
+                        </span>
+                    </td>
+                    <td class="py-4 px-4 text-sm text-gray-500">${formatDate(user.created_at)}</td>
+                    <td class="py-4 px-4">
+                        <div class="flex items-center space-x-2">
+                            <button onclick="changeRole(${user.id}, '${user.role}')" class="action-btn role text-gray-400" title="修改角色">
+                                <i data-lucide="shield" class="w-5 h-5"></i>
+                            </button>
+                            ${user.id !== 1 ? `
+                            <button onclick="deleteUser(${user.id})" class="action-btn delete text-gray-400" title="删除用户">
+                                <i data-lucide="trash-2" class="w-5 h-5"></i>
+                            </button>
+                            ` : ''}
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+            lucide.createIcons();
+        }
+        
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        }
+        
+        function createNewUser() {
+            window.location.href = '/register';
+        }
+        
+        async function changeRole(id, currentRole) {
+            const newRole = currentRole === 'admin' ? 'user' : 'admin';
+            if (!confirm(`确定要将该用户角色改为 ${newRole === 'admin' ? '管理员' : '普通用户'} 吗？`)) return;
+            
+            const token = localStorage.getItem('token');
+            const headers = { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+            
+            try {
+                const response = await fetch(`/users/${id}/role`, { method: 'PUT', headers, body: JSON.stringify({ role: newRole }) });
+                if (response.ok) {
+                    loadUsers();
+                } else {
+                    alert('修改失败');
+                }
+            } catch (error) {
+                console.error('Failed to change role:', error);
+            }
+        }
+        
+        async function deleteUser(id) {
+            if (!confirm('确定要删除此用户吗？')) return;
+            
+            const token = localStorage.getItem('token');
+            const headers = { 'Authorization': 'Bearer ' + token };
+            
+            try {
+                const response = await fetch(`/users/${id}`, { method: 'DELETE', headers });
+                if (response.ok) {
+                    loadUsers();
+                } else {
+                    alert('删除失败');
+                }
+            } catch (error) {
+                console.error('Failed to delete user:', error);
+            }
+        }
+        
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/login';
+        }
+    </script>
+</body>
+</html>

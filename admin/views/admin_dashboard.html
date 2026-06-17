@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中盛启瀚 - 管理后台</title>
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <link href="/css/fonts.css" rel="stylesheet">
+    <script src="/js/lucide.js"></script>
+    <style>
+        body { 
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+        }
+        
+        /* 玻璃态背景 */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        
+        /* 侧边栏 */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 4px 0 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .sidebar-logo {
+            background: linear-gradient(135deg, rgba(0, 99, 65, 0.2) 0%, rgba(0, 77, 51, 0.3) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1.75rem;
+        }
+        
+        .brand-icon {
+            background: linear-gradient(135deg, #006341 0%, #004d33 100%);
+            box-shadow: 0 8px 25px -5px rgba(0, 99, 65, 0.5);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .brand-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        /* 导航项 */
+        .nav-item {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 14px;
+            margin: 6px 14px;
+            padding: 14px 16px;
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            background: linear-gradient(135deg, #006341 0%, #00a86b 100%);
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+        
+        .nav-item:hover::before,
+        .nav-item.active::before {
+            width: 4px;
+            height: 60%;
+            opacity: 1;
+        }
+        
+        .nav-item:hover,
+        .nav-item.active {
+            background: linear-gradient(135deg, rgba(0, 99, 65, 0.15) 0%, rgba(0, 99, 65, 0.05) 100%);
+            transform: translateX(4px);
+        }
+        
+        .nav-item.active {
+            color: #C5A572;
+        }
+        
+        .nav-icon {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .nav-item:hover .nav-icon {
+            transform: scale(1.15) translateX(4px);
+        }
+        
+        /* 侧边栏分区标题 */
+        .section-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 0 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        /* 主内容区 */
+        .main-content {
+            margin-left: 280px;
+            transition: margin-left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        /* 头部 */
+        .header {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1.5rem 2rem;
+        }
+        
+        /* 页面标题 */
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* 统计卡片 */
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--card-color), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .stat-card.blue { --card-color: #3b82f6; --card-bg: #dbeafe; }
+        .stat-card.green { --card-color: #10b981; --card-bg: #d1fae5; }
+        .stat-card.purple { --card-color: #8b5cf6; --card-bg: #ede9fe; }
+        .stat-card.orange { --card-color: #f59e0b; --card-bg: #fef3c7; }
+        
+        .stat-icon-wrapper {
+            background: linear-gradient(135deg, var(--card-bg) 0%, transparent 100%);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .stat-card:hover .stat-icon-wrapper {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        .stat-icon {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+        
+        .stat-number {
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover .stat-number {
+            transform: scale(1.08);
+        }
+        
+        /* 内容卡片 */
+        .content-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 24px;
+        }
+        
+        .content-card:hover {
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 卡片标题 */
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 文章列表项 */
+        .post-item {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 16px;
+            padding: 1rem 1.25rem;
+        }
+        
+        .post-item:hover {
+            background: linear-gradient(135deg, rgba(0, 99, 65, 0.08) 0%, rgba(0, 99, 65, 0.02) 100%);
+            transform: translateX(8px);
+        }
+        
+        /* 状态标签 */
+        .status-badge {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+        
+        .post-item:hover .status-badge {
+            transform: scale(1.1);
+        }
+        
+        /* AI统计网格 */
+        .ai-stat-box {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ai-stat-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.5) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .ai-stat-box:hover::before {
+            opacity: 1;
+        }
+        
+        .ai-stat-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 用户头像 */
+        .user-avatar {
+            background: linear-gradient(135deg, #e6f2ed 0%, rgba(0, 99, 65, 0.2) 100%);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .user-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px -5px rgba(0, 99, 65, 0.3);
+        }
+        
+        /* 退出按钮 */
+        .logout-btn {
+            transition: all 0.3s ease;
+            border-radius: 14px;
+            margin: 6px 14px;
+            padding: 14px 16px;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+        }
+        
+        /* 入场动画 */
+        .fade-in {
+            animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+        
+        .fade-in-delay-1 { animation-delay: 0.1s; }
+        .fade-in-delay-2 { animation-delay: 0.2s; }
+        .fade-in-delay-3 { animation-delay: 0.3s; }
+        .fade-in-delay-4 { animation-delay: 0.4s; }
+        .fade-in-delay-5 { animation-delay: 0.5s; }
+        .fade-in-delay-6 { animation-delay: 0.6s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 数字动画 */
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 加载动画 */
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* 响应式 */
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 100px;
+            }
+            .sidebar .nav-text,
+            .sidebar .section-title,
+            .sidebar .brand-text {
+                display: none;
+            }
+            .sidebar-logo {
+                padding: 1.25rem;
+                justify-content: center;
+            }
+            .sidebar-logo > div:first-child {
+                margin: 0 auto;
+            }
+            .nav-item {
+                margin: 4px 8px;
+                padding: 14px;
+                justify-content: center;
+            }
+            .logout-btn {
+                margin: 4px 8px;
+                padding: 14px;
+                justify-content: center;
+            }
+            .logout-btn span {
+                display: none;
+            }
+            .main-content {
+                margin-left: 100px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: fixed;
+                z-index: 50;
+                height: auto;
+            }
+            .main-content {
+                margin-left: 0;
+                margin-top: 100px;
+            }
+        }
+        
+        /* 滚动条 */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgba(0, 99, 65, 0.3), rgba(0, 99, 65, 0.1));
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, rgba(0, 99, 65, 0.5), rgba(0, 99, 65, 0.3));
+        }
+    </style>
+</head>
+<body>
+    <!-- 侧边栏 -->
+    <div class="sidebar min-h-screen fixed top-0 left-0 h-full overflow-y-auto">
+        <div class="sidebar-logo">
+            <div class="flex items-center space-x-4">
+                <div class="brand-icon w-12 h-12 rounded-xl flex items-center justify-center">
+                    <i data-lucide="shield-check" class="w-7 h-7 text-white"></i>
+                </div>
+                <div class="brand-text">
+                    <h1 class="font-bold text-white text-xl tracking-tight">中盛启瀚</h1>
+                    <p class="text-xs text-gray-400 mt-1">管理后台</p>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="py-6">
+            <div class="section-title text-gray-500 mb-4">网站管理</div>
+            
+            <a href="/admin" class="nav-item active flex items-center space-x-4 text-gray-300">
+                <i data-lucide="layout-dashboard" class="nav-icon w-6 h-6"></i>
+                <span class="nav-text font-medium">仪表盘</span>
+            </a>
+            <a href="/admin/contents" class="nav-item flex items-center space-x-4 text-gray-400 hover:text-gray-300">
+                <i data-lucide="file-text" class="nav-icon w-6 h-6"></i>
+                <span class="nav-text font-medium">内容管理</span>
+            </a>
+            <a href="/admin/blog-posts" class="nav-item flex items-center space-x-4 text-gray-400 hover:text-gray-300">
+                <i data-lucide="newspaper" class="nav-icon w-6 h-6"></i>
+                <span class="nav-text font-medium">博客管理</span>
+            </a>
+            <a href="/admin/navigation" class="nav-item flex items-center space-x-4 text-gray-400 hover:text-gray-300">
+                <i data-lucide="navigation" class="nav-icon w-6 h-6"></i>
+                <span class="nav-text font-medium">导航管理</span>
+            </a>
+            
+            <div class="section-title text-gray-500 mt-8 mb-4">AI 工具</div>
+            <a href="/admin/ai_assistant" class="nav-item flex items-center space-x-4 text-gray-400 hover:text-gray-300">
+                <i data-lucide="sparkles" class="nav-icon w-6 h-6"></i>
+                <span class="nav-text font-medium">AI 创作助手</span>
+            </a>
+            
+            <div class="section-title text-gray-500 mt-8 mb-4">系统设置</div>
+            <a href="/admin/users" class="nav-item flex items-center space-x-4 text-gray-400 hover:text-gray-300">
+                <i data-lucide="users" class="nav-icon w-6 h-6"></i>
+                <span class="nav-text font-medium">用户管理</span>
+            </a>
+            <a href="/admin/system-logs" class="nav-item flex items-center space-x-4 text-gray-400 hover:text-gray-300">
+                <i data-lucide="activity" class="nav-icon w-6 h-6"></i>
+                <span class="nav-text font-medium">系统日志</span>
+            </a>
+        </nav>
+        
+        <div class="absolute bottom-0 left-0 right-0">
+            <button onclick="logout()" class="logout-btn w-full flex items-center space-x-4 text-gray-400">
+                <i data-lucide="log-out" class="nav-icon w-6 h-6"></i>
+                <span class="nav-text font-medium">退出登录</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 主内容区 -->
+    <div class="main-content min-h-screen">
+        <!-- 头部 -->
+        <header class="header flex items-center justify-between">
+            <div>
+                <h1 class="page-title">仪表盘</h1>
+                <p class="text-sm text-gray-500 mt-2">欢迎回来，查看网站数据概览</p>
+            </div>
+            <div class="flex items-center space-x-5">
+                <div class="text-right hidden sm:block">
+                    <p class="text-sm font-semibold text-gray-800" id="user-name">管理员</p>
+                    <p class="text-xs text-gray-400 mt-1">
+                        <i data-lucide="clock" class="w-3 h-3 inline mr-1"></i>
+                        最后登录: 刚刚
+                    </p>
+                </div>
+                <div class="user-avatar w-12 h-12 rounded-xl flex items-center justify-center cursor-pointer">
+                    <i data-lucide="user" class="w-6 h-6 text-zsts-green"></i>
+                </div>
+            </div>
+        </header>
+        
+        <!-- 内容区域 -->
+        <div class="p-8">
+            <!-- 统计卡片 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+                <div class="stat-card blue rounded-2xl p-6 fade-in fade-in-delay-1">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500 mb-2 font-semibold">总内容数</p>
+                            <p class="stat-number text-5xl font-extrabold text-gray-800" id="total-contents">0</p>
+                        </div>
+                        <div class="stat-icon-wrapper w-16 h-16 rounded-2xl flex items-center justify-center">
+                            <i data-lucide="file-text" class="stat-icon w-8 h-8 text-blue-500"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card green rounded-2xl p-6 fade-in fade-in-delay-2">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500 mb-2 font-semibold">博客文章</p>
+                            <p class="stat-number text-5xl font-extrabold text-gray-800" id="total-blog-posts">0</p>
+                        </div>
+                        <div class="stat-icon-wrapper w-16 h-16 rounded-2xl flex items-center justify-center">
+                            <i data-lucide="newspaper" class="stat-icon w-8 h-8 text-green-500"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card purple rounded-2xl p-6 fade-in fade-in-delay-3">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500 mb-2 font-semibold">AI 生成内容</p>
+                            <p class="stat-number text-5xl font-extrabold text-gray-800" id="ai-generated-count">0</p>
+                        </div>
+                        <div class="stat-icon-wrapper w-16 h-16 rounded-2xl flex items-center justify-center">
+                            <i data-lucide="sparkles" class="stat-icon w-8 h-8 text-purple-500"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stat-card orange rounded-2xl p-6 fade-in fade-in-delay-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500 mb-2 font-semibold">系统用户</p>
+                            <p class="stat-number text-5xl font-extrabold text-gray-800" id="total-users">0</p>
+                        </div>
+                        <div class="stat-icon-wrapper w-16 h-16 rounded-2xl flex items-center justify-center">
+                            <i data-lucide="users" class="stat-icon w-8 h-8 text-orange-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 内容网格 -->
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                <!-- 最近文章 -->
+                <div class="content-card rounded-2xl p-8 fade-in fade-in-delay-5">
+                    <div class="card-title">
+                        <div class="card-icon-wrapper bg-gradient-to-br from-green-50 to-green-100/50">
+                            <i data-lucide="clock" class="w-6 h-6 text-green-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800">最近发布的文章</h3>
+                            <p class="text-xs text-gray-400 mt-1">最新创建的内容</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3" id="recent-posts">
+                        <div class="text-center text-gray-400 py-12">
+                            <i data-lucide="loader-2" class="w-8 h-8 spinner mx-auto mb-3"></i>
+                            <span class="text-sm">加载中...</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AI统计 -->
+                <div class="content-card rounded-2xl p-8 fade-in fade-in-delay-6">
+                    <div class="card-title">
+                        <div class="card-icon-wrapper bg-gradient-to-br from-purple-50 to-purple-100/50">
+                            <i data-lucide="sparkles" class="w-6 h-6 text-purple-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800">AI 生成内容统计</h3>
+                            <p class="text-xs text-gray-400 mt-1">AI 创作数据分析</p>
+                        </div>
+                    </div>
+                    <div id="ai-stats">
+                        <div class="text-center text-gray-400 py-12">
+                            <i data-lucide="loader-2" class="w-8 h-8 spinner mx-auto mb-3"></i>
+                            <span class="text-sm">加载中...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+            loadDashboardData();
+            
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            if (user.username) {
+                document.getElementById('user-name').textContent = user.username;
+            }
+        });
+        
+        async function loadDashboardData() {
+            const token = localStorage.getItem('token');
+            const headers = token ? { 'Authorization': 'Bearer ' + token } : {};
+            
+            try {
+                const [contentsRes, blogRes, statsRes, usersRes] = await Promise.all([
+                    fetch('/contents', { headers }),
+                    fetch('/blog-posts', { headers }),
+                    fetch('/contents/statistics', { headers }),
+                    fetch('/users', { headers })
+                ]);
+                
+                const contents = await contentsRes.json();
+                const blogPosts = await blogRes.json();
+                const stats = await statsRes.json();
+                const users = await usersRes.json();
+                
+                animateNumber('total-contents', contents.length || 0);
+                animateNumber('total-blog-posts', blogPosts.length || 0);
+                animateNumber('ai-generated-count', stats.ai_generated_count || 0);
+                animateNumber('total-users', users.length || 0);
+                
+                renderRecentPosts(blogPosts.slice(0, 5));
+                renderAIStats(stats);
+            } catch (error) {
+                console.error('Failed to load dashboard data:', error);
+                document.getElementById('recent-posts').innerHTML = '<div class="text-center text-gray-400 py-12"><i data-lucide="alert-circle" class="w-8 h-8 mx-auto mb-3 text-red-400"></i><p>加载失败</p></div>';
+                document.getElementById('ai-stats').innerHTML = '<div class="text-center text-gray-400 py-12"><i data-lucide="alert-circle" class="w-8 h-8 mx-auto mb-3 text-red-400"></i><p>加载失败</p></div>';
+                lucide.createIcons();
+            }
+        }
+        
+        function animateNumber(id, target) {
+            const el = document.getElementById(id);
+            let current = 0;
+            const increment = target / 30;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    el.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    el.textContent = Math.floor(current);
+                }
+            }, 25);
+        }
+        
+        function renderRecentPosts(posts) {
+            const container = document.getElementById('recent-posts');
+            if (posts.length === 0) {
+                container.innerHTML = '<div class="text-center text-gray-400 py-12"><i data-lucide="file-x" class="w-10 h-10 mx-auto mb-3 opacity-30"></i><p class="font-medium">暂无文章</p><p class="text-xs mt-2">开始创建您的第一篇文章吧</p></div>';
+                lucide.createIcons();
+                return;
+            }
+            
+            container.innerHTML = posts.map(post => `
+                <div class="post-item flex items-center justify-between">
+                    <div class="flex-1 min-w-0">
+                        <p class="font-semibold text-gray-800 truncate">${post.title}</p>
+                        <p class="text-xs text-gray-400 mt-2">
+                            <i data-lucide="calendar" class="w-3 h-3 inline mr-1"></i>
+                            ${formatDate(post.created_at)}
+                        </p>
+                    </div>
+                    <span class="status-badge ${post.status === 'published' ? 'bg-gradient-to-r from-green-100 to-green-50 text-green-600' : 'bg-gray-100 text-gray-500'}">
+                        ${post.status === 'published' ? '已发布' : '草稿'}
+                    </span>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+        
+        function renderAIStats(stats) {
+            const container = document.getElementById('ai-stats');
+            const aiPercent = ((stats.ai_generated_count / (stats.total_count || 1)) * 100).toFixed(0);
+            
+            container.innerHTML = `
+                <div class="grid grid-cols-2 gap-5">
+                    <div class="ai-stat-box bg-gradient-to-br from-purple-100 to-purple-50 p-6 text-center">
+                        <p class="text-4xl font-extrabold text-purple-600">${stats.ai_generated_count || 0}</p>
+                        <p class="text-xs text-purple-500 mt-3 font-semibold">AI 生成内容</p>
+                    </div>
+                    <div class="ai-stat-box bg-gradient-to-br from-green-100 to-green-50 p-6 text-center">
+                        <p class="text-4xl font-extrabold text-green-600">${aiPercent}%</p>
+                        <p class="text-xs text-green-500 mt-3 font-semibold">AI 内容占比</p>
+                    </div>
+                    <div class="ai-stat-box bg-gradient-to-br from-blue-100 to-blue-50 p-6 text-center">
+                        <p class="text-4xl font-extrabold text-blue-600">${stats.published_count || 0}</p>
+                        <p class="text-xs text-blue-500 mt-3 font-semibold">已发布内容</p>
+                    </div>
+                    <div class="ai-stat-box bg-gradient-to-br from-orange-100 to-orange-50 p-6 text-center">
+                        <p class="text-4xl font-extrabold text-orange-600">${stats.draft_count || 0}</p>
+                        <p class="text-xs text-orange-500 mt-3 font-semibold">草稿内容</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        }
+        
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/login';
+        }
+    </script>
+</body>
+</html>
