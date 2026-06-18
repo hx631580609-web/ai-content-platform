@@ -1,0 +1,35 @@
+# IDE
+.idea/
+.vscode/
+
+# Qoder
+.qoder/
+
+# Agent Skills
+.agents/
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+vendor/
+
+# Build
+/dist/
+/build/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
